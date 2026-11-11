@@ -3,6 +3,16 @@
 
 .. product-content:: steps
 
+运行前的参数确认
+----------------
+
+“出厂已标定”适用于保有匹配出厂参数的设备。若设备显示
+``CALIBRATION_REQUIRED`` 或参数来源为 ``default``，不能按已标定处理，
+请先阅读 :doc:`calibration`。已有参数也应确认匹配当前设备与镜头。
+
+第一次运行后可继续阅读 :doc:`positioning` 判断定位状态；
+需要记录数据时参阅 :doc:`recording`，连接飞控前参阅 :doc:`mounting-flight-controller`。
+
 连接或运行异常
 --------------
 

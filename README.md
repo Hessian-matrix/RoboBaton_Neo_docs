@@ -16,6 +16,14 @@ Sphinx 的产品介绍和快速开始从相同 HTML 提取文字、规格、表�
 
 ## 构建与发布
 
+## 用户文档维护
+
+详细章节覆盖安装连接、定位、标定、两种录制、图像/深度、安装与飞控、设备设置、更新及排障；版本与验证边界见 `source/scope.rst`。操作说明依据公开版源码和当前接口，不照搬历史内部版说明。
+
+`python3 tools/sync_api.py /path/to/cv-610-pub` 从应用公开契约同步 OpenAPI、完整方法索引和来源 SHA-256。同步要求源契约无未提交修改；接口变更仍先在应用仓库维护，再更新文档快照。`python3 tools/check_docs.py` 核对本地引用、示例语法与生成页面链接，不连接或操作设备。
+
+## 构建命令
+
 ```bash
 python3.11 -m venv tmp/venv
 tmp/venv/bin/pip install -r source/requirements.txt
