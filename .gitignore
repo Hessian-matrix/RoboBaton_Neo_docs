@@ -1,0 +1,10 @@
+build/
+source/_build/
+.doctrees/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
