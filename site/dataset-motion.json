@@ -1,0 +1,518 @@
+{
+  "scope": "Available ground truth and IMU within ground-truth time bounds in the 27 benchmark source sequences; not restricted to valid VIO output or matched evaluation intervals. Dataset input intensity, not demonstrated device operating limits. Full IMU peak also retained separately.",
+  "sequences": [
+    {
+      "sequence": "MH_01_easy",
+      "group": "euroc",
+      "max_speed_m_s": 2.0053477922477687,
+      "max_angular_speed_deg_s": 54.521878177480275,
+      "speed_p99_m_s": 1.0554652548861507,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "aae2d7c5684724c8afe364d2fd8499a6ed77a9169adf03736531f67d8e7b2117",
+      "imu_sha256": "226470999dc8ba758c838982fd7eb2bc9f3f2b489e85a38d0ecf8b9d40785a5b",
+      "groundtruth_samples": 36382,
+      "imu_samples": 36820,
+      "full_imu_max_angular_speed_deg_s": 232.8478095237316,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403636580.8385558,
+        1403636762.7435558
+      ]
+    },
+    {
+      "sequence": "MH_02_easy",
+      "group": "euroc",
+      "max_speed_m_s": 1.2332560190986297,
+      "max_angular_speed_deg_s": 110.59528380541369,
+      "speed_p99_m_s": 1.0851861023510805,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "f49666ad4991c80bc467fc05e6d250cec7e28fbd05c1643402298e67438f754f",
+      "imu_sha256": "7add4feaa342c6b6874996058b6b5679d908eca25b7e063eae46fec49558cc8e",
+      "groundtruth_samples": 29993,
+      "imu_samples": 30400,
+      "full_imu_max_angular_speed_deg_s": 154.9184353135546,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403636859.5366664,
+        1403637009.4966664
+      ]
+    },
+    {
+      "sequence": "MH_03_medium",
+      "group": "euroc",
+      "max_speed_m_s": 2.763700392407976,
+      "max_angular_speed_deg_s": 198.28026225522296,
+      "speed_p99_m_s": 2.57768368990143,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "7e52fd28088b0d428509cc365fbb44ed5d910e5174ac155e1d987923c056000f",
+      "imu_sha256": "5defd7c9770344df34ebbd5805264341f8a4920c13a22e1b9ef8607168cad02e",
+      "groundtruth_samples": 26302,
+      "imu_samples": 27008,
+      "full_imu_max_angular_speed_deg_s": 198.28026225522296,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403637132.888319,
+        1403637264.393319
+      ]
+    },
+    {
+      "sequence": "MH_04_difficult",
+      "group": "euroc",
+      "max_speed_m_s": 2.8703945618785585,
+      "max_angular_speed_deg_s": 135.50456228481755,
+      "speed_p99_m_s": 2.806974932826345,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "c13de3d5ba9ead60688505d4773286c290fa642264943c88aa182d0eac9f4960",
+      "imu_sha256": "330c25e4532c1f27853d0eeee06968d5c4c00c16be1187fdcfd909cfe060360c",
+      "groundtruth_samples": 19753,
+      "imu_samples": 20320,
+      "full_imu_max_angular_speed_deg_s": 135.50456228481755,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403638128.940097,
+        1403638227.700097
+      ]
+    },
+    {
+      "sequence": "MH_05_difficult",
+      "group": "euroc",
+      "max_speed_m_s": 2.86169150931595,
+      "max_angular_speed_deg_s": 165.01129658299152,
+      "speed_p99_m_s": 2.7480981713962245,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "da13e5dcb3d5fc2f12c4e8bfae10dd380d765150be3312f989b0bc5550965451",
+      "imu_sha256": "e6498fb86f0b618abb07b256b1822957bb4bcf158d07cc82d3b43ca8166ec004",
+      "groundtruth_samples": 22212,
+      "imu_samples": 22721,
+      "full_imu_max_angular_speed_deg_s": 165.01129658299152,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403638519.4928296,
+        1403638630.5478296
+      ]
+    },
+    {
+      "sequence": "V1_01_easy",
+      "group": "euroc",
+      "max_speed_m_s": 1.0649004140129723,
+      "max_angular_speed_deg_s": 53.754523530582986,
+      "speed_p99_m_s": 0.8582419834498072,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "701200e6924ba845ccdeea884bd717c82d1ed91f480913ea6e2e6ccb9c0fbf6d",
+      "imu_sha256": "4cef78a5cf7c8ee52016a160de4b50184da2a216d615feb7ebbbb3bc99efa89e",
+      "groundtruth_samples": 28712,
+      "imu_samples": 29120,
+      "full_imu_max_angular_speed_deg_s": 53.754523530582986,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403715274.302143,
+        1403715417.8571432
+      ]
+    },
+    {
+      "sequence": "V1_02_medium",
+      "group": "euroc",
+      "max_speed_m_s": 2.1831660496320477,
+      "max_angular_speed_deg_s": 141.71786055398945,
+      "speed_p99_m_s": 1.8468652549007347,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "fed415eee44313584b9c4f61010dac146d5e4a4a35301db25b1ecd7d4d91b5f0",
+      "imu_sha256": "51804ce6362dc200fff3ed6a3aba1df769528badf1a877d19d5cac976a544c09",
+      "groundtruth_samples": 16702,
+      "imu_samples": 17100,
+      "full_imu_max_angular_speed_deg_s": 141.71786055398945,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403715524.9071434,
+        1403715608.4121432
+      ]
+    },
+    {
+      "sequence": "V1_03_difficult",
+      "group": "euroc",
+      "max_speed_m_s": 2.020584703140158,
+      "max_angular_speed_deg_s": 126.66693964882867,
+      "speed_p99_m_s": 1.7635942730606016,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "703ba51a854daba80f20df93e76605c2278b3f227afe2bcbe9eb4255186fc3d9",
+      "imu_sha256": "543835f7b7dd9d1287c9052955e030ade113c51dc97ec2c15d13a318521ad0d7",
+      "groundtruth_samples": 20932,
+      "imu_samples": 21500,
+      "full_imu_max_angular_speed_deg_s": 126.66693964882867,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1403715888.3790581,
+        1403715993.034058
+      ]
+    },
+    {
+      "sequence": "V2_01_easy",
+      "group": "euroc",
+      "max_speed_m_s": 0.84406299488723,
+      "max_angular_speed_deg_s": 107.93615890886612,
+      "speed_p99_m_s": 0.7314707494917346,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "315807fd7d91868ed6085a3d8fde40315842135f13199ed83e2e6270eb5b5126",
+      "imu_sha256": "d8df41e85c12761104043264a61054ad4bfa19087886e847f4e0412a19cd1633",
+      "groundtruth_samples": 22401,
+      "imu_samples": 22800,
+      "full_imu_max_angular_speed_deg_s": 107.93615890886612,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1413393213.4807606,
+        1413393325.4807606
+      ]
+    },
+    {
+      "sequence": "V2_02_medium",
+      "group": "euroc",
+      "max_speed_m_s": 1.9521291664592793,
+      "max_angular_speed_deg_s": 128.13873106910336,
+      "speed_p99_m_s": 1.679943016244,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "019ec178d0d2636dca66808f6422ae835b24f14184c54823b3a4a47bf187be2d",
+      "imu_sha256": "7f1028007d030a38e5c7e2cee19ca773015b2fecbbbe80794f5c34e900b2ee8e",
+      "groundtruth_samples": 23091,
+      "imu_samples": 23490,
+      "full_imu_max_angular_speed_deg_s": 128.13873106910336,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1413393887.2257607,
+        1413394002.6757605
+      ]
+    },
+    {
+      "sequence": "V2_03_difficult",
+      "group": "euroc",
+      "max_speed_m_s": 2.146524621735563,
+      "max_angular_speed_deg_s": 127.95696151440923,
+      "speed_p99_m_s": 1.9600755444955182,
+      "speed_method": "norm of provided ground-truth velocity",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "2c273cf35909c4ca7786137cf63f04cf292ca13da48c406c72b8e96a2b1372e5",
+      "imu_sha256": "55911f078feea76eb5bdeb97c9ebbebb679de39c4dd44c50e81064d5d8cf77f6",
+      "groundtruth_samples": 22970,
+      "imu_samples": 23370,
+      "full_imu_max_angular_speed_deg_s": 127.95696151440923,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1413394882.7907605,
+        1413394997.6357608
+      ]
+    },
+    {
+      "sequence": "indoor_45_12",
+      "group": "fpv",
+      "max_speed_m_s": 4.103484974177438,
+      "max_angular_speed_deg_s": 82.06668740000998,
+      "speed_p99_m_s": 4.0775016762638705,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "12320a2ce7bbf3537d82243ed964b0bf89dd51ca61641b6ad0bf6f71b1a0fa8f",
+      "imu_sha256": "07c10ae7b04168780805ed9bff104cf80441a0d26c6993bd67007da9c72e2f1e",
+      "groundtruth_samples": 20150,
+      "imu_samples": 36266,
+      "full_imu_max_angular_speed_deg_s": 975.6222868616081,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        622.687321576,
+        662.985321576
+      ]
+    },
+    {
+      "sequence": "indoor_45_13",
+      "group": "fpv",
+      "max_speed_m_s": 7.719475898589231,
+      "max_angular_speed_deg_s": 135.51160243583658,
+      "speed_p99_m_s": 7.565781046837107,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "a04727dfe4d229cdb1d0f7a701270514019b2300423ed15c13afe60b4dbf8d29",
+      "imu_sha256": "2f129473d51515d06ca74613d55ef28df709e5d53d7136b4cf914e4265e8b30d",
+      "groundtruth_samples": 18700,
+      "imu_samples": 30969,
+      "full_imu_max_angular_speed_deg_s": 476.73193160472647,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        819.407389107,
+        856.805389107
+      ]
+    },
+    {
+      "sequence": "indoor_45_14",
+      "group": "fpv",
+      "max_speed_m_s": 11.705045315640815,
+      "max_angular_speed_deg_s": 238.4995073018697,
+      "speed_p99_m_s": 11.43934436873013,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "5b2b2e3b6aec5214e09ba12a506393904fb01217706bfa9677e35e8e991e2db2",
+      "imu_sha256": "cdb09ab4a81692d6b20fcf0b9fcc6d206201ee483b6d84a2a0b96a0a1fed99d6",
+      "groundtruth_samples": 18500,
+      "imu_samples": 32269,
+      "full_imu_max_angular_speed_deg_s": 271.4221521625787,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        948.562713409,
+        985.560713409
+      ]
+    },
+    {
+      "sequence": "indoor_45_2",
+      "group": "fpv",
+      "max_speed_m_s": 6.975293192522881,
+      "max_angular_speed_deg_s": 167.79244567918704,
+      "speed_p99_m_s": 6.915505461595804,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "ecab8a2a6de523164bdfcd56a2518d393334125256929b64a714fb6a35eaa97e",
+      "imu_sha256": "2f21c9dbfffc44a6d0366a7a75624efb16774aed4b53007e027f8dbbd469e1df",
+      "groundtruth_samples": 24700,
+      "imu_samples": 37339,
+      "full_imu_max_angular_speed_deg_s": 298.1455936044928,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1416.606163685,
+        1466.004163685
+      ]
+    },
+    {
+      "sequence": "indoor_45_4",
+      "group": "fpv",
+      "max_speed_m_s": 5.886613036958341,
+      "max_angular_speed_deg_s": 107.82537268020435,
+      "speed_p99_m_s": 5.843959329725822,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "5776f92836e687866254f52fdb2b5b6d4cede4e86e2190b035d578cc1935b400",
+      "imu_sha256": "8543c6b324f8cf0e9e42928c41662d55d3bb62d53e6c42bed27766622565e8e7",
+      "groundtruth_samples": 21600,
+      "imu_samples": 33114,
+      "full_imu_max_angular_speed_deg_s": 1157.900440757561,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1808.488501256,
+        1851.686501256
+      ]
+    },
+    {
+      "sequence": "indoor_45_9",
+      "group": "fpv",
+      "max_speed_m_s": 10.36046130405571,
+      "max_angular_speed_deg_s": 177.4644909660508,
+      "speed_p99_m_s": 10.272236913641711,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "c807eeb9784c4c5e919a99f08458db5446c34a6570d4243a06b6751f5d740d0d",
+      "imu_sha256": "5dd5c10897f630a0a2bd322beb5692547e425d88df33ef2c208bfbf450ca559f",
+      "groundtruth_samples": 10700,
+      "imu_samples": 35881,
+      "full_imu_max_angular_speed_deg_s": 2262.153759589326,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        2023.466931952,
+        2044.864931952
+      ]
+    },
+    {
+      "sequence": "indoor_forward_10",
+      "group": "fpv",
+      "max_speed_m_s": 8.468507372100115,
+      "max_angular_speed_deg_s": 142.77647337384462,
+      "speed_p99_m_s": 8.373923605791466,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "b1410794ac4449f3901af9916bf10ab3f6f3350ab54299f039846d69f3603f6f",
+      "imu_sha256": "5246095ba28ea74f823eef716e6a435b3eaa3e1e00c9a29474607cdd611c22ff",
+      "groundtruth_samples": 14950,
+      "imu_samples": 38137,
+      "full_imu_max_angular_speed_deg_s": 190.83952879082275,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1540823082.19482,
+        1540823112.09282
+      ]
+    },
+    {
+      "sequence": "indoor_forward_3",
+      "group": "fpv",
+      "max_speed_m_s": 9.294237236806497,
+      "max_angular_speed_deg_s": 233.61417853826308,
+      "speed_p99_m_s": 9.215568213020202,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "671b8b04ea577feb075f01cc671e08ccdd354758d99082d2f3787c70f5bc2b51",
+      "imu_sha256": "26c433cb9acc5bac04f9244949282c3dd6545a68d51ae8f9a011a0473461122c",
+      "groundtruth_samples": 24750,
+      "imu_samples": 46053,
+      "full_imu_max_angular_speed_deg_s": 1178.5324198331723,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        4908.791704125,
+        4958.289704125
+      ]
+    },
+    {
+      "sequence": "indoor_forward_5",
+      "group": "fpv",
+      "max_speed_m_s": 4.685822559304714,
+      "max_angular_speed_deg_s": 81.92741648240778,
+      "speed_p99_m_s": 4.6254197959228724,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "4a54cd2addaea79c34f7b0582a8cd8544b3c7bf5d91e6dce2594768aee9fb018",
+      "imu_sha256": "864f7296e2532c722cfe5b2dcce6024f83a74826508283e8e5017fcd9627c326",
+      "groundtruth_samples": 9650,
+      "imu_samples": 75042,
+      "full_imu_max_angular_speed_deg_s": 251.68144743789802,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1540821125.81599,
+        1540821145.11399
+      ]
+    },
+    {
+      "sequence": "indoor_forward_6",
+      "group": "fpv",
+      "max_speed_m_s": 11.760527107479819,
+      "max_angular_speed_deg_s": 318.09455064286044,
+      "speed_p99_m_s": 11.654926838020614,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "0d417f83866b335f5e3f9cf1a37f007d82e1f2362ba6c0fe44cc8e3a03dddd7c",
+      "imu_sha256": "ccb6c85aac5598bf92caece419b7826c269765f347a477e7846460d870fd5946",
+      "groundtruth_samples": 15100,
+      "imu_samples": 34815,
+      "full_imu_max_angular_speed_deg_s": 635.1679327775603,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1540821387.48298,
+        1540821417.68098
+      ]
+    },
+    {
+      "sequence": "indoor_forward_7",
+      "group": "fpv",
+      "max_speed_m_s": 12.099263025095112,
+      "max_angular_speed_deg_s": 386.96173434796395,
+      "speed_p99_m_s": 11.421504674489746,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "1f63e693e44ff3842949de69243ad298a7a9acea6fff4b8c2d36f1a66ef8fd59",
+      "imu_sha256": "cc4dc2b84f7c766975262b4a4c2e72b2935a87a8f2dc5863a9b23e59fb0ad848",
+      "groundtruth_samples": 33350,
+      "imu_samples": 59043,
+      "full_imu_max_angular_speed_deg_s": 1157.079121316719,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1540821844.73095,
+        1540821911.42895
+      ]
+    },
+    {
+      "sequence": "indoor_forward_9",
+      "group": "fpv",
+      "max_speed_m_s": 7.863734428373739,
+      "max_angular_speed_deg_s": 134.20880021579185,
+      "speed_p99_m_s": 7.791076620947096,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "059e625cca5847af03fcf4b97d8c6c454c3a1359a3169f1fe5ac114959dfeef0",
+      "imu_sha256": "129b06aec64360060c6d018cc37285696e7168f635392345b2eb193036552faa",
+      "groundtruth_samples": 14400,
+      "imu_samples": 38418,
+      "full_imu_max_angular_speed_deg_s": 192.59578528152585,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1540822844.4828,
+        1540822873.2808
+      ]
+    },
+    {
+      "sequence": "outdoor_45_1",
+      "group": "fpv",
+      "max_speed_m_s": 11.876209982556924,
+      "max_angular_speed_deg_s": 155.83228672601803,
+      "speed_p99_m_s": 11.832973772544547,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "66d5b23024026b6e2dd6f9bbf4df71d0114d2b633b29ad45437ab4c6c16e1e86",
+      "imu_sha256": "4c8af44d2ad4a0d1c786dab9369b7739d8f99125d2babc3354e4969415506252",
+      "groundtruth_samples": 10000,
+      "imu_samples": 41328,
+      "full_imu_max_angular_speed_deg_s": 318.9593408535958,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        310.643725018,
+        330.641725018
+      ]
+    },
+    {
+      "sequence": "outdoor_forward_1",
+      "group": "fpv",
+      "max_speed_m_s": 8.397912691171053,
+      "max_angular_speed_deg_s": 102.16960983893908,
+      "speed_p99_m_s": 8.359236381465799,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "67ecd68298d1463e730c131a1ca845981452a9b0ba7cea031f320e6c4c8dd08c",
+      "imu_sha256": "60a729cbfe0c0f7d05c23ae81eeb85087b7f1e490fa1f5b994e2eb2a4708e9d8",
+      "groundtruth_samples": 21300,
+      "imu_samples": 42878,
+      "full_imu_max_angular_speed_deg_s": 277.10914150580203,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        552.459880894,
+        595.057880894
+      ]
+    },
+    {
+      "sequence": "outdoor_forward_3",
+      "group": "fpv",
+      "max_speed_m_s": 11.286288632365043,
+      "max_angular_speed_deg_s": 146.92139569099268,
+      "speed_p99_m_s": 11.175042456011681,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "0b2cb9a12ba5bd802b7ccf86d91693cd0b486faa3ac1c8aa9f54976baf4d2c50",
+      "imu_sha256": "392506f04ff0b735c8be5af2c637229bf6868f610112f1ab69e89fac7a5ef926",
+      "groundtruth_samples": 42850,
+      "imu_samples": 65635,
+      "full_imu_max_angular_speed_deg_s": 146.92139569099268,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        1061.09540248,
+        1146.79340248
+      ]
+    },
+    {
+      "sequence": "outdoor_forward_5",
+      "group": "fpv",
+      "max_speed_m_s": 20.35646598459235,
+      "max_angular_speed_deg_s": 127.53736738729691,
+      "speed_p99_m_s": 19.684974641181018,
+      "speed_method": "central difference of ground-truth position at native timestamps (one-sided endpoints)",
+      "gyro_method": "Euclidean norm of raw gyroscope samples, radians converted to degrees; no bias correction or smoothing",
+      "groundtruth_sha256": "7e2c952ca60431d5c138a2a5aa2306740d8dc5c5aab21b115b2e760acd799e41",
+      "imu_sha256": "51b7eec6bbe66182cf72a13f66c1054087a61278fdb44dd22e3e189a2547d2a6",
+      "groundtruth_samples": 8800,
+      "imu_samples": 45585,
+      "full_imu_max_angular_speed_deg_s": 313.3576994923349,
+      "angular_speed_scope": "IMU samples within the ground-truth start/end timestamps",
+      "groundtruth_interval_s": [
+        573.454398161,
+        591.052398161
+      ]
+    }
+  ]
+}

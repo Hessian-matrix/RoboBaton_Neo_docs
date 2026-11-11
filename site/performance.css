@@ -1,0 +1,123 @@
+﻿.performance-section{padding-top:65px;padding-bottom:60px;scroll-margin-top:68px}
+.performance-section .section-heading{margin-bottom:48px}
+.performance-section .section-heading h2{font-size:clamp(29px,3.2vw,42px);letter-spacing:-1px}
+.performance-section .section-heading .performance-intro{margin:18px 0 0;font-size:14px;color:#718777;line-height:1.8;max-width:none}
+.performance-intro span{color:#c0cdc3;padding:0 15px}
+.benchmark-columns{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.benchmark-column{min-width:0}
+.benchmark-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.benchmark-heading h3{font-size:23px;font-weight:550;letter-spacing:-.5px;color:#345942;margin:0}
+.benchmark-heading p{font-size:11px;color:#819085;margin:7px 0 0}
+.benchmark-heading>span{font-size:11px;color:#819085;white-space:nowrap}
+.benchmark-metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.benchmark-primary strong{font-size:clamp(34px,3.5vw,48px);line-height:1.1;font-weight:450;letter-spacing:-1.6px;color:#3e7d62;font-variant-numeric:tabular-nums}
+.benchmark-primary strong span{font-size:20px;letter-spacing:0;margin-left:4px;color:#7e9987}
+.benchmark-primary p{font-size:11px;color:#7b8c80;margin:9px 0 0}
+.benchmark-motion{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:25px;padding-top:18px;border-top:1px solid #e5ece7}
+.benchmark-motion strong{font-size:28px;line-height:1.2;font-weight:450;letter-spacing:-.6px;color:#426d53;font-variant-numeric:tabular-nums}
+.benchmark-motion strong span{font-size:14px;color:#819989;letter-spacing:0}
+.benchmark-motion p{font-size:11px;color:#7b8c80;margin:8px 0 0}
+.benchmark-chart{display:block;width:100%;height:auto;margin:0;overflow:visible}
+.benchmark-chart>path{opacity:.55}
+.benchmark-chart>text{fill:#99a99e}
+.benchmark-bar{fill:#90b39b}
+.benchmark-column.reveal .benchmark-bar{transform-origin:center 154px;animation:benchmark-rise 1.2s cubic-bezier(.2,.7,.3,1) both;animation-delay:var(--bar-delay)}
+.benchmark-bar:hover{fill:#315e43}
+.benchmark-details{color:#5e7966}
+.benchmark-details summary{cursor:pointer;padding:5px 0 12px;font-size:11px;display:flex;justify-content:space-between;list-style:none}
+.benchmark-details summary::-webkit-details-marker{display:none}
+.benchmark-details[open] summary span{transform:rotate(45deg)}
+.benchmark-details table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
+.benchmark-details th,.benchmark-details td{padding:8px 3px;text-align:right;border-bottom:1px solid #e4eae5;font-weight:400}
+.benchmark-details th:first-child{text-align:left;overflow-wrap:anywhere}
+.benchmark-details thead{color:#819085}
+@keyframes benchmark-rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media(max-width:900px){.benchmark-columns{gap:38px}.benchmark-metrics{gap:12px}.benchmark-primary strong{font-size:35px}}
+@media(max-width:650px){.performance-section{padding-top:42px;padding-bottom:35px}.performance-section .section-heading{margin-bottom:32px}.performance-section .section-heading .performance-intro{font-size:11px;margin-top:14px}.performance-intro span{padding:0 5px}.benchmark-columns{grid-template-columns:1fr;gap:32px}.benchmark-metrics{margin-top:24px}.benchmark-primary strong{font-size:40px}.benchmark-details table{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.benchmark-column.reveal .benchmark-bar{animation:none}}
+/* Share one performance panel with the interactive principle illustration. */
+.performance-section{padding-top:32px;padding-bottom:32px}
+.performance-overview{display:grid;grid-template-columns:1fr 1.15fr;gap:35px;align-items:center;margin-bottom:26px}
+.performance-overview .section-heading{margin:0}
+.performance-overview .section-heading h2{font-size:clamp(27px,3vw,39px)}
+.performance-overview .performance-intro span{padding:0 7px}
+.performance-overview .section-heading .performance-intro{font-size:12px}
+.performance-demo{min-width:0}
+.performance-demo .device-stage{height:230px}
+.performance-demo .device-stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.performance-demo .demo-signal{position:relative;margin-top:0}
+.performance-demo #imu{display:block;width:100%;height:43px}
+.performance-demo #sample-time{position:absolute;right:0;bottom:0;font-size:8px;color:#809087}
+.performance-demo .scene-controls{display:flex;align-items:center;margin:4px 0 0;gap:9px;padding:0;background:none;border:0}
+.performance-demo .timeline{flex:1;min-width:0}
+.performance-demo .timeline input{width:100%}
+.performance-demo .scene-controls button{font-size:12px;width:25px;height:25px;padding:0}
+.performance-demo #percent{font-size:9px;min-width:27px}
+.performance-demo .demo-mark{font-size:9px;white-space:nowrap;color:#829287}
+.performance-section .benchmark-metrics{margin-top:22px}
+.performance-section .benchmark-motion{margin-top:18px;padding-top:14px}
+.performance-section .benchmark-details{margin-top:19px}
+@media(max-width:900px){.performance-overview{gap:20px;grid-template-columns:1fr 1fr}.performance-overview .section-heading .performance-intro{font-size:10px}.performance-overview .performance-intro span{padding:0 3px}.performance-demo .device-stage{height:210px}}
+@media(max-width:650px){.performance-overview{grid-template-columns:1fr;gap:14px;margin-bottom:28px}.performance-overview .section-heading .performance-intro{font-size:11px}.performance-demo .device-stage{height:210px}.performance-section .benchmark-columns{gap:30px}}
+/* Editorial split: a single large illustration alongside two compact evidence blocks. */
+.performance-section{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);gap:64px;align-items:center;padding-top:54px;padding-bottom:54px}
+.performance-overview{display:block;margin:0;min-width:0}
+.performance-overview .section-heading h2{font-size:clamp(36px,4vw,52px);line-height:1.18;letter-spacing:-1.8px;margin-top:18px}
+.performance-overview .section-heading .performance-intro{font-size:12px;margin-top:20px;white-space:nowrap}
+.performance-demo{position:relative;margin-top:8px}
+.performance-demo .device-stage{height:310px;margin-inline:-24px}
+.performance-demo .demo-footer{display:flex;align-items:center;justify-content:space-between;padding:0 5px;color:#8b9b90;font-size:10px}
+.performance-demo #play{border:1px solid #dce6df;border-radius:50%;width:30px;height:30px;background:transparent;color:#61836c;font-size:12px;cursor:pointer}
+.performance-demo #play:hover{background:#edf4ef}
+.performance-demo .demo-options{margin:6px 5px 0;color:#8b9b90;font-size:9px}
+.performance-demo .demo-options summary{cursor:pointer;list-style:none;width:max-content}
+.performance-demo .demo-options summary:after{content:' ＋'}
+.performance-demo .demo-options[open] summary:after{content:' −'}
+.performance-demo .demo-options summary::-webkit-details-marker{display:none}
+.performance-demo .demo-signal{margin-top:10px}
+.performance-section .benchmark-columns{display:grid;grid-template-columns:1fr;gap:26px}
+.performance-section .benchmark-column+ .benchmark-column{border-top:1px solid #dce6df;padding-top:26px}
+.performance-section .benchmark-heading h3{font-size:22px}
+.performance-section .benchmark-heading p{font-size:11px;margin-top:5px}
+.performance-section .benchmark-metrics{margin-top:18px;gap:20px}
+.performance-section .benchmark-primary strong{font-size:40px}
+.performance-section .benchmark-primary strong span{font-size:18px}
+.performance-section .benchmark-primary p{font-size:10px;margin-top:7px}
+.performance-section .benchmark-motion{margin-top:19px;padding-top:0;border:0;gap:20px}
+.performance-section .benchmark-motion strong{font-size:23px;color:#607d69}
+.performance-section .benchmark-motion strong span{font-size:12px}
+.performance-section .benchmark-motion p{font-size:10px;margin-top:5px}
+.performance-section .benchmark-details{margin-top:13px}
+.performance-section .benchmark-details summary{font-size:10px;padding-bottom:0;color:#7b9182}
+.performance-section .benchmark-details[open] summary{padding-bottom:12px}
+@media(min-width:651px) and (max-width:900px){.performance-section{gap:28px;grid-template-columns:1.1fr 1fr;padding-block:36px}.performance-overview .section-heading h2{font-size:36px}.performance-overview .section-heading .performance-intro{white-space:normal;font-size:10px}.performance-demo .device-stage{height:270px;margin-inline:0}.performance-section .benchmark-primary strong{font-size:32px}.performance-section .benchmark-motion strong{font-size:21px}}
+@media(max-width:650px){.performance-section{grid-template-columns:1fr;gap:30px;padding-block:38px}.performance-overview .section-heading h2{font-size:38px;line-height:1.18}.performance-overview .section-heading .performance-intro{font-size:10px;white-space:normal;margin-top:15px}.performance-demo .device-stage{height:255px;margin-inline:0}.performance-section .benchmark-columns{gap:25px}.performance-section .benchmark-primary strong{font-size:38px}}
+/* Align the two editorial columns and use shared metric tracks. */
+.performance-section{align-items:stretch}
+.performance-section .benchmark-columns{display:flex;flex-direction:column;justify-content:space-between;gap:26px}
+.performance-section .benchmark-heading{align-items:flex-start}
+.performance-section .benchmark-heading>span{line-height:28px}
+.performance-section .benchmark-metrics,.performance-section .benchmark-motion{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:20px}
+.performance-section .benchmark-primary strong,.performance-section .benchmark-motion strong{display:block}
+.performance-demo .demo-footer{padding-inline:0}
+.performance-demo .demo-options{margin-inline:0}
+.performance-section .benchmark-details summary{line-height:14px}
+.performance-demo .demo-options summary{line-height:14px}
+@media(max-width:650px){.performance-section .benchmark-columns{gap:25px}}
+/* Keep the benchmark column compact instead of stretching its middle gap. */
+.performance-section .benchmark-columns{justify-content:flex-start;gap:20px;align-self:center}
+.performance-section .benchmark-column+ .benchmark-column{padding-top:20px}
+.performance-section .benchmark-metrics{margin-top:14px}
+.performance-section .benchmark-motion{margin-top:14px}
+.performance-section .benchmark-details{margin-top:10px}
+.performance-section .benchmark-primary strong{font-size:36px}
+.performance-section .benchmark-primary p{margin-top:5px}
+.performance-section .benchmark-motion p{margin-top:4px}
+@media(max-width:650px){.performance-section .benchmark-columns{gap:20px;align-self:auto}.performance-section .benchmark-primary strong{font-size:36px}}
+/* One typographic scale for the camera/IMU and VIO section headings. */
+.sensor-section .section-heading h2,
+.performance-section .performance-overview .section-heading h2{font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;font-size:34px;font-weight:550;line-height:1.3;letter-spacing:-1px;margin:18px 0 0}
+@media(max-width:650px){.sensor-section .section-heading h2,.performance-section .performance-overview .section-heading h2{font-size:27px}}
+/* Align the dataset heading with the Chinese title, below the eyebrow. */
+@media(min-width:651px){.performance-section .benchmark-columns{align-self:start;margin-top:38px}}
+@media(max-width:650px){.performance-section .benchmark-columns{margin-top:0}}
