@@ -46,7 +46,7 @@ for name in names:
         parsed = urlsplit(link)
         if parsed.scheme or parsed.netloc or not parsed.path:
             continue
-        assert Path(parsed.path).as_posix() in names or parsed.path == 'docs/' or parsed.path == 'docs/', (name, link)
+        assert Path(parsed.path).as_posix() in names or parsed.path == 'docs/' or (parsed.path.startswith('docs/') and (SITE / parsed.path).exists()), (name, link)
         if parsed.query.startswith('v='):
             digest = hashlib.sha256((SITE / parsed.path).read_bytes()).hexdigest()[:12]
             assert digest == parsed.query[2:], (name, 'stale cache hash', link)

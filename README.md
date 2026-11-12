@@ -37,10 +37,23 @@ python3 -m http.server 8000 --directory tmp/site
 
 后台前提：GitHub Settings → Pages → Source 为 GitHub Actions。`tmp/site/docs/` 为文档发布目录；构建排除 .doctrees、_sources、.buildinfo 和 source map，保留下载契约、主题资源和搜索索引。遗留 Read the Docs 配置仅供历史兼容，不参与当前发布。
 
-快速开始中的网络检测只有用户点击才发送一次 GET，不改变设备。HTTPS 站点访问 HTTP 设备可能受浏览器本地网络权限或混合内容策略限制，检测失败不代表设备离线；始终提供直接打开设备页面的链接。
+快速开始第一步提供免驱说明和安装文档链接，详细 CDC-NCM 步骤参考 Milk-V USB Net 设置。第二步支持纯 IP 或 IP:端口（1–65535，不填默认 80），点击连接后在 iframe 中打开设备网页，支持展开预览；修改 IP 会关闭旧预览。HTTPS 内嵌 HTTP 或设备嵌入策略可能导致空白，保留新窗口入口。不自动连接设备，不将 iframe 加载事件当作连接成功。
 
 ## 模型遮挡回归
 
 首页与轨迹演示共用 `site/model-depth.js`，使用逐像素深度测试绘制模型；浏览器无法使用 WebGL 时回退到软件深度缓冲。外壳、镜头和接口按几何深度遮挡。
 
 构建完成后运行 `node tools/check_model.cjs`；需要 Playwright Core（可通过 `PLAYWRIGHT_MODULE` 指定安装位置），`CHROME_PATH` 指定浏览器。测试覆盖相交面的遮挡与绘制顺序、WebGL/软件两条路径、裸机/带壳旋转、俯仰、手机宽度和轨迹进度操作。截图默认保存到 `release/model-depth/`；`MODEL_TEST_OUTPUT` 可更改结果目录，`SITE_URL` 可指定线上站点。
+
+入门页面采用三个平级步骤标签：连接电脑、连接设备、初始化与轨迹。第二、三步共用同一 iframe，切换只改变可见性，不重新加载或清空设备操作状态。开发接入独立分区，Python/Node.js 位姿及图像接收见 source/api-examples.rst，串口 MAVLink 2 接收见 source/serial-pose.rst。示例复用当前公开客户端，不捆绑设备或内部功能源码。
+
+## 交互式使用教程
+
+公开教程按 quick-start.html → integration.html → robot-mounting.html → calibration-guide.html 串联。
+接入页只在本地生成 Python/Node.js HTTP 接收代码或 Python MAVLink 接收代码，支持复制与下载；不请求设备接口。
+代码复用与固件配套的公开客户端，依赖在页面中明确说明；integration-examples.json 是公开接收示例模板，不携带设备源码。
+安装页支持裸机/带壳尺寸、平台与位置示意、FLU/FRD 偏移换算；它不是机械加工图，不保存设备参数。
+标定页引导用户判断需求、确认尺寸、理解采集动作和保存验证；示意图不能作为实际标定板。
+运行 node tools/check_integration.cjs 检查输入校验、下载及响应式布局；运行 node tools/check_lessons.cjs 检查后续课程交互。
+
+四章统一在 quick-start.html 纵向滚动阅读。后续章节使用同源内嵌页面，隐藏重复导航并以 ResizeObserver/postMessage 同步高度；父页校验来源与窗口身份，避免章节内滚动。切换章内步骤及跨章导航保留各章状态；独立地址继续可访问。

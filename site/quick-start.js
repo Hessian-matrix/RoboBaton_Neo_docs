@@ -1,18 +1,45 @@
-﻿(()=>{
-const form=document.getElementById('device-check'),input=document.getElementById('device-address'),button=document.getElementById('check-button'),result=document.getElementById('check-result'),link=document.getElementById('open-device-link');
-let controller=null,serial=0;
-function address(){const parts=input.value.trim().split('.');if(parts.length!==4||parts.some(x=>!x||String(Number(x))!==x||!Number.isInteger(Number(x))||Number(x)<0||Number(x)>255))return null;return 'http://'+parts.join('.')+'/'}
-function message(text,state='idle'){result.textContent=text;result.dataset.state=state}
-function update(){serial++;if(controller)controller.abort();button.disabled=false;button.textContent='检测连接';const url=address();if(url){link.href=url;link.removeAttribute('aria-disabled');message('地址已更新，点击检测连接。')}else{link.removeAttribute('href');link.setAttribute('aria-disabled','true');message('请输入有效的 IPv4 地址，例如 192.168.11.1。','warning')}}
-input.addEventListener('input',update);
-form.addEventListener('submit',async e=>{e.preventDefault();const url=address();if(!url){update();input.focus();return}const id=++serial;controller=new AbortController();const current=controller;button.disabled=true;button.textContent='检测中…';message('正在请求 '+url+'，请留意浏览器的本地网络访问提示。');let timedOut=false;const timer=setTimeout(()=>{timedOut=true;current.abort()},6000);
-try{const response=await fetch(url,{method:'GET',mode:'no-cors',credentials:'omit',cache:'no-store',redirect:'error',signal:current.signal});if(id!==serial)return;if(response.type==='opaque'||response.ok){message('该地址有 HTTP 响应。点击打开，确认是否为 Neo 设备页面。','success')}else{message('该地址有响应，但网页返回 HTTP '+response.status+'。请直接打开检查设备服务。','warning')}}catch(error){if(id!==serial)return;message(timedOut?'检测超时，暂时无法确认设备是否在线。请直接打开页面，并检查下方连接提示。':location.protocol==='https:'?'浏览器未能完成检测。HTTPS 页面访问 HTTP 设备可能受安全策略或本地网络权限限制；这不代表设备离线，请直接打开设备页面。':'浏览器未能完成检测，可能是连接问题或本地网络权限限制。请直接打开设备页面，并检查下方连接提示。','warning')}finally{clearTimeout(timer);if(id===serial){button.disabled=false;button.textContent='重新检测';controller=null}}});
-})();
-
 (()=>{
-const select=document.getElementById('computer-os');
-const systems={win11:['无需安装驱动','等待系统识别 USB 网卡，然后检测设备连接。','查看网卡：设备管理器 → 网络适配器'],win10:['需要 NCM 驱动','先安装匹配设备的驱动，再检测连接。','查看网卡：设备管理器 → 网络适配器'],mac:['通常无需安装驱动','连接后等待 USB 网络接口出现，再检测连接。','查看网卡：系统设置 → 网络'],linux:['使用系统 NCM 驱动','系统需启用 cdc_ncm，识别 USB 网卡后检测连接。','查看网卡：网络设置，或运行 ip link']};
-function show(){const item=systems[select.value];document.getElementById('system-title').textContent=item[0];document.getElementById('system-description').textContent=item[1];document.getElementById('system-check').textContent=item[2];document.getElementById('system-driver').hidden=select.value!=='win10';document.getElementById('system-limit').hidden=select.value!=='win10'}
-const platform=navigator.platform||'';if(/Mac/i.test(platform))select.value='mac';else if(/Linux/i.test(platform)&&!/Android/i.test(navigator.userAgent))select.value='linux';
-select.addEventListener('change',show);show();
+const input=document.getElementById('device-address'),result=document.getElementById('check-result'),link=document.getElementById('open-device-link'),button=document.getElementById('connect-device'),frame=document.getElementById('device-frame'),placeholder=document.getElementById('device-placeholder'),expand=document.getElementById('expand-device'),section=document.getElementById('open-device'),label=document.getElementById('preview-address');
+let activeUrl=null;
+function address(){
+ const match=input.value.trim().match(/^([0-9]+.[0-9]+.[0-9]+.[0-9]+)(?::([0-9]+))?$/);
+ if(!match)return null;
+ const parts=match[1].split('.');
+ if(!parts.every(x=>String(Number(x))===x&&Number(x)>=0&&Number(x)<=255))return null;
+ const port=match[2];
+ if(port!==undefined&&(!Number.isInteger(Number(port))||Number(port)<1||Number(port)>65535))return null;
+ return 'http://'+parts.join('.')+(port!==undefined?':'+Number(port):'')+'/';
+}
+function reset(){frame.removeAttribute('src');frame.hidden=true;placeholder.hidden=false;expand.hidden=true;section.classList.remove('preview-expanded');expand.setAttribute('aria-expanded','false');expand.textContent='展开预览';activeUrl=null;label.textContent='设备网页';button.textContent='连接设备'}
+function update(){
+ const url=address();if(activeUrl&&url!==activeUrl)reset();button.disabled=!url;
+ if(url){link.href=url;link.removeAttribute('aria-disabled');result.textContent='输入设备地址后点击连接，在预览区操作设备。';result.dataset.state='idle'}
+ else{link.removeAttribute('href');link.setAttribute('aria-disabled','true');result.textContent='请输入有效的 IP 或 IP:端口，例如 192.168.46.1:46002；端口范围为 1–65535。';result.dataset.state='warning'}
+}
+function connect(){const url=address();if(!url){update();return}activeUrl=url;label.textContent=url;placeholder.hidden=true;frame.hidden=false;expand.hidden=false;frame.src=url;button.textContent='重新连接';result.dataset.state='idle';result.textContent=location.protocol==='https:'?'正在打开设备网页。HTTPS 页面内嵌 HTTP 设备可能被浏览器拦截；若预览空白，请使用“新窗口打开”。':'正在打开设备网页。看到 Neo 操作界面后即可操作；若预览空白，请检查连接或在新窗口打开。'}
+button.addEventListener('click',connect);input.addEventListener('input',update);
+input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();connect()}});
+expand.addEventListener('click',()=>{const expanded=section.classList.toggle('preview-expanded');expand.setAttribute('aria-expanded',String(expanded));expand.textContent=expanded?'收起预览':'展开预览'});
+update();
+})();
+(()=>{
+ const button=document.getElementById('toggle-connection-animation'),illustration=document.querySelector('.connection-illustration');
+ button.addEventListener('click',()=>{const paused=illustration.classList.toggle('animation-paused');button.setAttribute('aria-pressed',String(paused));button.textContent=paused?'播放动画':'暂停动画'});
+})();
+(()=>{
+ const first=document.getElementById('connect'),shared=document.getElementById('open-device'),second=document.getElementById('device-connect-panel'),third=document.getElementById('start-vio'),tabs=[...document.querySelectorAll('.step-tabs [role="tab"]')];
+ const hashes=['connect','open-device','start-vio'];
+ function select(step,changeHash=false){
+  first.hidden=step!==1;shared.hidden=step===1;second.hidden=step!==2;third.hidden=step!==3;
+  tabs.forEach((tab,index)=>{tab.setAttribute('aria-selected',String(index===step-1));tab.tabIndex=index===step-1?0:-1});
+  shared.dataset.step=String(step);
+  if(changeHash)history.replaceState(null,'','#'+hashes[step-1]);
+ }
+ document.querySelectorAll('[data-step]').forEach(button=>button.addEventListener('click',()=>select(Number(button.dataset.step),true)));
+ tabs.forEach((tab,index)=>tab.addEventListener('keydown',event=>{
+  let next;if(event.key==='ArrowRight')next=(index+1)%3;else if(event.key==='ArrowLeft')next=(index+2)%3;else if(event.key==='Home')next=0;else if(event.key==='End')next=2;else return;
+  event.preventDefault();select(next+1,true);tabs[next].focus();
+ }));
+ function fromHash(){const hash=location.hash.slice(1);select(hash==='access-device'?2:Math.max(1,hashes.indexOf(hash)+1))}
+ window.addEventListener('hashchange',fromHash);fromHash();
 })();
