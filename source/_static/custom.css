@@ -130,3 +130,5 @@ body { font-family: var(--pst-font-family-base); }
     margin-top: 0.75rem;
   }
 }
+
+.neo-brand{display:inline-flex;align-items:center;gap:7px}.neo-brand .neo-mark{width:30px;height:30px;flex-shrink:0;color:var(--baton-accent)}@media(max-width:600px){.neo-brand .neo-mark{width:25px;height:25px}}
