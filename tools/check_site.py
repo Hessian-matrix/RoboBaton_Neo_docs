@@ -52,6 +52,13 @@ for name in names:
     if name.endswith('.png'):
         assert data[:8] == bytes([137,80,78,71,13,10,26,10]), name
         continue
+    if name.endswith('.zip'):
+        import io, zipfile
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            assert archive.testzip() is None, name
+            assert set(archive.namelist()) == {'quick_test.py', 'client.py', 'transport.py', 'camera_model.py', 'README.md', 'AI-PROMPT.md'}, name
+        assert hashlib.sha256(data).hexdigest() in (SITE / 'neo-http-python.sha256').read_text()
+        continue
     text = data.decode('utf-8-sig')
     links = Page(text).links if name.endswith('.html') else []
     if name.endswith('.js'):

@@ -1,0 +1,258 @@
+请在连接 Neo USB 网络的这台电脑上实际完成接口测试，不要只给教程。
+设备地址：http://192.168.11.1
+下面附有完整可独立运行的代码，请原样保存为 neo_quick_test.py，无需下载其他文件或克隆仓库。
+检查 Python 3.8+（Windows可用 py -3，macOS/Linux可用 python3），仅用标准库，无需pip。缺少解释器时先征得用户同意再安装。如果你只有云端执行环境，请说明需要本机终端权限，云端无法访问用户局域网。
+实际运行：
+python neo_quick_test.py --address http://192.168.11.1 --channel both --count 3 --seconds 15 --output neo-results
+只读接口，不修改板端，不启动/停止VIO，不关闭安全设置。未初始化时提示用户在设备原网页完成初始化。
+检查退出码、本次report.json及所选通道各3条有效数据。心跳与空位姿不算成功；保留warning/error，部分失败分别说明，不模拟数据或把旧文件当新结果。
+报告真实X/Y/Z（米，IMU参考点）、姿态x/y/z/w。图像需实际解码，核对544×640，展示一张并提供本次文件链接；无法解码时明确未验证。两路顺序订阅，不是同步配对。
+完整参考代码（保存为 neo_quick_test.py）：
+
+```python
+# coding: utf-8
+# Neo standalone HTTP test. Python 3.8+, standard library only.
+import json
+import math
+import re
+"""Public HTTP connection and bounded RBH1 framing; no device control APIs."""
+import http.client
+import struct
+from urllib.parse import urlsplit
+
+class Device:
+    def __init__(self, address):
+        self.url = urlsplit(address)
+        if self.url.scheme not in ('http', 'https') or not self.url.hostname or self.url.username or self.url.password or self.url.path not in ('', '/') or self.url.query or self.url.fragment:
+            raise ValueError('Use a plain HTTP(S) device origin')
+
+    def connection(self, timeout=10):
+        cls = http.client.HTTPSConnection if self.url.scheme == 'https' else http.client.HTTPConnection
+        return cls(self.url.hostname, self.url.port, timeout=timeout)
+
+
+def records(response, formats=(1, 2, 3, 4, 5, 6, 7)):
+    """HTTP library removes chunk framing; RBH1 must still be reassembled."""
+    messages, previous = {}, {}
+    allocated = 0
+    while True:
+        header = response.read(40)
+        if not header:
+            if messages:
+                raise ValueError('Truncated message')
+            return
+        if len(header) != 40:
+            raise ValueError('Truncated header')
+        magic, version, header_bytes, channel, fmt, flags, sequence, total, offset, size, reserved = struct.unpack('<4sHHHHIQIIII', header)
+        if (magic, version, header_bytes, reserved) != (b'RBH1', 1, 40, 0):
+            raise ValueError('Invalid RBH1 header')
+        if channel > 32 or fmt not in formats or not 0 < total <= 2*1024*1024+8208 or not 0 < size <= 65536 or offset+size > total or flags & ~3 or bool(flags & 1) != (offset == 0) or bool(flags & 2) != (offset+size == total) or (fmt == 1 and total > 128*1024):
+            raise ValueError('Invalid RBH1 limits')
+        if flags & 1:
+            if channel in messages or sequence <= previous.get(channel, 0) or allocated+total > 16*1024*1024:
+                raise ValueError('Duplicate message or memory limit')
+            messages[channel] = [sequence, fmt, bytearray(total), 0]
+            allocated += total
+        message = messages.get(channel)
+        if not message or message[0] != sequence or message[1] != fmt or len(message[2]) != total or message[3] != offset:
+            raise ValueError('Discontinuous fragment')
+        payload = response.read(size)
+        if len(payload) != size:
+            raise ValueError('Truncated fragment')
+        message[2][offset:offset+size] = payload; message[3] += size
+        if flags & 2:
+            del messages[channel]; allocated -= total; previous[channel] = sequence
+            yield channel, fmt, sequence, message[2]
+
+
+def validate_odometry(value):
+    def fields(v, names):
+        return isinstance(v,dict) and set(v)==set(names)
+    def finite(v):
+        return type(v) in (int,float) and math.isfinite(v)
+    def vector(v,names=('x','y','z')):
+        return fields(v,names) and all(finite(v[k]) for k in names)
+    if not fields(value,('header','pose','twist','confidence','trip_distance_m')) or not fields(value['header'],('seq','stamp')):
+        raise ValueError('Invalid odometry fields')
+    seq,stamp=value['header']['seq'],value['header']['stamp']
+    if not isinstance(seq,str) or not re.fullmatch(r'[1-9][0-9]{0,19}',seq) or int(seq)>2**64-1:
+        raise ValueError('Invalid sequence')
+    if stamp is not None and (not fields(stamp,('sec','nanosec')) or type(stamp['sec']) is not int or type(stamp['nanosec']) is not int or not 0<=stamp['nanosec']<10**9 or not 0<=stamp['sec']*10**9+stamp['nanosec']<=2**63-1):
+        raise ValueError('Invalid stamp')
+    pose,twist,confidence=value['pose'],value['twist'],value['confidence']
+    if pose is not None and (not fields(pose,('position','orientation')) or not vector(pose['position']) or not vector(pose['orientation'],('x','y','z','w')) or abs(math.hypot(*pose['orientation'].values())-1)>1e-5):
+        raise ValueError('Invalid pose')
+    if twist is not None and (not fields(twist,('linear','angular')) or not vector(twist['linear']) or not vector(twist['angular'])):
+        raise ValueError('Invalid twist')
+    if confidence is not None and (not finite(confidence) or not 0<=confidence<=1):
+        raise ValueError('Invalid confidence')
+    distance=value['trip_distance_m']
+    if distance is not None and (not finite(distance) or distance<0):
+        raise ValueError('Invalid trip distance')
+    return value
+
+def decode_color(payload, config):
+    if not 6<=len(payload)<=2*1024*1024+512:raise ValueError('Invalid color length')
+    n=struct.unpack_from('<I',payload)[0]
+    if not 1<=n<=508 or n+4>=len(payload) or len(payload)-4-n>2*1024*1024:raise ValueError('Invalid color prefix')
+    v=json.loads(payload[4:4+n]);h=v.get('header',{});stamp=h.get('stamp')
+    def u64(x):return isinstance(x,str) and re.fullmatch(r'(0|[1-9][0-9]{0,19})',x) and int(x)<2**64
+    if set(v)!= {'header','pts_us','random_access'} or set(h)!= {'seq','stamp'} or not u64(h['seq']) or type(v['random_access']) is not bool:raise ValueError('Invalid color fields')
+    if stamp is not None and (set(stamp)!={'sec','nanosec'} or type(stamp['sec']) is not int or type(stamp['nanosec']) is not int or stamp['sec']<0 or not 0<=stamp['nanosec']<10**9 or stamp['sec']*10**9+stamp['nanosec']>2**63-1):raise ValueError('Invalid color stamp')
+    if config['codec']=='mjpeg':
+        if v['pts_us'] is not None or not v['random_access']:raise ValueError('Invalid JPEG metadata')
+    elif not u64(v['pts_us']):raise ValueError('Invalid color pts')
+    return dict(v,data=payload[4+n:],config=config.copy())
+
+def validate_gray_jpeg_config(value):
+    expected={'encoding':'jpeg','pixel_format':'mono8','width':544,'height':640,'quality':90,'frame_rate_mode':'source'}
+    if not isinstance(value,dict) or value!=expected or any(type(value[k]) is not type(v) for k,v in expected.items()):raise ValueError('Invalid JPEG gray config')
+    return value
+
+def decode_gray_jpeg(payload, config):
+    validate_gray_jpeg_config(config)
+    if len(payload)>1048576+512:raise ValueError('JPEG gray message too large')
+    value=decode_color(payload,{'codec':'mjpeg'})
+    if value['header']['seq']=='0' or not value['data'].startswith(b'\xff\xd8') or not value['data'].endswith(b'\xff\xd9'):raise ValueError('Invalid JPEG gray frame')
+    value['config']=config.copy();return value
+
+class ReadOnlyDevice(Device):
+    def observe(self, channels):
+        if len(channels) != 1 or channels[0] not in ('odometry', 'gray_jpeg'):
+            raise ValueError('Choose odometry or gray_jpeg')
+        name = channels[0]
+        expected = {'id': 2 if name == 'odometry' else 6, 'name': name,
+                    'format': 1 if name == 'odometry' else 7}
+        connection = self.connection()
+        response = None
+        try:
+            connection.request('GET', '/api/stream?channels=' + name)
+            response = connection.getresponse()
+            if response.status != 200:
+                raise RuntimeError('HTTP %s: %s' % (response.status, response.read(4096).decode(errors='replace')))
+            if response.getheader('Content-Type', '').split(';')[0] != 'application/vnd.robobaton.stream':
+                raise ValueError('Unexpected stream Content-Type')
+            metadata = False
+            config = None
+            previous = 0
+            for channel, fmt, sequence, payload in records(response, formats=(1, 7)):
+                if channel == 0:
+                    if fmt != 1:
+                        raise ValueError('Invalid control format')
+                    data = json.loads(payload)
+                    if data.get('type') == 'metadata':
+                        if metadata or data.get('stream', {}).get('channels') != [expected] or data.get('stream', {}).get('source', {}).get('type') != 'live':
+                            raise ValueError('Unexpected stream metadata')
+                        metadata = True
+                        if name == 'gray_jpeg':
+                            config = validate_gray_jpeg_config(data.get('config', {}))
+                    elif data.get('type') == 'error':
+                        raise RuntimeError(data)
+                    yield 'control', fmt, sequence, data
+                    continue
+                if not metadata or channel != expected['id'] or fmt != expected['format']:
+                    raise ValueError('Unexpected data channel or format')
+                data = validate_odometry(json.loads(payload)) if name == 'odometry' else decode_gray_jpeg(payload, config)
+                seq = int(data['header']['seq'])
+                if seq <= previous:
+                    raise ValueError('Frame sequence regressed')
+                previous = seq
+                yield name, fmt, sequence, data
+        finally:
+            if response is not None:
+                response.close()
+            connection.close()
+
+Device = ReadOnlyDevice
+
+"""Read real Neo position and gray JPEG using Python 3.8+ standard library only."""
+import argparse
+import hashlib
+import json
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+
+def capture(device, channel, count, seconds, folder):
+    result = {'channel': channel, 'received': 0, 'ok': False}
+    deadline = time.monotonic() + seconds
+    stream = device.observe([channel])
+    try:
+        for name, fmt, seq, data in stream:
+            if time.monotonic() >= deadline:
+                raise TimeoutError('等待有效数据超时；请检查 VIO 初始化和设备状态')
+            if name == 'control':
+                continue
+            if name == 'odometry':
+                if data['pose'] is None:
+                    continue
+                with (folder / 'poses.jsonl').open('a', encoding='utf-8') as f:
+                    f.write(json.dumps(data, ensure_ascii=False, allow_nan=False) + '\n')
+                result['last_pose'] = data
+                print(json.dumps({'channel': name, 'header': data['header'], 'pose': data['pose']}, ensure_ascii=False), flush=True)
+            else:
+                filename = 'image-%03d.jpg' % (result['received'] + 1)
+                raw = bytes(data['data'])
+                (folder / filename).write_bytes(raw)
+                info = {'file': filename, 'header': data['header'], 'config': data['config'],
+                        'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
+                result.setdefault('images', []).append(info)
+                print(json.dumps(info, ensure_ascii=False), flush=True)
+            result['received'] += 1
+            if result['received'] >= count:
+                result['ok'] = True
+                break
+        if not result['ok']:
+            raise RuntimeError('设备提前关闭数据流，尚未收齐数据')
+    except Exception as e:
+        result['error'] = '%s: %s' % (type(e).__name__, e)
+    finally:
+        stream.close()
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--address', default='http://192.168.11.1')
+    parser.add_argument('--channel', choices=['both', 'odometry', 'gray_jpeg'], default='both')
+    parser.add_argument('--count', type=int, default=3)
+    parser.add_argument('--seconds', type=int, default=15, help='Per-stream deadline; stalled read may add up to 10s')
+    parser.add_argument('--output', default='neo-results')
+    args = parser.parse_args()
+    if not 1 <= args.count <= 100 or not 1 <= args.seconds <= 120:
+        parser.error('count 必须为 1–100，seconds 必须为 1–120')
+    device = Device(args.address)
+    folder = Path(args.output) / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S-%fZ')
+    folder.mkdir(parents=True, exist_ok=False)
+    report = {'address': args.address, 'output': str(folder.resolve()), 'read_only': True,
+              'position_reference': 'IMU', 'position_unit': 'metre',
+              'note': '两路顺序订阅，图像与位姿不是同步配对帧。', 'results': []}
+    c = device.connection()
+    try:
+        c.request('GET', '/api/vio')
+        r = c.getresponse()
+        report['vio_http_status'] = r.status
+        report['vio_status'] = json.loads(r.read(65537))
+    except Exception as e:
+        report['status_error'] = str(e)
+    finally:
+        c.close()
+    channels = ['odometry', 'gray_jpeg'] if args.channel == 'both' else [args.channel]
+    for channel in channels:
+        result = capture(device, channel, args.count, args.seconds, folder)
+        report['results'].append(result)
+        if not result['ok']:
+            print(json.dumps(result, ensure_ascii=False), file=sys.stderr)
+    report['ok'] = all(r['ok'] for r in report['results'])
+    (folder / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+    print('REPORT: ' + str((folder / 'report.json').resolve()), flush=True)
+    return 0 if report['ok'] else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+
+```
