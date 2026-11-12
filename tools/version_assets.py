@@ -3,7 +3,7 @@ import hashlib
 import re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1] / 'site'
-for name in ['index.html', 'quick-start.html']:
+for name in ['index.html', 'quick-start.html', 'integration.html', 'robot-mounting.html', 'calibration-guide.html']:
     path = ROOT / name
     def update(match):
         filename = match.group(1)

@@ -51,6 +51,8 @@ RoboBaton Neo 将相机与 IMU 数据融合为视觉惯性定位结果。通过�
    :maxdepth: 2
    :caption: 开发与问题处理
 
+   api-examples
+   serial-pose
    api-guide
    api-reference
    troubleshooting

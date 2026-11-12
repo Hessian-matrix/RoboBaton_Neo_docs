@@ -62,24 +62,98 @@ const digest = b => crypto.createHash('sha256').update(b).digest('hex');
     await page.getByRole('button',{name:'重置轨迹视角'}).click();
     assert.equal(await page.locator('#percent').innerText(),'0%');
     await page.goto(base+'quick-start.html',{waitUntil:'networkidle'});
-    await page.locator('#computer-os').selectOption('win10');
-    assert(await page.locator('#system-driver').isVisible());
-    await page.locator('#computer-os').selectOption('linux');
-    assert((await page.locator('#system-description').innerText()).includes('cdc_ncm'));
-    await page.evaluate(()=>{window.calls=[];window.fetch=async(u,o)=>{window.calls.push([u,o.method,o.credentials]);return {type:'opaque'}}});
-    await page.locator('#check-button').click();
-    await page.waitForFunction(()=>document.querySelector('#check-result').dataset.state==='success');
-    assert.deepEqual(await page.evaluate(()=>window.calls),[['http://192.168.11.1/','GET','omit']]);
+    assert.equal(await page.locator('#computer-os').count(),0);
+    assert((await page.locator('#connect').innerText()).includes('仅较旧版本的 Windows'));
+    assert.equal(await page.locator('#connect .legacy-driver a').getAttribute('href'),'docs/installation.html#windows-usb-driver');
+    assert.equal(await page.locator('#check-button').count(),0);
+    await page.evaluate(()=>{window.calls=[];window.fetch=(...args)=>{window.calls.push(args);throw new Error('Unexpected probe')}});
+    await page.locator('#step-tab-2').click();
     await page.locator('#device-address').fill('bad');
-    await page.locator('#check-button').click();
-    assert.equal((await page.evaluate(()=>window.calls)).length,1);
-    await page.locator('#device-address').fill('192.168.11.2');
-    assert.equal(await page.locator('#open-device-link').getAttribute('href'),'http://192.168.11.2/');
-    await page.evaluate(()=>{window.fetch=async()=>{throw new TypeError('blocked')}});
-    await page.locator('#check-button').click();
-    await page.waitForFunction(()=>document.querySelector('#check-result').dataset.state==='warning');
+    assert.equal(await page.locator('#open-device-link').getAttribute('href'),null);
+    assert.equal(await page.locator('#open-device-link').getAttribute('aria-disabled'),'true');
+    await page.locator('#device-address').fill('192.168.46.1');
+    assert.equal(await page.locator('#open-device-link').getAttribute('href'),'http://192.168.46.1/');
+    assert.equal(await page.locator('#open-device-link').getAttribute('aria-disabled'),null);
+    assert.deepEqual(await page.evaluate(()=>window.calls),[]);
+    assert.equal(await page.locator('#device-frame').getAttribute('src'),null);
+    for(const invalid of ['192.168.46.1:0','192.168.46.1:65536','192.168.46.1:','192.168.46.1:abc','256.168.46.1','192.168.46.1:80/path']){
+      await page.locator('#device-address').fill(invalid);
+      assert(await page.locator('#connect-device').isDisabled(),invalid);
+      assert.equal(await page.locator('#open-device-link').getAttribute('href'),null);
+    }
+    for(const port of [1,65535,46002]){
+      await page.locator('#device-address').fill('192.168.46.1:'+port);
+      assert.equal(await page.locator('#open-device-link').getAttribute('href'),'http://192.168.46.1:'+port+'/');
+      assert(await page.locator('#connect-device').isEnabled());
+    }
+    let deviceRequests=0;
+    await page.route('http://192.168.46.1:46002/**',route=>{deviceRequests++;return route.fulfill({contentType:'text/html',body:'<!doctype html><html><body><h1>Mock Neo</h1><button onclick="this.textContent=String(1+Number(this.textContent))">0</button></body></html>'})});
+    await page.locator('#connect-device').click();
+    const device=page.frameLocator('#device-frame');
+    await device.getByRole('button',{name:'0',exact:true}).click();
+    assert.equal(await device.getByRole('button').innerText(),'1');
+    assert.equal(deviceRequests,1);
+    for(const width of [1440,900,600,390,320]){
+      await page.setViewportSize({width,height:1000});
+      const positions=[];
+      for(const step of [1,2,3]){
+        await page.locator('#step-tab-'+step).click();
+        positions.push(await page.evaluate(step=>{
+          const box=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {x:r.x,y:r.y+scrollY,width:r.width,height:r.height}};
+          return {visual:box(step===1?'#connect .quick-visual':'#device-preview'),title:box(step===1?'#connect h2':step===2?'#device-connect-panel h2':'#start-vio h2'),footer:box('#chapter-program')};
+        },step));
+        assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+      }
+      for(const position of positions.slice(1))for(const part of ['visual','title','footer'])for(const axis of (part==='visual'?['x','y','width','height']:['x','y'])){
+        assert(Math.abs(position[part][axis]-positions[0][part][axis])<1,JSON.stringify({width,part,axis,positions}));
+      }
+    }
+    await page.setViewportSize({width:1440,height:1000});
+    await page.locator('#step-tab-3').click();
+    assert(await page.locator('#device-frame').isVisible());
+    assert(await page.locator('#start-vio').isVisible());
+    assert(await page.locator('#device-connect-panel').isHidden());
+    await device.getByRole('button',{name:'1',exact:true}).click();
+    assert.equal(await device.getByRole('button').innerText(),'2');
+    for(const width of [1440,390,320]){
+      await page.setViewportSize({width,height:1000});
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+      await page.screenshot({path:path.join(output,'step-three-'+width+'.png')});
+    }
+    await page.locator('#step-tab-1').click();
+    assert(await page.locator('#device-frame').isHidden());
+    await page.locator('#step-tab-2').click();
+    assert.equal(await device.getByRole('button').innerText(),'2');
+    assert.equal(deviceRequests,1,'step changes must preserve iframe session');
+    await page.locator('#step-tab-2').focus();
+    await page.keyboard.press('ArrowRight');
+    assert.equal(await page.locator('#step-tab-3').getAttribute('aria-selected'),'true');
+    await page.keyboard.press('ArrowLeft');
+    assert(await page.locator('#device-connect-panel').isVisible());
+    assert.equal(await page.locator('#device-frame').getAttribute('src'),'http://192.168.46.1:46002/');
+    await page.locator('#expand-device').click();
+    assert.equal(await page.locator('#expand-device').getAttribute('aria-expanded'),'true');
+    await page.locator('#expand-device').click();
+    await page.locator('#device-address').fill('192.168.11.1');
+    assert.equal(await page.locator('#device-frame').getAttribute('src'),null);
+    assert(await page.locator('#device-frame').isHidden());
+    await page.locator('#step-tab-1').click();
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    await page.locator('#toggle-connection-animation').click();
+    assert.equal(await page.locator('#toggle-connection-animation').getAttribute('aria-pressed'),'true');
+    const phases=await page.evaluate(()=>{
+      const svg=document.querySelector('.connection-illustration'),animations=svg.getAnimations({subtree:true});
+      const sample=time=>{animations.forEach(a=>{a.pause();a.currentTime=time});return {plug:getComputedStyle(svg.querySelector('.usb-plug')).transform,cable:getComputedStyle(svg.querySelector('.usb-cable path')).d,status:getComputedStyle(svg.querySelector('.usb-screen-status')).opacity}};
+      return {count:animations.length,start:sample(0),connected:sample(3500)};
+    });
+    assert(phases.count>=7);
+    assert.notEqual(phases.start.plug,phases.connected.plug);
+    assert.notEqual(phases.start.cable,phases.connected.cable);
+    assert.equal(phases.start.status,'0');assert.equal(phases.connected.status,'1');
+    await page.emulateMedia({reducedMotion:'reduce'});
+    assert(await page.locator('#toggle-connection-animation').isHidden());
     assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
-    const report={base,comparisons,errors,failures,interactions:'PASS',networkProbe:'mocked; no physical device claim'};
+    const report={base,comparisons,errors,failures,interactions:'PASS',networkProbe:'user-initiated iframe tested with mock; no physical device claim'};
     fs.writeFileSync(path.join(output,process.env.SITE_URL?'browser-live.json':'browser-local.json'),JSON.stringify(report,null,2));
     console.log(JSON.stringify(report));
   } finally {await browser.close();server.close();}
