@@ -4,8 +4,15 @@ const $=id=>document.getElementById(id),data=JSON.parse($('lesson-data').textCon
 const svg=content=>'<svg viewBox="0 0 500 340" role="img" aria-label="'+data.steps[step].title+'交互示意">'+content+'</svg>';
 const number=(id,min,max)=>{const raw=$(id).value;if(!raw.trim())return null;const n=Number(raw);return Number.isFinite(n)&&n>=min&&n<=max?n:null};
 function dimensions(){
- const shell=$('robot-variant').value==='case',l=shell?43.8:40,w=shell?23.8:20,h=shell?21.6:19.5,m=shell?13.86:8.69;
+ const shell=$('robot-variant').value==='case',l=shell?43.8:40,w=shell?23.8:20,h=shell?21.6:18.1,m=shell?13.86:8.69;
  $('dimension-summary').innerHTML='<strong>'+l+' × '+w+' × '+h+' mm</strong><span>长 × 宽 × 含镜头总高 · '+m+' g</span>';
+ if(!shell){
+ $('lesson-art').innerHTML='<div class="mechanical-card"><div class="mechanical-heading"><strong>Neo 裸机尺寸</strong><span>单位 mm</span></div><div class="drawing-tabs" role="group" aria-label="机械图视角"><button type="button" data-drawing="top" aria-pressed="true">俯视</button><button type="button" data-drawing="side" aria-pressed="false">侧视</button><button type="button" data-drawing="bottom" aria-pressed="false">底视</button></div><div class="drawing-stage"><img id="bare-drawing" src="neo-bare-top.png" alt="Neo 裸机俯视尺寸图：板体 40 × 20 mm，孔中心间距 37 × 17 mm"></div><button type="button" class="drawing-expand">查看完整尺寸图 ↗</button></div>';
+ const labels={top:'俯视尺寸图：板体 40 × 20 mm，孔中心间距 37 × 17 mm',side:'侧视尺寸图：总高 18.1 mm，镜头直径 14 mm',bottom:'底视尺寸图：板体 40 × 20 mm，孔中心间距 37 × 17 mm'};
+ document.querySelectorAll('[data-drawing]').forEach(button=>button.onclick=()=>{document.querySelectorAll('[data-drawing]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));$('bare-drawing').src='neo-bare-'+button.dataset.drawing+'.png';$('bare-drawing').alt='Neo 裸机'+labels[button.dataset.drawing];});
+ document.querySelector('.drawing-expand').onclick=()=>{let dialog=$('mechanical-dialog');if(!dialog){dialog=document.createElement('dialog');dialog.id='mechanical-dialog';dialog.innerHTML='<form method="dialog"><strong>Neo 裸机 · 完整尺寸图</strong><button aria-label="关闭尺寸图">关闭 ×</button></form><img src="neo-bare-dimensions.png" alt="Neo 裸机完整三视图，尺寸单位 mm">';document.body.append(dialog);dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});}dialog.showModal();};
+ $('lesson-caption').textContent='裸机机械尺寸 · 按提供的原图展示，单位 mm';return;
+ }
  const width=l*5,height=w*5,x=250-width/2,y=112;
  $('lesson-art').innerHTML=svg('<rect x="'+x+'" y="'+y+'" width="'+width+'" height="'+height+'" rx="14" fill="#91b69f" stroke="#6b947b" stroke-width="2"/><circle cx="'+(x+56)+'" cy="'+(y+height/2)+'" r="27" fill="#365e50" stroke="#b9d2c2" stroke-width="5"/><circle cx="'+(x+56)+'" cy="'+(y+height/2)+'" r="17" fill="#193f42"/><path d="M'+x+' 87H'+(x+width)+'M'+x+' 80V94M'+(x+width)+' 80V94" stroke="#87a692" fill="none"/><text x="250" y="71" text-anchor="middle">'+l+' mm</text><path d="M'+(x+width+22)+' '+y+'V'+(y+height)+'" stroke="#87a692"/><text x="'+(x+width+31)+'" y="'+(y+height/2)+'">'+w+' mm</text><text x="250" y="285" text-anchor="middle">含镜头总高 '+h+' mm</text><text x="250" y="312" text-anchor="middle">'+(shell?'带壳外形':'裸机板体')+' · 不含制造公差与线缆空间</text>');
  $('lesson-caption').textContent='产品资料尺寸 · 孔位及加工请使用正式机械图';
