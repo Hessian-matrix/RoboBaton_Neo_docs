@@ -50,7 +50,8 @@ python3 -m http.server 8000 --directory tmp/site
 ## 交互式使用教程
 
 公开教程按 quick-start.html → integration.html → robot-mounting.html → calibration-guide.html 串联。
-接入页只在本地生成 Python/Node.js HTTP 接收代码或 Python MAVLink 接收代码，支持复制与下载；不请求设备接口。
+接入页默认提供 JavaScript 网页运行：点击后通过 Web Serial 接收真实 MAVLink 位姿，或通过 HTTP 接收 RBH1 位姿/灰度 JPEG；显示真实结果、错误与停止状态。串口需电脑 Chrome/Edge 及 HTTPS/localhost；当前固件没有 HTTP CORS，产品站跨域读取可能被阻止。另保留 Python/Node.js 下载示例。
+网页接收器只读，15 秒无数据超时、60 秒自动结束；运行 node tools/check_browser_receiver.cjs 验证协议解析、串口生命周期、HTTP/JPEG、空值/错误和手机布局。测试使用模拟设备，不代表真实板卡验收；结果存放 release/browser-receiver/。
 代码复用与固件配套的公开客户端，依赖在页面中明确说明；integration-examples.json 是公开接收示例模板，不携带设备源码。
 安装页支持裸机/带壳尺寸、平台与位置示意、FLU/FRD 偏移换算；它不是机械加工图，不保存设备参数。
 标定页引导用户判断需求、确认尺寸、理解采集动作和保存验证；示意图不能作为实际标定板。

@@ -22,3 +22,15 @@
  .integration #serial-art .wire-row{margin:12px 0;gap:6px;font-size:12px}
  .integration .integration-card{min-height:0}
 }
+
+.integration #usb-art{position:relative;aspect-ratio:500/270}
+.integration #usb-art>svg{position:relative;width:100%;height:100%;pointer-events:none}
+.integration #connection-model{position:absolute;left:0;top:5.5556%;width:46%;height:81.4815%}
+.integration #model-fallback{position:absolute;left:10%;top:40%;color:#397d63}
+.integration #serial-art .wire-row{margin:7px 8px;font-size:12px}
+.integration #serial-art .wire-row b{padding:9px 6px}
+.serial-usb-route{display:grid;grid-template-columns:1fr 28px 1fr;align-items:center;text-align:center;gap:10px;margin:0 8px 10px;color:#52775f;font-size:12px}
+.serial-usb-route strong{font-weight:600}.serial-usb-route small{display:block;font-size:10px;margin-top:4px;font-weight:400}
+.serial-power{display:grid;gap:4px;margin:10px 8px;padding:9px 12px;border:1px solid #c6dacc;border-radius:8px;color:#52775f;font-size:11px;line-height:1.6;background:#f9fcfa}
+.serial-power strong{font-size:12px}.integration #serial-art p{font-size:10px;margin:5px 8px;line-height:1.6}
+@media(max-width:600px){.integration #connection-art{grid-template-rows:38px 360px 48px}.integration .integration-visual{min-height:466px}.integration #serial-art .wire-row b{white-space:nowrap;font-size:11px}.integration #usb-art{max-height:none}}

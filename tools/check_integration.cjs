@@ -12,6 +12,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});page.on('request',r=>{if(!r.url().startsWith(base)&&!r.url().startsWith('blob:'))external.push(r.url())});
  await page.goto(base+'integration.html',{waitUntil:'networkidle'});
  await page.locator('#integration-next').click();
+ await page.locator('#integration-language').selectOption('python');
  await page.locator('#integration-address').fill('192.168.46.1:46002');
  await page.locator('#integration-next').click();
  await page.waitForFunction(()=>document.querySelector('#generated-code').textContent.includes('http://192.168.46.1:46002'));
