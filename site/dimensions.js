@@ -16,7 +16,9 @@ function drawProductDimensions(ctx,project,width,height,variant){
  }
  dimension([half,startY,bottom],[half,startY+length,bottom],[6,0,0],length+' mm');
  dimension([-half,startY+length,bottom],[half,startY+length,bottom],[0,7,0],bodyWidth+' mm');
- dimension([half,startY,bottom],[half,startY,4.2],[7,-5,0],(isCase?'21.6':'19.5')+' mm');
+ // V2 CAD envelope height differs from the nominal product specification.
+ // Do not present the nominal height as a measured dimension of this CAD mesh.
+ if(isCase)dimension([half,startY,bottom],[half,startY,4.2],[7,-5,0],'21.6 mm');
  const a=project([-7,0,4.2]),b=project([7,0,4.2]);
  ctx.save();ctx.strokeStyle='#b4916d';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.lineTo(b[0]+19,b[1]-32);ctx.stroke();
  ctx.fillStyle='#987450';ctx.font=(width<340?'9':'11')+'px Segoe UI, sans-serif';ctx.fillText('Ø 14 mm',Math.max(5,Math.min(width-65,b[0]+10)),Math.max(12,b[1]-39));ctx.restore();

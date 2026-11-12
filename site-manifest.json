@@ -1,4 +1,6 @@
 [
+  "BufferGeometryUtils.js",
+  "GLTFLoader.js",
   "app.js",
   "applications.css",
   "applications.js",
@@ -14,6 +16,8 @@
   "model-depth.js",
   "performance.css",
   "port-scene.js",
+  "product-cad.js",
+  "product-v2.glb",
   "quick-start.css",
   "quick-start.html",
   "quick-start.js",
