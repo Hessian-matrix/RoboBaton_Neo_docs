@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
 let step=1,transport=query.get('transport')==='serial'?'serial':'usb',examples=null,generated='',filename='receive.py';
 if(['javascript','python','python-local','browser'].includes(query.get('language'))) $('integration-language').value=query.get('language');
-const tabs=[...document.querySelectorAll('[role=tab]')],titles=['选择连接方式','配置你的接收程序','运行第一段接收代码','确认数据进入你的程序'];
+const tabs=[...document.querySelectorAll('[role=tab]')],titles=['选择连接方式','配置你的接收程序','运行并查看结果'];
 function origin(){const parts=$('integration-address').value.trim().split(':');if(parts.length>2)return null;const ip=parts[0].split('.');if(ip.length!==4||!ip.every(x=>/^[0-9]+$/.test(x)&&String(Number(x))===x&&Number(x)<=255))return null;if(parts.length===2&&(!/^[0-9]+$/.test(parts[1])||Number(parts[1])<1||Number(parts[1])>65535))return null;return 'http://'+parts[0]+(parts.length===2?':'+Number(parts[1]):'')}
 function valid(){if(transport==='usb')return Boolean(origin());return (['browser','python'].includes($('integration-language').value)||new RegExp('^(COM[1-9][0-9]*|/dev/[a-zA-Z0-9_./-]+)$').test($('integration-port').value.trim()))&&/^[0-9]+$/.test($('integration-baud').value)&&Number($('integration-baud').value)>0&&Number($('integration-baud').value)<=2147483647}
 function settings(){return {serial:transport==='serial',image:transport==='usb'&&$('integration-data').value==='gray_jpeg',language:$('integration-language').value==='python-local'?'python':$('integration-language').value}}
@@ -46,21 +46,21 @@ function render(){
  document.querySelectorAll('[data-transport]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.transport===transport)));
  tabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===step-1));b.tabIndex=i===step-1?0:-1});
  $('integration-panel').setAttribute('aria-labelledby','integration-tab-'+step);
- $('integration-counter').textContent='0'+step+' / 04';$('integration-title').textContent=titles[step-1];
+ $('integration-counter').textContent='0'+step+' / 03';$('integration-title').textContent=titles[step-1];
  document.querySelectorAll('[data-content]').forEach(p=>p.hidden=Number(p.dataset.content)!==step);
  $('usb-settings').hidden=transport!=='usb';$('serial-settings').hidden=transport!=='serial';
  $('usb-art').toggleAttribute('hidden',transport!=='usb');$('serial-art').hidden=transport!=='serial';
  $('route-label').textContent=transport==='usb'?'USB · HTTP API':'串口 · MAVLink 2';$('visual-caption').textContent=transport==='usb'?'位姿与图像分别使用独立的 HTTP 数据流。':'接收 ODOMETRY 位姿；图像请使用 USB。';
- $('connection-art').hidden=step>2;$('code-view').hidden=step!==3||browser;$('result-view').hidden=step!==4||browser;
- $('integration-back').disabled=step===1;$('integration-next').textContent=step===4?'重新选择接入方式':'下一步 →';
+ $('connection-art').hidden=step>2;$('code-view').hidden=step!==3||browser;$('result-view').hidden=true;
+ $('integration-back').disabled=step===1;$('integration-next').textContent=step===3?'重新选择接入方式':'下一步 →';
  $('integration-next').disabled=step===2&&!valid();$('settings-error').textContent=valid()?'':transport==='usb'?'请输入有效 IP 或 IP:端口，端口范围 1–65535。':'请填写有效串口名和正整数波特率，以设备实际配置为准。';
  if(step===3){if(browser||examples)createCode();else $('code-status').textContent='示例正在加载；若加载失败请刷新重试。'}
- if(step===4){result();if(browser){$('verification-intro').textContent='左侧只显示本次从设备收到的结果，移动设备观察变化。';$('coordinate-note').textContent=transport==='serial'?'位置单位米，姿态顺序 w/x/y/z；以输出 frame_id 与 child_frame_id 核对坐标系。':'位置单位米，四元数为 x/y/z/w；HTTP 位姿以 IMU 为参考。';$('verify-list').replaceChildren();}}
+ if(step===3){result();if(browser){$('verification-intro').textContent='左侧只显示本次从设备收到的结果，移动设备观察变化。';$('coordinate-note').textContent=transport==='serial'?'位置单位米，姿态顺序 w/x/y/z；以输出 frame_id 与 child_frame_id 核对坐标系。':'位置单位米，四元数为 x/y/z/w；HTTP 位姿以 IMU 为参考。';$('verify-list').replaceChildren();}}
 }
 function go(next){if(next>2&&!valid()){step=2;render();return}step=next;render()}
  document.querySelectorAll('[data-transport]').forEach(b=>b.addEventListener('click',()=>{transport=b.dataset.transport;render()}));
- tabs.forEach((b,i)=>{b.addEventListener('click',()=>go(i+1));b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%4;else if(e.key==='ArrowLeft')n=(i+3)%4;else if(e.key==='Home')n=0;else if(e.key==='End')n=3;else return;e.preventDefault();go(n+1);tabs[step-1].focus()})});
- $('integration-next').addEventListener('click',()=>go(step===4?1:step+1));$('integration-back').addEventListener('click',()=>go(Math.max(1,step-1)));
+ tabs.forEach((b,i)=>{b.addEventListener('click',()=>go(i+1));b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%3;else if(e.key==='ArrowLeft')n=(i+2)%3;else if(e.key==='Home')n=0;else if(e.key==='End')n=2;else return;e.preventDefault();go(n+1);tabs[step-1].focus()})});
+ $('integration-next').addEventListener('click',()=>go(step===3?1:step+1));$('integration-back').addEventListener('click',()=>go(Math.max(1,step-1)));
  ['integration-address','integration-data','integration-language','integration-port','integration-baud'].forEach(id=>$(id).addEventListener('input',render));
  $('copy-code').addEventListener('click',async()=>{if(!generated)return;try{await navigator.clipboard.writeText(generated);$('code-status').textContent='代码已复制。'}catch{const selection=window.getSelection(),range=document.createRange();range.selectNodeContents($('generated-code'));selection.removeAllRanges();selection.addRange(range);$('code-status').textContent='浏览器未允许自动复制，已选中代码，请按 Ctrl+C 或使用下载。'}});
  $('download-code').addEventListener('click',()=>{if(!generated)return;const url=URL.createObjectURL(new Blob([generated],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('code-status').textContent='已生成 '+filename+'，请在电脑上运行。'});
