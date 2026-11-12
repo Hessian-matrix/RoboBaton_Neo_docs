@@ -2,6 +2,7 @@
 import ast
 import hashlib
 import json
+import sys
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -48,7 +49,7 @@ class Links(HTMLParser):
         for key,value in attrs:
             if key in ('href','src') and value:self.links.append(value)
             if key=='id':self.ids.add(value)
-build=root/'tmp/docs'
+build=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else root/'tmp/docs'
 pages={p.resolve():Links(p.read_text()) for p in build.glob('*.html')}
 checked=0
 for path,page in pages.items():

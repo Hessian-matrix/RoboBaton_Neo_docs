@@ -12,7 +12,9 @@ html_title = 'RoboBaton Neo 文档'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_show_sourcelink = False
+html_copy_source = False
 html_theme_options = {
+    'use_download_button': False,
     'repository_url': '',
     'use_repository_button': False,
     'use_issues_button': False,
