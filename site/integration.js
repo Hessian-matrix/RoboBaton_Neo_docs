@@ -3,6 +3,7 @@
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
 let step=1,transport=query.get('transport')==='serial'?'serial':'usb',examples=null,generated='',filename='receive.py';
 if(['javascript','python','python-local','browser'].includes(query.get('language'))) $('integration-language').value=query.get('language');
+if(location.hostname==='127.0.0.1'||location.hostname==='localhost') $('integration-access').value='direct';
 const tabs=[...document.querySelectorAll('[role=tab]')],titles=['选择连接方式','配置你的接收程序','运行并查看结果'];
 function origin(){const parts=$('integration-address').value.trim().split(':');if(parts.length>2)return null;const ip=parts[0].split('.');if(ip.length!==4||!ip.every(x=>/^[0-9]+$/.test(x)&&String(Number(x))===x&&Number(x)<=255))return null;if(parts.length===2&&(!/^[0-9]+$/.test(parts[1])||Number(parts[1])<1||Number(parts[1])>65535))return null;return 'http://'+parts[0]+(parts.length===2?':'+Number(parts[1]):'')}
 function valid(){if(transport==='usb')return Boolean(origin());return (['browser','python'].includes($('integration-language').value)||new RegExp('^(COM[1-9][0-9]*|/dev/[a-zA-Z0-9_./-]+)$').test($('integration-port').value.trim()))&&/^[0-9]+$/.test($('integration-baud').value)&&Number($('integration-baud').value)>0&&Number($('integration-baud').value)<=2147483647}
@@ -14,7 +15,7 @@ function createCode(){
   $('run-intro').textContent=$('integration-language').value==='python'?'先加载 Python，再连接设备；结果由浏览器内的 Python 输出。':transport==='serial'?'点击左侧按钮，选择 USB 转 TTL 模块。':'点击左侧按钮，从填写的设备地址读取真实数据。';
   $('run-steps').replaceChildren();$('run-command').hidden=true;
   $('run-note').textContent='先在设备页启动 VIO 并完成初始化。验证只接收，60 秒后自动停止。';
-  $('dependency-note').textContent=transport==='serial'?'无需 Python 或 Node.js。浏览器会请求串口授权；转换模块需支持设定的波特率。':'当前固件 HTTP 流未开放 CORS；从产品站连接可能被浏览器阻止。可切换串口进行网页验证，或从设备同源页面运行接收器。';
+  $('dependency-note').textContent=transport==='serial'?'无需 Python 或 Node.js。浏览器会请求串口授权；转换模块需支持设定的波特率。':'电脑连接工具只转发公开 HTTP 位姿和灰度 JPEG，Python 在浏览器运行。首次连接请允许本地网络访问；直接 HTTP 模式仍需设备允许跨域。';
   $('full-guide').href='docs/api-examples.html';return;
  }
  $('run-command').hidden=false;
@@ -41,8 +42,10 @@ function result(){
 }
 function render(){
  const browser=['browser','python'].includes($('integration-language').value);
+ $('http-access-settings').hidden=!(browser&&transport==='usb');
+ $('connector-guide').hidden=!(browser&&transport==='usb'&&$('integration-access').value==='connector');
  $('browser-port').hidden=!browser;$('integration-port').hidden=browser;document.querySelector('label[for=integration-port]').hidden=browser;
- NeoRunner.configure({enabled:browser,python:$('integration-language').value==='python',step,serial:transport==='serial',base:origin(),image:transport==='usb'&&$('integration-data').value==='gray_jpeg',baud:$('integration-baud').value});
+ NeoRunner.configure({enabled:browser,python:$('integration-language').value==='python',step,serial:transport==='serial',base:origin(),connector:$('integration-access').value==='connector',image:transport==='usb'&&$('integration-data').value==='gray_jpeg',baud:$('integration-baud').value});
  document.querySelectorAll('[data-transport]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.transport===transport)));
  tabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===step-1));b.tabIndex=i===step-1?0:-1});
  $('integration-panel').setAttribute('aria-labelledby','integration-tab-'+step);
@@ -61,7 +64,7 @@ function go(next){if(next>2&&!valid()){step=2;render();return}step=next;render()
  document.querySelectorAll('[data-transport]').forEach(b=>b.addEventListener('click',()=>{transport=b.dataset.transport;render()}));
  tabs.forEach((b,i)=>{b.addEventListener('click',()=>go(i+1));b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%3;else if(e.key==='ArrowLeft')n=(i+2)%3;else if(e.key==='Home')n=0;else if(e.key==='End')n=2;else return;e.preventDefault();go(n+1);tabs[step-1].focus()})});
  $('integration-next').addEventListener('click',()=>go(step===3?1:step+1));$('integration-back').addEventListener('click',()=>go(Math.max(1,step-1)));
- ['integration-address','integration-data','integration-language','integration-port','integration-baud'].forEach(id=>$(id).addEventListener('input',render));
+ ['integration-access','integration-address','integration-data','integration-language','integration-port','integration-baud'].forEach(id=>$(id).addEventListener('input',render));
  $('copy-code').addEventListener('click',async()=>{if(!generated)return;try{await navigator.clipboard.writeText(generated);$('code-status').textContent='代码已复制。'}catch{const selection=window.getSelection(),range=document.createRange();range.selectNodeContents($('generated-code'));selection.removeAllRanges();selection.addRange(range);$('code-status').textContent='浏览器未允许自动复制，已选中代码，请按 Ctrl+C 或使用下载。'}});
  $('download-code').addEventListener('click',()=>{if(!generated)return;const url=URL.createObjectURL(new Blob([generated],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('code-status').textContent='已生成 '+filename+'，请在电脑上运行。'});
  render();fetch('integration-examples.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(data=>{examples=data;render()}).catch(()=>{$('code-status').textContent='示例加载失败，请刷新页面重试。';$('copy-code').disabled=true;$('download-code').disabled=true});

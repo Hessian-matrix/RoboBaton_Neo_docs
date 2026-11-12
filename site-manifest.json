@@ -1,6 +1,9 @@
 [
   "BufferGeometryUtils.js",
   "GLTFLoader.js",
+  "NeoConnect-LICENSES.txt",
+  "NeoConnect-SHA256.txt",
+  "NeoConnect-Windows-x64.exe",
   "app.js",
   "applications.css",
   "applications.js",
@@ -33,6 +36,7 @@
   "neo-bare-top.png",
   "neo-shell-bottom.png",
   "neo-shell-upper.png",
+  "neo_connect.py",
   "performance.css",
   "port-scene.js",
   "product-cad.js",

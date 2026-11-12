@@ -61,10 +61,18 @@ function start(options,ondata,onstate=()=>{}){
    while(!closed){const {value,done}=await reader.read();if(done)break;alive();parser.push(value);}if(!closed)status('串口已断开');
   }else{
    const url=new URL(options.base);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error('设备地址无效');const channel=options.channel;if(!['odometry','gray_jpeg'].includes(channel))throw Error('请选择位姿或灰度图像');alive();
-   const r=await fetch(url.origin+'/api/stream?channels='+channel,{signal:abort.signal,cache:'no-store',credentials:'omit'});if(!r.ok)throw Error('设备返回 HTTP '+r.status);if(r.headers.get('content-type')?.split(';')[0]!=='application/vnd.robobaton.stream')throw Error('设备未返回 RBH1 数据流');reader=r.body.getReader();const parser=httpDecoder(channel,ondata,status);timer=setTimeout(()=>{status('验证结束（60 秒）');stop();},60000);
+   let endpoint=url.origin+'/api/stream?channels='+channel;
+   if(options.connector){
+    status('正在连接电脑工具，请允许浏览器访问本地网络');
+    const health=await fetch('http://127.0.0.1:18765/health',{signal:abort.signal,cache:'no-store',credentials:'omit'});
+    const info=await health.json();if(!health.ok||info.product!=='neo-connect'||info.version!=='1.0.0')throw Error('电脑连接工具版本不匹配，请重新下载');
+    endpoint='http://127.0.0.1:18765/api/stream?channels='+channel+'&device='+encodeURIComponent(url.origin);
+    status('连接工具已就绪，正在读取设备');
+   }
+   const r=await fetch(endpoint,{signal:abort.signal,cache:'no-store',credentials:'omit'});if(!r.ok){let detail={};try{detail=await r.json()}catch{}const hints={DEVICE_UNREACHABLE:'无法连接设备，请检查 USB 网络和设备地址（当前设备为 192.168.46.1，默认端口 80）',DEVICE_HTTP_ERROR:'设备返回 HTTP '+detail.device_status,DEVICE_PROTOCOL_MISMATCH:'设备未返回公开 RBH1 数据流，请核对服务版本和端口',CONNECTOR_BUSY:'连接工具正在使用，请先停止其他接收页面',INVALID_DEVICE_OR_CHANNEL:'请输入设备的局域网 IPv4 地址和正确端口'};throw Error(hints[detail.code]||'设备返回 HTTP '+r.status);}if(r.headers.get('content-type')?.split(';')[0]!=='application/vnd.robobaton.stream')throw Error('设备未返回 RBH1 数据流');reader=r.body.getReader();const parser=httpDecoder(channel,ondata,status);timer=setTimeout(()=>{status('验证结束（60 秒）');stop();},60000);
    while(!closed){const {value,done}=await reader.read();if(done){parser.finish();status('设备已关闭数据流');break;}alive();parser.push(value);}
   }
- }catch(e){if(!closed)status(e.name==='NotFoundError'?'未选择串口':e.name==='TypeError'&&options.transport!=='serial'?'浏览器未能读取设备：请检查网络。当前固件未开放跨域 HTTP，产品站可能被 CORS / HTTPS 限制；可改用网页串口验证，或在设备同源页面运行。':e.message||'接收失败');}
+ }catch(e){if(!closed)status(e.name==='NotFoundError'?'未选择串口':e.name==='TypeError'&&options.transport!=='serial'?(options.connector?'浏览器未能读取电脑连接工具：请在当前电脑打开工具，并允许本地网络访问，然后重试。':'浏览器未能读取设备：请检查地址与网络；设备未允许跨域时，请选择电脑连接工具。'):e.message||'接收失败');}
  finally{stop();if(reader){await reader.cancel().catch(()=>{});reader.releaseLock();}if(port)await port.close().catch(()=>{});resolveDone();}})();
  return {stop,done};
 }
