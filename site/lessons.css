@@ -10,3 +10,13 @@
 @media(max-width:600px){.mechanical-card{padding:12px}.drawing-stage{height:155px;margin:8px 0}.mechanical-heading{font-size:12px}.drawing-tabs{margin-top:10px}}
 
 .shell-download{text-align:center;text-decoration:none}.shell-part-size{font-size:13px;margin-top:8px;color:#52775f}
+
+
+/* Equal geometry for both product variants, including before image decoding. */
+.lesson[data-lesson="robot-mounting"] .dimension-summary{box-sizing:border-box;min-height:132px;display:grid;grid-template-rows:42px 25px 25px;padding:16px 0;align-content:start}
+.dimension-summary .shell-part-size{margin:0;line-height:25px}
+.mechanical-card{height:396px;display:grid;grid-template-rows:20px 34px 245px 32px;gap:9px}
+.mechanical-card .drawing-tabs{margin:0}.mechanical-card .drawing-stage{margin:0;min-width:0}.mechanical-card .drawing-expand{box-sizing:border-box;line-height:18px;height:32px;align-self:center}
+.shell-dimension-stage{position:relative;padding:30px 0 28px;box-sizing:border-box}.shell-dimension-stage img{width:100%;height:100%;object-fit:contain}
+.shell-dimension{position:absolute;font-size:12px;line-height:22px;color:#355c49;background:#fff;padding:0 5px;white-space:nowrap}.shell-length{top:0;left:50%;transform:translateX(-50%);border-bottom:1px solid #91ad9b}.shell-width{bottom:0;left:0;border-top:1px solid #91ad9b}.shell-height{bottom:0;right:0;border-top:1px solid #91ad9b}
+@media(max-width:600px){.mechanical-card{height:296px;grid-template-rows:20px 32px 155px 30px;gap:9px}.shell-dimension{font-size:11px}.shell-dimension-stage{padding-top:25px;padding-bottom:24px}.lesson[data-lesson="robot-mounting"] .dimension-summary{min-height:132px}}
