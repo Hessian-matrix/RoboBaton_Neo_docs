@@ -41,7 +41,7 @@ function result(){
 }
 function render(){
  const browser=['browser','python'].includes($('integration-language').value);
- $('integration-port').hidden=browser;document.querySelector('label[for=integration-port]').hidden=browser;
+ $('browser-port').hidden=!browser;$('integration-port').hidden=browser;document.querySelector('label[for=integration-port]').hidden=browser;
  NeoRunner.configure({enabled:browser,python:$('integration-language').value==='python',step,serial:transport==='serial',base:origin(),image:transport==='usb'&&$('integration-data').value==='gray_jpeg',baud:$('integration-baud').value});
  document.querySelectorAll('[data-transport]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.transport===transport)));
  tabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===step-1));b.tabIndex=i===step-1?0:-1});

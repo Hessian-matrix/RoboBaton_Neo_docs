@@ -8,4 +8,15 @@ const server=http.createServer((req,res)=>{let n=new URL(req.url,'http://localho
  measurements.push(await p.evaluate(()=>{const r=document.querySelector('#integration-panel').getBoundingClientRect(),a=document.querySelector('.integration-actions').getBoundingClientRect();return {height:r.height,actionY:a.top-r.top};}));
  assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.locator('#integration-panel').screenshot({path:path.join(out,width+'-'+transport+'.png')});}
  assert(Math.max(...measurements.map(x=>x.height))-Math.min(...measurements.map(x=>x.height))<1,'card height shifts');assert(Math.max(...measurements.map(x=>x.actionY))-Math.min(...measurements.map(x=>x.actionY))<1,'actions shift');results.push({width,measurements});
- }fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(results,null,2));console.log('PASS: USB/serial visibility, equal card heights and action baselines at 1280/390/320px');}finally{await b.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1});
+ }
+ for(const width of [1440,1040,768,600,390,320]){
+ await p.setViewportSize({width,height:1000});await p.goto('http://127.0.0.1:'+server.address().port+'/integration.html',{waitUntil:'networkidle'});
+ const variants=[];
+ for(const transport of ['usb','serial'])for(const language of ['browser','python','python-local','javascript'])for(const data of ['odometry','gray_jpeg']){
+ await p.locator('#integration-tab-1').click();await p.locator('[data-transport='+transport+']').click();await p.locator('#integration-tab-2').click();await p.locator('#integration-language').selectOption(language);if(transport==='usb')await p.locator('#integration-data').selectOption(data);
+ for(const step of [1,2,3]){await p.locator('#integration-tab-'+step).click();const m=await p.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {y:r.y,h:r.height}};return {card:rect('#integration-panel'),title:rect('#integration-title'),actions:rect('.integration-actions'),overflow:document.documentElement.scrollWidth>innerWidth}});assert(!m.overflow);variants.push(m);}
+ }
+ for(const key of ['card','title','actions'])for(const dim of ['y','h'])assert(Math.max(...variants.map(m=>m[key][dim]))-Math.min(...variants.map(m=>m[key][dim]))<1,width+' '+key+' '+dim+' shifts across options');
+ results.push({width,variants:variants.length,stable:true});
+ }
+ fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(results,null,2));console.log('PASS: USB/serial visibility, equal card heights and action baselines, plus all transport/language/data/step combinations at six widths');}finally{await b.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1});
