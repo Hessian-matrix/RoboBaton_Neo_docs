@@ -43,7 +43,9 @@
 
 **Python 也能在线运行**：选择“Python · 网页直接运行”，先加载 Python，再连接设备。页面使用浏览器内的 Pyodide 执行展示的 Python 代码，并显示实际输出；首次需联网下载运行环境，设备数据不上传到云端。
 
-当前固件未开放 HTTP 跨域读取，从产品站验证优先使用网页串口。网页接收已通过模拟设备回归，真实硬件连接仍需验证。需要本机集成时，可使用 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
+**USB 位姿和图像也能在网页验证**：Windows x64 打开[免安装连接工具](https://hessian-matrix.github.io/RoboBaton_Neo_docs/NeoConnect-Windows-x64.exe)，网页选择 USB → 电脑连接工具，填写设备地址后运行。无需修改板端设置；工具只做本机只读转发，Python 仍在浏览器执行。首次连接请允许浏览器访问本地网络。
+
+已用现有板卡验证真实位姿输出和 **544 × 640 灰度 JPEG**。Windows 包未签名，提供 [SHA256](https://hessian-matrix.github.io/RoboBaton_Neo_docs/NeoConnect-SHA256.txt) 和[源码/使用说明](connector/README.md)。需要本机集成时，可使用 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
 
 ## 关于这个仓库
 
@@ -63,3 +65,5 @@
 程序接入精简为选择连接、配置接收、运行与结果三步；结果检查和排障合并到第三步，不再单独切页。
 
 接入引导在不同连接方式、语言和数据选项间保持卡片、标题和操作栏位置一致；网页串口模式在相同字段位置提示运行时选择设备。
+
+快速开始保留轨迹、程序接入、机器人安装三章；标定移至页尾文档入口。带壳尺寸按 C V3.9 STL 零件包围盒展示，支持上下壳模型原文件下载。

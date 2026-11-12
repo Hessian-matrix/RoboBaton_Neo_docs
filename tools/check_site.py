@@ -33,6 +33,8 @@ assert not (DOCS / '_sources').exists()
 for name in names:
     data = (SITE / name).read_bytes()
     assert data == (ROOT / 'site' / name).read_bytes(), name
+    if name == 'neo_connect.py':
+        assert data == (ROOT / 'connector/neo_connect.py').read_bytes()
     if name == 'NeoConnect-Windows-x64.exe':
         assert data[:2] == b'MZ' and len(data) > 100000, name
         assert hashlib.sha256(data).hexdigest() in (SITE / 'NeoConnect-SHA256.txt').read_text()
