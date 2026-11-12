@@ -36,6 +36,9 @@ for name in names:
     if name.endswith('.glb'):
         assert data[:4] == b'glTF', name
         continue
+    if name.endswith('.png'):
+        assert data[:8] == bytes([137,80,78,71,13,10,26,10]), name
+        continue
     text = data.decode('utf-8-sig')
     links = Page(text).links if name.endswith('.html') else []
     if name.endswith('.js'):
