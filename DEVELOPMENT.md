@@ -49,6 +49,8 @@ python3 -m http.server 8000 --directory tmp/site
 
 ## 交互式使用教程
 
+Python 网页执行使用 python-runtime.js 和 python-worker.js，按需加载 jsDelivr 上的 Pyodide 0.27.7。Worker 仅执行页面展示的固定 Python 示例；浏览器适配器处理 Web Serial / RBH1 接收，Python 处理解码数据和 print 输出。数据不上传 CDN。加载超时或取消销毁 Worker；接收停止沿用页面生命周期。运行 check_browser_receiver.cjs 会下载并使用真实 Pyodide，测试设备仍为模拟器，需要能访问 CDN。
+
 公开教程按 quick-start.html → integration.html → robot-mounting.html → calibration-guide.html 串联。
 接入页默认提供 JavaScript 网页运行：点击后通过 Web Serial 接收真实 MAVLink 位姿，或通过 HTTP 接收 RBH1 位姿/灰度 JPEG；显示真实结果、错误与停止状态。串口需电脑 Chrome/Edge 及 HTTPS/localhost；当前固件没有 HTTP CORS，产品站跨域读取可能被阻止。另保留 Python/Node.js 下载示例。
 网页接收器只读，15 秒无数据超时、60 秒自动结束；运行 node tools/check_browser_receiver.cjs 验证协议解析、串口生命周期、HTTP/JPEG、空值/错误和手机布局。测试使用模拟设备，不代表真实板卡验收；结果存放 release/browser-receiver/。

@@ -30,6 +30,8 @@
   "port-scene.js",
   "product-cad.js",
   "product-v2.glb",
+  "python-runtime.js",
+  "python-worker.js",
   "quick-start.css",
   "quick-start.html",
   "quick-start.js",

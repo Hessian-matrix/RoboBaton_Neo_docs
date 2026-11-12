@@ -41,6 +41,8 @@
 - 先在设备页面启动 VIO 并完成初始化。网页验证只接收数据，不修改设备配置。
 - 每次最多运行 60 秒，可随时停止；没有有效数据时保持空状态。
 
+**Python 也能在线运行**：选择“Python · 网页直接运行”，先加载 Python，再连接设备。页面使用浏览器内的 Pyodide 执行展示的 Python 代码，并显示实际输出；首次需联网下载运行环境，设备数据不上传到云端。
+
 当前固件未开放 HTTP 跨域读取，从产品站验证优先使用网页串口。网页接收已通过模拟设备回归，真实硬件连接仍需验证。需要本机集成时，可使用 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
 
 ## 关于这个仓库

@@ -2,16 +2,16 @@
 'use strict';
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
 let step=1,transport=query.get('transport')==='serial'?'serial':'usb',examples=null,generated='',filename='receive.py';
-if(query.get('language')==='javascript')$('integration-language').value='javascript';
+if(['javascript','python','python-local','browser'].includes(query.get('language'))) $('integration-language').value=query.get('language');
 const tabs=[...document.querySelectorAll('[role=tab]')],titles=['选择连接方式','配置你的接收程序','运行第一段接收代码','确认数据进入你的程序'];
 function origin(){const parts=$('integration-address').value.trim().split(':');if(parts.length>2)return null;const ip=parts[0].split('.');if(ip.length!==4||!ip.every(x=>/^[0-9]+$/.test(x)&&String(Number(x))===x&&Number(x)<=255))return null;if(parts.length===2&&(!/^[0-9]+$/.test(parts[1])||Number(parts[1])<1||Number(parts[1])>65535))return null;return 'http://'+parts[0]+(parts.length===2?':'+Number(parts[1]):'')}
-function valid(){if(transport==='usb')return Boolean(origin());return ($('integration-language').value==='browser'||new RegExp('^(COM[1-9][0-9]*|/dev/[a-zA-Z0-9_./-]+)$').test($('integration-port').value.trim()))&&/^[0-9]+$/.test($('integration-baud').value)&&Number($('integration-baud').value)>0&&Number($('integration-baud').value)<=2147483647}
-function settings(){return {serial:transport==='serial',image:transport==='usb'&&$('integration-data').value==='gray_jpeg',language:$('integration-language').value}}
+function valid(){if(transport==='usb')return Boolean(origin());return (['browser','python'].includes($('integration-language').value)||new RegExp('^(COM[1-9][0-9]*|/dev/[a-zA-Z0-9_./-]+)$').test($('integration-port').value.trim()))&&/^[0-9]+$/.test($('integration-baud').value)&&Number($('integration-baud').value)>0&&Number($('integration-baud').value)<=2147483647}
+function settings(){return {serial:transport==='serial',image:transport==='usb'&&$('integration-data').value==='gray_jpeg',language:$('integration-language').value==='python-local'?'python':$('integration-language').value}}
 function createCode(){
  if(!valid())return;
- if($('integration-language').value==='browser'){
-  generated=NeoRunner.code();filename='browser-receive.js';$('filename').textContent=filename;$('generated-code').textContent=generated;
-  $('run-intro').textContent=transport==='serial'?'点击左侧按钮，选择 USB 转 TTL 模块。':'点击左侧按钮，从填写的设备地址读取真实数据。';
+ if(['browser','python'].includes($('integration-language').value)){
+  generated=NeoRunner.code();filename=$('integration-language').value==='python'?'browser-receive.py':'browser-receive.js';$('filename').textContent=filename;$('generated-code').textContent=generated;
+  $('run-intro').textContent=$('integration-language').value==='python'?'先加载 Python，再连接设备；结果由浏览器内的 Python 输出。':transport==='serial'?'点击左侧按钮，选择 USB 转 TTL 模块。':'点击左侧按钮，从填写的设备地址读取真实数据。';
   $('run-steps').replaceChildren();$('run-command').hidden=true;
   $('run-note').textContent='先在设备页启动 VIO 并完成初始化。验证只接收，60 秒后自动停止。';
   $('dependency-note').textContent=transport==='serial'?'无需 Python 或 Node.js。浏览器会请求串口授权；转换模块需支持设定的波特率。':'当前固件 HTTP 流未开放 CORS；从产品站连接可能被浏览器阻止。可切换串口进行网页验证，或从设备同源页面运行接收器。';
@@ -40,9 +40,9 @@ function result(){
  $('coordinate-note').textContent=serial?'MAVLink 2 ODOMETRY（331），位置单位米，q 顺序 w/x/y/z。输出已应用安装补偿。':image?'这里接收灰度 JPEG。位姿和图像需分别订阅，按设备有效时间戳关联；需要彩色请查图像接口文档。':'HTTP 位姿以 IMU 为参考，位置单位米，四元数字段为 x/y/z/w。序号保持字符串，不能先转为浮点数。';
 }
 function render(){
- const browser=$('integration-language').value==='browser';
+ const browser=['browser','python'].includes($('integration-language').value);
  $('integration-port').hidden=browser;document.querySelector('label[for=integration-port]').hidden=browser;
- NeoRunner.configure({enabled:browser,step,serial:transport==='serial',base:origin(),image:transport==='usb'&&$('integration-data').value==='gray_jpeg',baud:$('integration-baud').value});
+ NeoRunner.configure({enabled:browser,python:$('integration-language').value==='python',step,serial:transport==='serial',base:origin(),image:transport==='usb'&&$('integration-data').value==='gray_jpeg',baud:$('integration-baud').value});
  document.querySelectorAll('[data-transport]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.transport===transport)));
  tabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===step-1));b.tabIndex=i===step-1?0:-1});
  $('integration-panel').setAttribute('aria-labelledby','integration-tab-'+step);

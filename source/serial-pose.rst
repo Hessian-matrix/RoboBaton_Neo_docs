@@ -36,7 +36,8 @@ GND 同时连接模块 GND 与独立电源负极；VIN 连接电源正极。
 填入设备波特率后点击“连接并运行”，从浏览器弹窗选择 USB 转 TTL 模块。
 电脑 Chrome / Edge 支持此流程，页面须通过 HTTPS 或 localhost 打开。
 收到有效 ODOMETRY 后显示真实坐标和原始字段；无数据时不填入示例结果。
-无需安装 Python / Node.js；仍需正确供电、接线和启动 VIO。
+也可选择“Python · 网页直接运行”，加载浏览器 Python 环境后连接，查看 Python 实际输出。
+无需在电脑安装 Python / Node.js；仍需正确供电、接线和启动 VIO。
 详细运行限制见 :doc:`api-examples`。
 
 Python 接收示例
