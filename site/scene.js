@@ -34,7 +34,7 @@ box([0,9,-10],[20,40,1.2],'#4e8d79');
 box([0,25.5,-6.7],[7.5,6.5,6.6],'#b8c4cc');box([0,28.9,-6.7],[5.8,.4,4.2],'#33464f');
 box([0,-1,-8.6],[14,18,1.6],'#354950');
 cylinder([0,0,-5.3],6.2,6.8,'#45525a');cylinder([0,0,-.4],7,3,'#566672');cylinder([0,0,2],6.3,4,'#334750');
-cylinder([0,0,4.05],5.4,.04,'#83beca');cylinder([0,0,4.1],3.6,.04,'#24576c');cylinder([-1.4,-1.4,4.15],1.5,.04,'#c4f3ff');
+cylinder([0,0,4.05],5.4,.04,'#83beca');cylinder([0,0,4.1],3.6,.04,'#24576c');
 for(const x of [-8.5,8.5])for(const y of [-9.5,27.5]){cylinder([x,y,-9.3],1.1,.04,'#d3c799');cylinder([x,y,-9.2],.6,.04,'#294a43');}
 for(const c of [[-5,12,-8.7],[5,8,-8.7],[-5,21,-8.7],[5,-6,-8.7]])box(c,[2.5,3.5,1.4],'#34464a');
 box([0,12,-13.9],[7,7,2.8],'#435660');
@@ -52,7 +52,7 @@ function enclosure(){
 }
 enclosure();
 cylinder([0,0,-3.4],5.8,3.2,'#374c46');cylinder([0,0,-.5],6.3,2.6,'#435b51');cylinder([0,0,2.1],7,2.6,'#597363');cylinder([0,0,3.65],6.4,1.1,'#344f46');
-cylinder([0,0,4.21],5.3,.02,'#8ebcb5');cylinder([0,0,4.24],4.35,.02,'#244d50');cylinder([-1.2,-1.2,4.27],1.35,.02,'#cee7da');
+cylinder([0,0,4.21],5.3,.02,'#8ebcb5');cylinder([0,0,4.24],4.35,.02,'#244d50');
 const portFaceStart=faces.length;
 box([0,30.92,-9.2],[9,.18,3.8],'#bcc8c0');box([0,31.04,-9.2],[7,.12,2.3],'#324b43');
 box([0,30.92,-14],[11,.18,3.5],'#bbc6be');box([0,31.04,-14],[9,.12,2.3],'#314d42');
@@ -66,6 +66,7 @@ box([11.94,0,-15.3],[.1,12.5,2.3],'#81998a');box([12.01,0,-15.3],[.1,11.5,1.3],'
 const tfSlotFaces=faces.splice(tfSlotStart);
 const caseFaces=faces;faces=bareFaces;
 function model(projector){
+ if(ctx===productCtx&&window.drawNeoCadModel?.(ctx,projector,width,height,variant,[...caseFaces,...connectorFaces,...contactFaces,...tfSlotFaces]))return;
  const geometry=variant==='case'?[...caseFaces,...connectorFaces,...contactFaces,...tfSlotFaces]:bareFaces;
  const projected=geometry.map(f=>({color:f.color,points:f.points.map(projector)}));
  drawNeoDepthModel(ctx,projected,width,height);
@@ -150,9 +151,9 @@ document.querySelectorAll('[data-variant]').forEach(button=>button.onclick=()=>{
 });
 $('explore-motion').addEventListener('click',()=>{playing=!reduced.matches;sync();draw()});
 productCanvas.onpointerdown=e=>{productDrag=[e.clientX,e.clientY];productCanvas.setPointerCapture(e.pointerId);productCanvas.classList.add('dragging')};
-productCanvas.onpointermove=e=>{if(!productDrag)return;productAngle+=(e.clientX-productDrag[0])*.01;productElevation=Math.max(.2,Math.min(1.2,productElevation+(e.clientY-productDrag[1])*.006));productDrag=[e.clientX,e.clientY];drawProduct()};
+productCanvas.onpointermove=e=>{if(!productDrag)return;productAngle+=(e.clientX-productDrag[0])*.01;productElevation=Math.max(-1.5,Math.min(1.5,productElevation+(e.clientY-productDrag[1])*.006));productDrag=[e.clientX,e.clientY];drawProduct()};
 productCanvas.onpointerup=productCanvas.onpointercancel=()=>{productDrag=null;productCanvas.classList.remove('dragging')};
-productCanvas.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();productAngle+=e.key==='ArrowLeft'?-.12:e.key==='ArrowRight'?.12:0;productElevation=Math.max(.2,Math.min(1.2,productElevation+(e.key==='ArrowUp'?.08:e.key==='ArrowDown'?-.08:0)));drawProduct()};
+productCanvas.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();productAngle+=e.key==='ArrowLeft'?-.12:e.key==='ArrowRight'?.12:0;productElevation=Math.max(-1.5,Math.min(1.5,productElevation+(e.key==='ArrowUp'?.08:e.key==='ArrowDown'?-.08:0)));drawProduct()};
 
 canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);canvas.classList.add('dragging')};
 canvas.onpointermove=e=>{if(!drag)return;angle+=(e.clientX-drag[0])*.01;elevation=Math.max(.2,Math.min(1.2,elevation+(e.clientY-drag[1])*.006));drag=[e.clientX,e.clientY];draw()};
@@ -208,6 +209,7 @@ if(ports){
  document.querySelectorAll('[data-port-view]').forEach(button=>button.onclick=()=>selectPort(button.dataset.portView,button));
  new ResizeObserver(renderPorts).observe(ports);renderPorts();
 }
+window.addEventListener('resize',resize);
 sync();resize();requestAnimationFrame(frame);
 })();
 

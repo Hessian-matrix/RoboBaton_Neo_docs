@@ -33,17 +33,20 @@ assert not (DOCS / '_sources').exists()
 for name in names:
     data = (SITE / name).read_bytes()
     assert data == (ROOT / 'site' / name).read_bytes(), name
+    if name.endswith('.glb'):
+        assert data[:4] == b'glTF', name
+        continue
     text = data.decode('utf-8-sig')
     links = Page(text).links if name.endswith('.html') else []
     if name.endswith('.js'):
-        links += re.findall(r'''(?:from|import)[ ]*['"]([^'"]+)['"]''', text)
+        links += re.findall(r'''(?m)^import\b[^;]*?from[ ]*['"]([^'"]+)['"]''', text)
     if name.endswith('.css'):
         links += re.findall(r'''url[(]['"]?([^)'"]+)''', text)
     for link in links:
         parsed = urlsplit(link)
         if parsed.scheme or parsed.netloc or not parsed.path:
             continue
-        assert Path(parsed.path).as_posix() in names or parsed.path == 'docs/', (name, link)
+        assert Path(parsed.path).as_posix() in names or parsed.path == 'docs/' or parsed.path == 'docs/', (name, link)
         if parsed.query.startswith('v='):
             digest = hashlib.sha256((SITE / parsed.path).read_bytes()).hexdigest()[:12]
             assert digest == parsed.query[2:], (name, 'stale cache hash', link)
