@@ -36,6 +36,10 @@ for name in names:
     if name.endswith('.glb'):
         assert data[:4] == b'glTF', name
         continue
+    if name.endswith('.stl'):
+        import struct
+        assert len(data) == 84 + struct.unpack_from('<I', data, 80)[0] * 50, name
+        continue
     if name.endswith('.png'):
         assert data[:8] == bytes([137,80,78,71,13,10,26,10]), name
         continue

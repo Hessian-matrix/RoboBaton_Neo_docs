@@ -8,3 +8,5 @@
 .drawing-expand{display:block;margin:0 auto;border:0;background:none;color:#3e7d62;font:inherit;font-size:12px;cursor:pointer;padding:7px}
 #mechanical-dialog{box-sizing:border-box;max-width:calc(100vw - 24px);width:680px;max-height:90vh;padding:18px;border:1px solid #c7d9ce;border-radius:14px;background:#fff;overflow:auto}#mechanical-dialog::backdrop{background:#19352b80}#mechanical-dialog form{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;color:#355c49;font-size:14px}#mechanical-dialog button{border:0;border-radius:6px;background:#eef5f0;color:#355c49;padding:9px 12px;cursor:pointer}#mechanical-dialog img{display:block;width:100%;height:auto}
 @media(max-width:600px){.mechanical-card{padding:12px}.drawing-stage{height:155px;margin:8px 0}.mechanical-heading{font-size:12px}.drawing-tabs{margin-top:10px}}
+
+.shell-download{text-align:center;text-decoration:none}.shell-part-size{font-size:13px;margin-top:8px;color:#52775f}
