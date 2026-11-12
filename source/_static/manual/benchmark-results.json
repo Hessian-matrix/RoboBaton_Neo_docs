@@ -1,0 +1,277 @@
+{
+  "baseline_id": "QR-plain-20261017-full",
+  "date": "2026-10-17",
+  "evaluation": "SE3, no scale correction",
+  "sequences": [
+    {
+      "sequence": "MH_01_easy",
+      "group": "euroc",
+      "ate_rmse_m": 0.1909539986486834,
+      "error_pct": 0.23794619952368995,
+      "initialization_delay_s": 1.8,
+      "complete": true,
+      "evaluated_duration_s": 181.14999987200002,
+      "gt_path_m": 80.25091345477531
+    },
+    {
+      "sequence": "MH_02_easy",
+      "group": "euroc",
+      "ate_rmse_m": 0.1753268553542684,
+      "error_pct": 0.23976935365798474,
+      "initialization_delay_s": 1.7500001280000002,
+      "complete": true,
+      "evaluated_duration_s": 149.049999872,
+      "gt_path_m": 73.12312965749604
+    },
+    {
+      "sequence": "MH_03_medium",
+      "group": "euroc",
+      "ate_rmse_m": 0.29051485224756673,
+      "error_pct": 0.22259693226327823,
+      "initialization_delay_s": 4.0,
+      "complete": true,
+      "evaluated_duration_s": 129.849999872,
+      "gt_path_m": 130.5116154538725
+    },
+    {
+      "sequence": "MH_04_difficult",
+      "group": "euroc",
+      "ate_rmse_m": 0.16577683738678473,
+      "error_pct": 0.1806887692847743,
+      "initialization_delay_s": 0.8,
+      "complete": true,
+      "evaluated_duration_s": 98.75000012800001,
+      "gt_path_m": 91.74717280049231
+    },
+    {
+      "sequence": "MH_05_difficult",
+      "group": "euroc",
+      "ate_rmse_m": 0.36819154107047464,
+      "error_pct": 0.37728580580928917,
+      "initialization_delay_s": 0.5500001280000001,
+      "complete": true,
+      "evaluated_duration_s": 111.0,
+      "gt_path_m": 97.58955555740906
+    },
+    {
+      "sequence": "V1_01_easy",
+      "group": "euroc",
+      "ate_rmse_m": 0.05129747627558044,
+      "error_pct": 0.08756352985974579,
+      "initialization_delay_s": 2.4000000000000004,
+      "complete": true,
+      "evaluated_duration_s": 142.15000012800002,
+      "gt_path_m": 58.58315254963542
+    },
+    {
+      "sequence": "V1_02_medium",
+      "group": "euroc",
+      "ate_rmse_m": 0.14527704837371155,
+      "error_pct": 0.19142790897745357,
+      "initialization_delay_s": 0.5,
+      "complete": true,
+      "evaluated_duration_s": 83.5,
+      "gt_path_m": 75.89125804577552
+    },
+    {
+      "sequence": "V1_03_difficult",
+      "group": "euroc",
+      "ate_rmse_m": 0.10958630953881023,
+      "error_pct": 0.13874826587360004,
+      "initialization_delay_s": 0.5,
+      "complete": true,
+      "evaluated_duration_s": 104.64999987200001,
+      "gt_path_m": 78.98211112681119
+    },
+    {
+      "sequence": "V2_01_easy",
+      "group": "euroc",
+      "ate_rmse_m": 0.06807647752611203,
+      "error_pct": 0.18651884153271628,
+      "initialization_delay_s": 1.0,
+      "complete": true,
+      "evaluated_duration_s": 111.949999872,
+      "gt_path_m": 36.49844539387786
+    },
+    {
+      "sequence": "V2_02_medium",
+      "group": "euroc",
+      "ate_rmse_m": 0.11037033192980857,
+      "error_pct": 0.1333124998788966,
+      "initialization_delay_s": 4.6000000000000005,
+      "complete": true,
+      "evaluated_duration_s": 112.049999872,
+      "gt_path_m": 82.79068506709491
+    },
+    {
+      "sequence": "V2_03_difficult",
+      "group": "euroc",
+      "ate_rmse_m": 0.13204093627291116,
+      "error_pct": 0.15332080474904566,
+      "initialization_delay_s": 2.2,
+      "complete": true,
+      "evaluated_duration_s": 113.850000128,
+      "gt_path_m": 86.12069085407866
+    },
+    {
+      "sequence": "indoor_45_12",
+      "group": "fpv",
+      "ate_rmse_m": 1.475968491299585,
+      "error_pct": 1.332752647042178,
+      "initialization_delay_s": 1.2605410000000001,
+      "complete": true,
+      "evaluated_duration_s": 40.272131424,
+      "gt_path_m": 110.74586830311316
+    },
+    {
+      "sequence": "indoor_45_13",
+      "group": "fpv",
+      "ate_rmse_m": 0.8517056648315273,
+      "error_pct": 0.5293564128575788,
+      "initialization_delay_s": 0.729896948,
+      "complete": true,
+      "evaluated_duration_s": 37.353586884,
+      "gt_path_m": 160.89455877824136
+    },
+    {
+      "sequence": "indoor_45_14",
+      "group": "fpv",
+      "ate_rmse_m": 1.2476480485177495,
+      "error_pct": 0.5780940168473779,
+      "initialization_delay_s": 0.43121705200000005,
+      "complete": true,
+      "evaluated_duration_s": 36.955482124,
+      "gt_path_m": 215.82095855649374
+    },
+    {
+      "sequence": "indoor_45_2",
+      "group": "fpv",
+      "ate_rmse_m": 0.8671902995196614,
+      "error_pct": 0.4177017160802459,
+      "initialization_delay_s": 0.43124805200000005,
+      "complete": true,
+      "evaluated_duration_s": 49.362636381,
+      "gt_path_m": 207.6099441624183
+    },
+    {
+      "sequence": "indoor_45_4",
+      "group": "fpv",
+      "ate_rmse_m": 0.9468195326122203,
+      "error_pct": 0.574415687522796,
+      "initialization_delay_s": 0.43136800000000003,
+      "complete": true,
+      "evaluated_duration_s": 43.159280931000005,
+      "gt_path_m": 164.83176786056094
+    },
+    {
+      "sequence": "indoor_45_9",
+      "group": "fpv",
+      "ate_rmse_m": 0.5222455838136549,
+      "error_pct": 0.40944029338377536,
+      "initialization_delay_s": 0.43120894800000004,
+      "complete": true,
+      "evaluated_duration_s": 21.364450218,
+      "gt_path_m": 127.55109652194031
+    },
+    {
+      "sequence": "indoor_forward_10",
+      "group": "fpv",
+      "ate_rmse_m": 0.4156571932717393,
+      "error_pct": 0.3202121070293336,
+      "initialization_delay_s": 0.43124604200000005,
+      "complete": true,
+      "evaluated_duration_s": 29.822930336000002,
+      "gt_path_m": 129.80683245485852
+    },
+    {
+      "sequence": "indoor_forward_3",
+      "group": "fpv",
+      "ate_rmse_m": 0.5246724978851077,
+      "error_pct": 0.1887128498473983,
+      "initialization_delay_s": 0.431274156,
+      "complete": true,
+      "evaluated_duration_s": 49.428443043,
+      "gt_path_m": 278.02690612185734
+    },
+    {
+      "sequence": "indoor_forward_5",
+      "group": "fpv",
+      "ate_rmse_m": 0.1716819192258876,
+      "error_pct": 0.3235513252207017,
+      "initialization_delay_s": 1.260578871,
+      "complete": true,
+      "evaluated_duration_s": 19.273753643000003,
+      "gt_path_m": 53.061726484593905
+    },
+    {
+      "sequence": "indoor_forward_6",
+      "group": "fpv",
+      "ate_rmse_m": 0.30083569389708864,
+      "error_pct": 0.14430660862746184,
+      "initialization_delay_s": 3.3505921360000004,
+      "complete": true,
+      "evaluated_duration_s": 30.154420853,
+      "gt_path_m": 208.46979688485243
+    },
+    {
+      "sequence": "indoor_forward_7",
+      "group": "fpv",
+      "ate_rmse_m": 0.327268466368955,
+      "error_pct": 0.10396096331137816,
+      "initialization_delay_s": 0.431209326,
+      "complete": true,
+      "evaluated_duration_s": 66.679410696,
+      "gt_path_m": 314.7993784828046
+    },
+    {
+      "sequence": "indoor_forward_9",
+      "group": "fpv",
+      "ate_rmse_m": 0.6049283283033681,
+      "error_pct": 0.48703798682224686,
+      "initialization_delay_s": 1.3932280540000002,
+      "complete": true,
+      "evaluated_duration_s": 28.761857748,
+      "gt_path_m": 124.20557424079271
+    },
+    {
+      "sequence": "outdoor_45_1",
+      "group": "fpv",
+      "ate_rmse_m": 0.7946640257669964,
+      "error_pct": 0.6057383634995077,
+      "initialization_delay_s": 0.43114386400000004,
+      "complete": true,
+      "evaluated_duration_s": 19.970236091,
+      "gt_path_m": 131.18931764136846
+    },
+    {
+      "sequence": "outdoor_forward_1",
+      "group": "fpv",
+      "ate_rmse_m": 1.258591177871912,
+      "error_pct": 0.5473300599878224,
+      "initialization_delay_s": 0.431323031,
+      "complete": true,
+      "evaluated_duration_s": 42.560902564,
+      "gt_path_m": 229.95104231985994
+    },
+    {
+      "sequence": "outdoor_forward_3",
+      "group": "fpv",
+      "ate_rmse_m": 2.366912675141877,
+      "error_pct": 0.3498446043633866,
+      "initialization_delay_s": 0.431203948,
+      "complete": true,
+      "evaluated_duration_s": 85.652795157,
+      "gt_path_m": 676.56114904186
+    },
+    {
+      "sequence": "outdoor_forward_5",
+      "group": "fpv",
+      "ate_rmse_m": 1.1409478673616542,
+      "error_pct": 0.8120405423415692,
+      "initialization_delay_s": 0.431248,
+      "complete": true,
+      "evaluated_duration_s": 17.515534365,
+      "gt_path_m": 140.50380589024044
+    }
+  ]
+}

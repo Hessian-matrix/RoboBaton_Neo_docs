@@ -1,170 +1,115 @@
-获取位姿与图像：多语言示例
-==========================
+Python 快速验证
+===============
 
-交互式引导：`接入你的程序 <../integration.html>`_。
+.. container:: doc-lead
 
-完成 VIO 启动与初始化后，再接收数据。订阅不会启动算法，断开也不会停止算法。
-位姿与图像分别使用独立 HTTP 连接。支持 JavaScript 网页验证，以及 Python、Node.js 本机示例。
+   用一个完整 Python 文件读取设备位置和灰度图像。自己运行，或把代码与任务一起交给 AI。
 
-JavaScript：网页直接运行
-------------------------
+.. container:: doc-facts
 
-打开 `接入你的程序 <../integration.html>`_，选择连接方式，再选择
-“JavaScript · 网页直接运行”。进入第三步，点击“连接并运行”。
-接收到有效数据后显示坐标、原始字段或图像；第四步保留本次真实结果。
-尚未收到有效数据时显示空状态，不使用示例值代替。
+   **环境** Python 3.8+　　**依赖** 仅标准库，无需 pip　　**设备操作** 只读，不修改配置
 
-串口验证使用电脑 Chrome / Edge 的 Web Serial，网页须通过 HTTPS 或 localhost 打开。
-在浏览器弹窗中选择 USB 转 TTL 模块，波特率与设备一致；无需安装 Python 或 Node.js。
-接线与供电见 :doc:`serial-pose`。只接收 MAVLink 2 ODOMETRY，不发送配置命令。
-接收器检查 CRC、有限坐标和单位四元数；signed 字段仅表示签名存在，不代表签名认证通过。
+运行前准备
+----------
 
-USB HTTP 验证默认使用 **电脑连接工具**，不修改板端设置或服务：
+1. 将 Neo 通过 USB 数据线连接到这台电脑，确认能够打开设备网页。
+2. 在设备网页启动 VIO 并完成初始化。获取位置需要有效定位；订阅接口不会自动启动算法。
+3. 确认电脑已有 Python 3.8+。Windows 常用 ``py -3``，macOS / Linux 常用 ``python3``。
 
-1. Windows x64 下载产品站的连接工具，双击后保持窗口打开，无需安装 Python。
-2. 在同一台电脑的 Chrome / Edge 中填写设备地址，选择“电脑连接工具”。
-3. Python 先点击“加载 Python”，再“连接并运行”；JavaScript 直接连接。
-4. 浏览器询问本地网络访问时选择允许。结果由浏览器内的代码处理和显示。
+默认设备地址为 ``http://192.168.11.1``。修改过网络配置时请填写实际地址。
+示例从你的电脑访问设备，普通云端聊天执行环境无法访问你的局域网。
 
-工具只监听本机 127.0.0.1:18765，仅转发位姿和灰度 JPEG，不转发控制命令，
-不保存或上传设备数据，不注册开机启动。关闭窗口即停止。Windows 包未签名；
-下载区提供 SHA256 和源码。macOS / Linux 当前需 Python 3 运行同份标准库脚本，
-尚未提供免安装包。
+选择运行方式
+------------
 
-直接 HTTP 模式仍受设备 CORS 和浏览器本地网络策略限制；连接工具解决的是
-现有板端无法跨域的问题，不跳过浏览器权限，也不要求用户修改设备。
-工具未启动或权限未允许时，页面保持无数据状态并提示重试。
+.. raw:: html
 
-每次最长运行 60 秒，连续 15 秒无数据则停止。可随时点击“停止”；
-更换连接参数或隐藏页面会停止接收。设备 VIO 需提前启动并完成初始化，
-网页不会启动、停止或配置算法。“运行代码”展示本页实际使用的 NeoReceive 调用。
-
-本功能已通过模拟 HTTP 与串口的浏览器回归；尚未完成真实设备验收。
-
-Python：网页直接运行
---------------------
-
-在接入教程选择“Python · 网页直接运行”。第三步先点击“加载 Python”，
-环境就绪后点击“连接并运行”。浏览器会实际执行展示的 Python receive 函数，
-结果区域显示 Python 的 print 输出；位姿同时显示 X/Y/Z，图像显示画面和帧信息。
-本机下载示例保留在“Python 3 · 本机运行”选项。
-
-Python 使用 Pyodide 0.27.7，在浏览器 Worker 内运行。首次从 jsDelivr 下载运行环境，
-需要网络；设备数据保留在本机浏览器，不发送到运行环境 CDN。
-串口授权、HTTP 接收和协议解码由网页只读适配器完成，
-Python 接收解码后的真实数据并执行 JSON 解析、坐标提取和输出。
-这是网页专用示例，不会在浏览器安装 pyserial 或运行本机 socket 客户端。
-
-串口浏览器要求、HTTP 跨域限制、超时及停止规则与上面的 JavaScript 相同。
-加载失败时显示错误，可重试；环境加载期间不会连接设备。
-已使用真实 Pyodide 运行环境和模拟设备验证 Python 位姿输出与图像流程，
-尚未完成真实板卡验收。
-
-准备工作（本机示例）
---------------------
-
-示例复用与设备固件配套的 cv-610-pub 应用源码中的公开客户端，包含 RBH1 分片重组、
-元数据与图像封装解析。需要先取得该应用源码，在仓库根目录创建并运行下方脚本。
-这不是无需依赖的独立 SDK。示例不自动修改配置、不自动启动 VIO。
-
-设备地址填写设备实际 HTTP 地址，例如 http://192.168.11.1 或 http://192.168.46.1。
-当前公开版默认端口为 80；仅在设备确实仍提供对应服务时填写自定义端口。
-运行前建立一个空目录作为工作副本或确认当前目录没有需保留的 neo-latest.jpg，
-示例会反复覆盖该文件，只保留最新收到的灰度 JPEG 图像。
+   <div class="docs-code-workbench" data-example-workbench>
+   <section class="docs-code-pane" aria-label="完整Python示例"><div class="docs-code-toolbar"><strong>neo_quick_test.py</strong><div><button type="button" data-copy-code disabled>复制代码</button><a href="_static/neo_quick_test.py" download>下载 .py</a></div></div><pre tabindex="0"><code data-example-code>正在加载完整示例…</code></pre><p data-code-status role="status">完整单文件，不需要额外客户端文件。</p></section>
+   <section class="docs-run-pane" aria-label="运行示例"><label for="example-address">设备地址</label><input id="example-address" value="http://192.168.11.1" spellcheck="false"><label for="example-channel">要获取的数据</label><select id="example-channel"><option value="both">位置和图像</option><option value="odometry">仅位置</option><option value="gray_jpeg">仅灰度图像</option></select><div class="docs-methods" role="group" aria-label="运行方式"><button type="button" data-mode="manual" aria-pressed="true">自己运行</button><button type="button" data-mode="ai" aria-pressed="false">交给 AI</button></div><div class="docs-mode-slot"><div data-panel="manual"><p>下载或复制左侧代码，保存为 <strong>neo_quick_test.py</strong>，在文件所在目录运行：</p><pre data-example-command></pre><button type="button" data-copy-command>复制命令</button><p class="docs-muted">根据本机解释器，将 python 替换为 py -3 或 python3。</p></div><div data-panel="ai" hidden><p>复制任务要求、当前连接参数和完整代码，粘贴给能操作这台电脑的 AI 助手。</p><button type="button" class="docs-primary" data-copy-ai disabled>复制提示词和完整代码</button><p class="docs-muted">AI 应实际运行并检查结果。没有 Python 时，先由你决定是否安装。</p></div></div><p data-run-status role="status"></p></section></div>
 
 .. _api-python:
 
-Python 3
---------
+运行后会得到什么
+----------------
 
-仅依赖 Python 标准库及应用 tools/http-api 下的客户端模块。
-将以下代码保存为 receive.py，放在应用仓库根目录。
+默认读取 **3 条有效位姿和 3 张灰度图像**。程序会在 ``neo-results`` 下创建新的时间戳目录，
+不会覆盖上一次结果。两路按顺序订阅，不是同步配对帧。
 
-.. code-block:: python
+.. list-table::
+   :header-rows: 1
+   :widths: 28 44 28
 
-   import sys
-   from pathlib import Path
-   sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools/http-api'))
-   from client import Device
+   * - 文件
+     - 内容
+     - 怎样检查
+   * - ``report.json``
+     - 状态、数量与失败原因
+     - 所选流的 ok 均为 true
+   * - ``poses.jsonl``
+     - 真实位姿、序号与时间戳
+     - 位置有效，序号递增
+   * - ``image-001.jpg`` 等
+     - 544 × 640 灰度 JPEG
+     - 打开图片，确认能解码
 
-   origin = sys.argv[1] if len(sys.argv) > 1 else 'http://192.168.11.1'
-   channel = sys.argv[2] if len(sys.argv) > 2 else 'odometry'
-   if channel not in ('odometry', 'gray_jpeg'):
-       raise ValueError('Choose odometry or gray_jpeg')
-   stream = Device(origin).observe([channel])
-   count = 0
-   try:
-       for name, fmt, sequence, data in stream:
-           if name == 'control':
-               continue
-           if name == 'odometry':
-               print(data['header'], data['pose'], flush=True)
-           else:
-               Path('neo-latest.jpg').write_bytes(data['data'])
-               print(data['header'], 'saved neo-latest.jpg', flush=True)
-           count += 1
-           if count >= 10:
-               break
-   finally:
-       stream.close()
+仅选择位置时不会生成图片，仅选择图像时不会生成位姿文件。
+退出码 **0** 表示所选数据都收齐，**1** 表示至少一路失败，具体原因保留在报告中。
 
-分别运行下列命令；同时获取位姿与图像时使用两个终端：
+.. code-block:: text
+   :caption: 输出目录示意，不是你的设备实时结果
 
-.. code-block:: bash
+   neo-results/
+     <本次运行时间>/
+       report.json
+       poses.jsonl
+       image-001.jpg
+       image-002.jpg
+       image-003.jpg
 
-   python receive.py http://192.168.11.1 odometry
-   python receive.py http://192.168.11.1 gray_jpeg
+正确理解结果
+------------
 
-每个进程接收 10 条业务消息后退出。无位姿或断流时检查初始化和网络状态，再重新运行。
+位置单位为米，参考点为 IMU 原点，姿态使用 ``x/y/z/w`` 四元数字段。
+空位姿与心跳不会计入成功数量。序号保留为字符串。
+接收成功只说明接口读取成功；若报告仍有 ``CALIBRATION_REQUIRED`` 等警告，
+应继续检查标定，不能据此判定定位精度已通过验收。
 
-.. _api-javascript:
-
-JavaScript（Node.js）
---------------------------------
-
-需要 Node.js 18 或更新版本，使用应用自带公开流解析模块，无需安装 npm 包。
-将以下代码保存为 receive.cjs，放在应用仓库根目录。
-这是电脑端 Node.js 程序，不是在公网产品站中执行的浏览器脚本。
-
-.. code-block:: javascript
-
-   const fs = require('node:fs');
-   const {open} = require('./calibration/calibration-js/browser/public/http-stream.js');
-   const origin = process.argv[2] || 'http://192.168.11.1';
-   const channel = process.argv[3] || 'odometry';
-   if (!['odometry', 'gray_jpeg'].includes(channel)) throw Error('Invalid channel');
-   const stream = open(origin, [channel]);
-   let count = 0;
-   stream.onmessage = event => {
-     if (channel === 'odometry') {
-       const data = JSON.parse(new TextDecoder().decode(event.data));
-       console.log(data.header, data.pose);
-     } else {
-       fs.writeFileSync('neo-latest.jpg', event.frame.data);
-       console.log(event.frame.header, 'saved neo-latest.jpg');
-     }
-     if (++count >= 10) stream.close();
-   };
-   stream.onerror = error => { console.error(error); process.exitCode = 1; };
-   process.on('SIGINT', () => stream.close());
-
-.. code-block:: bash
-
-   node receive.cjs http://192.168.46.1 odometry
-   node receive.cjs http://192.168.46.1 gray_jpeg
-
-数据含义与限制
+没有得到结果时
 --------------
 
-位姿使用 GET /api/stream?channels=odometry，图像使用 GET /api/stream?channels=gray_jpeg。
-每条连接只能选择一个通道。灰度 JPEG 便于入门；彩色及其他图像通道见 :doc:`imaging`。
-不能把 HTTP 数据流直接当作 JSON 或完整 JPEG，需要先解析 RBH1 并重组业务消息。
+.. list-table::
+   :header-rows: 1
+   :widths: 32 68
 
-pose.position 是 x/y/z，单位米；pose.orientation 是具名 x/y/z/w 单位四元数。
-位姿可能为空，不能替换为零；结合 tracking 状态判断有效性。
-header.seq 是十进制字符串，Python 用 int、JavaScript 用 BigInt 处理，不能先转换为浮点数。
-header.stamp 是设备单调时钟，不是电脑时间。位姿与图像异步到达，需按有效时间戳关联。
+   * - 现象
+     - 下一步
+   * - 找不到 Python
+     - 检查 py -3 / python3；未安装时由用户决定是否安装
+   * - 连接被拒绝或超时
+     - 核对 USB 网络和设备地址，先确认能打开设备原网页
+   * - 没有有效位姿
+     - 确认 VIO 启动并完成初始化；见 :doc:`positioning`
+   * - HTTP 429
+     - 关闭多余订阅，再有限重试
+   * - 只成功获得一种数据
+     - 查看报告中的每路结果，分别排查
+   * - AI 无法访问设备
+     - 确认具有本机终端权限，而不是只运行在云端沙箱
 
-HTTP 位姿以 IMU 为参考，串口输出已应用安装补偿，不能直接当作同一参考点。
-完整字段与重连规则见 :doc:`api-guide`、:doc:`api-reference` 和 :doc:`positioning`。
-代码检查及模拟数据验证不代表当前固件实机验收。
+每路默认等待 15 秒，阻塞读取最多可能额外等待 10 秒。停止测试不会停止板端 VIO。
+程序仅 GET 查询状态和订阅位姿、灰度图像，不刷固件、不修改板端设置。
+
+验证范围
+--------
+
+2026-11-12，已在正式设备 ``192.168.11.1`` 上验证 Python 单文件：
+从网页剪贴板提取代码并运行，收齐 3 条位姿和 3 张可解码的 544 × 640 图像。
+这是该设备与该次版本的接口验证，不代表所有历史固件与环境都已覆盖。
+
+当前交付 Python 本机示例。C++ / Rust 本机示例尚未完成验证，不作为可用下载提供。
+本页复制和下载不读取设备接口，执行发生在你的电脑上。
+
+.. container:: doc-next
+
+   下一步：:doc:`api-guide`，了解查询、命令与数据流。使用串口？查看 :doc:`serial-pose`。
