@@ -8,6 +8,7 @@ extensions = []
 source_suffix = {'.rst': 'restructuredtext'}
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'sphinx_book_theme'
+templates_path = ['_templates']
 html_title = 'RoboBaton Neo 文档'
 html_static_path = ['_static']
 html_css_files = ['custom.css']

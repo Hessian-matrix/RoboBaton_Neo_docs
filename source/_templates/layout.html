@@ -1,0 +1,15 @@
+{% extends '!layout.html' %}
+{% block docs_navbar %}
+{% set product_root = '../' * (pagename.count('/') + 1) %}
+<header id="pst-header" class="bd-header neo-header d-print-none">
+  <div class="neo-header-inner">
+    <a class="neo-brand" href="{{ product_root }}" aria-label="RoboBaton Neo 产品首页">RoboBaton <strong>Neo</strong></a>
+    <nav class="neo-navigation" aria-label="产品与文档导航">
+      <a href="{{ product_root }}">产品介绍</a>
+      <a href="{{ product_root }}quick-start.html">快速开始</a>
+      <a href="{{ pathto('index') }}" aria-current="page">文档中心</a>
+      <a class="neo-search-link" href="{{ pathto('search') }}" aria-label="搜索文档">搜索</a>
+    </nav>
+  </div>
+</header>
+{% endblock %}
