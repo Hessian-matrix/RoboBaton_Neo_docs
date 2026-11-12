@@ -1,4 +1,5 @@
 import * as T from './three.module.js';
+import {createEnclosure,lightProduct} from './enclosure-model.js';
 import {GLTFLoader} from './GLTFLoader.js';
 
 // CAD coordinates remain in millimetres. Reuse the page's projector and controls.
@@ -10,11 +11,7 @@ async function setup(){
  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
  const scene=new T.Scene(),camera=new T.OrthographicCamera();
  camera.matrixAutoUpdate=false;
- scene.add(new T.AmbientLight(0xffffff,.6));
- scene.add(new T.HemisphereLight(0xf5faff,0x78867c,1.65));
- const key=new T.DirectionalLight(0xfff8ef,.95);key.position.set(-35,-30,65);scene.add(key);
- const fill=new T.DirectionalLight(0xe6eef5,.45);fill.position.set(40,25,25);scene.add(fill);
- const rim=new T.DirectionalLight(0xffffff,.3);rim.position.set(0,45,-15);scene.add(rim);
+ lightProduct(scene);
  const gltf=await new GLTFLoader().loadAsync(new URL('./product-v2.glb',import.meta.url).href);
  // Undo only the exporter's mm/Z-up to glTF metre/Y-up root transform.
  const cadRoot=gltf.scene.children[0];cadRoot.rotation.set(0,0,0);cadRoot.scale.setScalar(1);cadRoot.updateMatrix();
@@ -46,16 +43,10 @@ async function setup(){
    g.addGroup(first,ix.count-first,previous);o.geometry=g;o.material=[metal,glass];
   }
  });
- const shell=new T.Group();scene.add(shell);let shellBuilt=false;
- function buildShell(faces){
-  const positions=[],colors=[];
-  for(const f of faces){const c=new T.Color(f.color);for(let i=1;i<f.points.length-1;i++)for(const p of [f.points[0],f.points[i],f.points[i+1]]){positions.push(...p);colors.push(c.r,c.g,c.b);}}
-  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.computeVertexNormals();
-  shell.add(new T.Mesh(g,new T.MeshLambertMaterial({vertexColors:true,side:T.DoubleSide})));shellBuilt=true;
- }
+ const shell=createEnclosure();scene.add(shell);
  window.drawNeoCadModel=(context,project,width,height,variant,faces)=>{
   if(renderer.getContext().isContextLost())return false;
-  if(!shellBuilt)buildShell(faces);bare.visible=variant==='bare';shell.visible=!bare.visible;
+  bare.visible=variant==='bare';shell.visible=!bare.visible;
   const origin=project([0,0,0]),basis=[[1,0,0],[0,1,0],[0,0,1]].map(v=>project(v).map((x,i)=>x-origin[i]));
   const x=basis.map(v=>-v[0]),y=basis.map(v=>-v[1]),z=basis.map(v=>v[2]);
   const sx=Math.hypot(...x),sy=Math.hypot(...y),sz=Math.hypot(...z);
