@@ -79,7 +79,7 @@ for filename in ['index.html', 'quick-start.html']:
     assert 'docs.html' not in page.links
     assert '127.0.0.1' not in (SITE / filename).read_text()
 for filename, phrases in {
-    'product.html': ['小巧轻量', '193.8', '历史算法基准'],
+    'product.html': ['位姿', '硬件参数', '定位性能', '193.8', '历史算法基准'],
     'quick-start.html': ['连接电脑', '出厂已标定', '无需重新标定'],
 }.items():
     text = ''.join(Page((DOCS / filename).read_text()).text)

@@ -1,116 +1,150 @@
-安装与连接
-==========
+设备安装与供电
+==============
 
-使用前准备
+结构与尺寸
 ----------
 
-准备 Neo、支持数据传输的 USB 线和一台电脑。仅充电线不能建立 USB 网络。
-如果需要板端录制，还需准备可用 TF 卡；首次查看定位不要求插卡。
+裸板尺寸
+~~~~~~~~
 
-先检查镜头无遮挡、连接器无损坏，设备固定牢靠。安装位置应能看到足够的环境纹理，
-避免画面长期被机架、手指、近距离平面或其他活动部件占据。
-使用中尽量减少松动和强烈振动；不要将暂时显示的轨迹当作安装已正确的依据。
+.. list-table:: 尺寸参数（mm）
+   :header-rows: 1
+   :widths: 40 30 30
 
-机械尺寸与安装参考
-------------------
+   * - 项目
+     - 裸板
+     - 带壳整机
+   * - 长 × 宽
+     - 40 × 20
+     - 43.8 × 23.8
+   * - 含镜头总高
+     - 19.5
+     - 21.6
+   * - 镜头最大外径
+     - 14
+     - 镜头与视野需留空
 
-产品资料给出的裸机板体长宽为 40 × 20 mm，本次提供的裸机机械图标注含镜头总高为 18.1 mm；
-带壳外形约 43.8 × 23.8 × 21.6 mm，总高包含镜头。裸机与带壳重量分别为
-8.69 g 和 13.86 g。上述值来自产品资料与称重照片，并非本文重新测量。
+.. figure:: _static/manual/neo-bare-top.png
+   :alt: Neo裸板正面机械图，标注板体尺寸与安装孔位置
+   :class: manual-figure
+   :target: _static/manual/neo-bare-top.png
 
-产品网站模型用于查看外观比例。安装孔、结构公差和制造尺寸应使用正式机械图，
-不能从示意模型量取。安装配置中的位置参考点是相机光心，详见 :doc:`mounting-flight-controller`。
+   正面 · 板体与安装孔位（点击查看原图）
 
-USB 连接电脑
-------------
+.. figure:: _static/manual/neo-bare-bottom.png
+   :alt: Neo裸板背面机械图，展示器件与接口位置
+   :class: manual-figure
+   :target: _static/manual/neo-bare-bottom.png
 
-1. 使用数据线将 Neo 的 Type-C 接口连接到电脑。
-2. 等待电脑识别 USB 网络适配器。
-3. 将这个网络适配器的 IPv4 配置设置为自动获取地址。
-4. 在浏览器中打开 ``http://192.168.11.1/``。
-5. 确认显示的是设备操作页面，再检查连接状态和实时图像。
+   背面 · 器件与接口布局（点击查看原图）
 
-默认设备地址是 ``192.168.11.1/24``，配套系统的 DHCP 地址池为
-``192.168.11.100`` 至 ``192.168.11.150``。设备不会通过这条连接为电脑提供互联网网关或 DNS。
-因此，“USB 网卡没有互联网”不等于设备不可访问；电脑可以同时使用其他网络上网。
+.. figure:: _static/manual/neo-bare-side.png
+   :alt: Neo裸板侧视工程图，镜头外径14mm，原图高度18.1mm
+   :class: manual-figure
+   :target: _static/manual/neo-bare-side.png
 
-浏览器不需要安装 Neo 专用桌面软件。视频编码兼容性因浏览器、操作系统和访问方式而异，
-尤其是 H.265；遇到预览兼容问题请参阅 :doc:`imaging`。
+   侧视 · 原图高度标注 18.1 mm；安装总高按产品参数 19.5 mm 预留。
 
-.. _windows-usb-driver:
-
-电脑系统与驱动安装
-------------------
-
-仅较旧版本的 Windows 需要手动安装 CDC-NCM 驱动；较新的 Windows、macOS 和
-Linux 可免驱连接，等待 USB 网卡出现即可。已正常识别网卡时无需重复安装。
-
-较旧 Windows 的操作步骤
-~~~~~~~~~~~~~~~~~~~~~~~
-
-1. 使用支持数据传输的 Type-C 线连接 Neo 与电脑，右键开始菜单，打开“设备管理器”。
-2. 找到带黄色感叹号的“CDC NCM”设备，右键选择“更新驱动程序”。
-3. 选择“浏览我的电脑以查找驱动程序”。
-4. 选择“让我从计算机上的可用驱动程序列表中选取”。
-5. 选择“网络适配器”，点击“下一步”。
-6. 在“厂商”中选择“Microsoft”，在“型号”中选择“UsbNcm Host Device”，点击“下一步”。
-7. 若出现兼容性提示，确认选中的是 Neo 的 CDC-NCM 设备和上述驱动后继续安装。
-8. 安装完成后，在“网络适配器”下确认“UsbNcm Host Device”正常显示且没有黄色感叹号。
-9. 将该网卡的 IPv4 设置为自动获取地址，等待分配地址，然后在浏览器中打开
-   http://192.168.11.1/ 。也可在终端运行 ping 192.168.11.1 检查连通性。
-
-若列表中没有“UsbNcm Host Device”，先通过 Windows Update 更新系统，再重新检查。
-若未出现 CDC-NCM 设备，先检查数据线和供电。不要为其他类型的设备强行指定此驱动。
-
-以上步骤参考 Milk-V Duo 的 USB Net 设置，可查看其中的设备管理器截图：
-https://milkv.io/zh/docs/duo/getting-started/setup 。
-参考页使用的是 Duo 地址；Neo 默认地址为 192.168.11.1，若已修改请使用实际地址。
-
-macOS 与 Linux
+带壳结构与模型
 ~~~~~~~~~~~~~~
 
-macOS 在“系统设置 → 网络”中查看 USB 网络接口；Linux 在网络设置中查看，
-或运行 ip link。Linux 系统需启用 cdc_ncm，通常由系统自动加载。
-网卡识别后自动获取 IPv4 地址，再访问设备页面即可。
+带壳整机外形为 **43.8 × 23.8 × 21.6 mm**。外壳由上壳和底壳组成，镜头、USB、串口与 TF 卡开口按实物版本核对。
 
-如果电脑上有其他网络也使用 ``192.168.11.0/24``，可能出现路由冲突。
-先确认访问的是 USB 网络中的 Neo，再按 :doc:`device-settings` 修改设备网段。
-修改前记录旧地址和新地址。
+.. container:: installation-shells
 
-手机连接
+   .. figure:: _static/manual/neo-shell-upper.png
+      :alt: Neo上壳内部结构，展示镜头开口、接口开口及固定位置
+
+      上壳
+
+   .. figure:: _static/manual/neo-shell-bottom.png
+      :alt: Neo底壳内部结构，展示支撑与固定位置
+
+      底壳
+
+.. list-table:: 外壳零件网格包围盒（mm）
+   :header-rows: 1
+   :widths: 30 40 30
+
+   * - 零件
+     - 长 × 宽 × 高
+     - 模型文件
+   * - 上壳
+     - 43.8 × 23.8 × 10.89
+     - `上壳 STL <../upper_C_V3.9_top_down_mm.stl>`_
+   * - 底壳
+     - 43.8 × 23.8 × 5.10
+     - `底壳 STL <../bottom_C_V3.9_mm.stl>`_
+
+.. container:: product-footnote
+
+   \* STL 单位为 mm；零件高度含装配搭接，不能相加作为整机总高。安装孔、公差与最终装配以对应版本图纸核对。
+
+接口位置
+~~~~~~~~
+
+* **USB Type-C**：传输数据并供电，连接电脑或兼容手机。
+* **6pin**：串口、地、电源及同步信号，针号与逐线接法见 :doc:`connect-serial`。
+* **TF 卡槽**：用于设备侧录制，首次查看画面和轨迹不必插卡。
+* **镜头**：安装后保持无遮挡，并为线缆插拔和弯曲预留空间。
+
+连接总览
 --------
 
-手机直接连接设备需要支持 USB OTG／主机模式、相应 USB 网络驱动，并满足供电要求。
-并非所有 Android 或 iPhone 型号都支持同样的连接方式。
-能通过手机浏览公网产品站，并不意味着该手机可以直接通过 USB 操作设备。
+按使用目标选择连接方式，点击卡片进入对应页面。
 
-在产品网站中操作设备
---------------------
+.. raw:: html
 
-快速开始第二步提供设备地址输入框（支持纯 IP 或 IP:端口）和“连接设备”按钮。点击后，设备网页在左侧预览区打开，
-可直接使用设备页面的功能；“展开预览”可扩大操作区域。点击第三步“初始化与轨迹”后，同一设备页面继续显示，可直接启动 VIO、初始化并观察轨迹。三个步骤平级切换，不重新加载设备页面。
-例如 192.168.46.1 或 192.168.46.1:46002；不填端口时使用 HTTP 默认端口 80，指定端口范围为 1–65535。修改地址会关闭旧预览，需再次点击连接。页面不会自动连接，也不会自动启动定位。
+   <div class='installation-map' aria-label='Neo 连接方式总览'>
+     <div class='installation-hub'>
+       <img src='_static/manual/neo-enclosed-photo.webp' alt='Neo 带壳设备' width='180' height='134'>
+       <strong>Neo</strong>
+     </div>
+     <div class='installation-branches'>
+       <div class='installation-path'>
+         <div class='installation-interface'><strong>USB Type-C</strong><span>数据与供电</span><span>浏览器打开设备网页</span></div>
+         <span class='installation-arrow' aria-hidden='true'>→</span>
+         <div class='installation-targets'>
+           <a href='connect-computer.html'><strong>电脑 · USB 直连</strong><span>查看图像、轨迹，进行配置与标定</span><span>准备：支持数据传输的 Type-C 线</span><b>接入电脑 →</b></a>
+           <a href='connect-phone.html'><strong>手机 · OTG 连接</strong><span>用手机浏览器查看和操作设备</span><span>要求：OTG、USB 网络与足够供电</span><b>接入手机 →</b></a>
+         </div>
+       </div>
+       <div class='installation-path'>
+         <div class='installation-interface'><strong>3.3 V 串口</strong><span>MAVLink 位姿数据</span><span>需另行确认设备供电</span></div>
+         <span class='installation-arrow' aria-hidden='true'>→</span>
+         <div class='installation-targets'>
+           <a href='connect-serial.html'><strong>电脑 · 串口接收</strong><span>由自己的程序接收位姿数据</span><span>准备：3.3 V USB 转 TTL 模块</span><b>串口接线 →</b></a>
+           <a href='mounting-flight-controller.html'><strong>飞控 · 外部定位</strong><span>把 Neo 位姿接入飞控定位融合</span><span>要求：匹配的串口、电平与供电</span><b>接入飞控 →</b></a>
+         </div>
+       </div>
+     </div>
+   </div>
 
-公网 HTTPS 页面内嵌本地 HTTP 设备可能被浏览器安全策略或设备的嵌入策略拦截。
-预览空白时使用“新窗口打开”，教程仍保留在原标签页；无法内嵌不代表设备离线。
-本地 HTTP 预览也受浏览器网络权限和设备嵌入策略影响，以实际显示设备界面为准。
-跨站预览不读取设备内部状态，不将 iframe 加载事件视为连接成功。
+固定到机器人后，安装位置与朝向的配置见 :doc:`mount-settings`；读取串口数据见 :doc:`serial-pose`。
 
-串口接线前提
+选择供电方式
 ------------
 
-Neo 与飞控使用 3.3 V LVTTL 串口：Neo TX 接飞控 RX，Neo RX 接飞控 TX，GND 共地。
-不能直接接 RS-232。产品手册 V1.1 对硬件 v1.5 给出的 6pin VIN 范围为 3.3–5 V；
-接口中的同步信号为 1.8 V，不能当作 3.3 V 串口脚使用。
+.. list-table::
+   :header-rows: 1
+   :widths: 25 40 35
 
-实体插头方向与针号必须按对应硬件手册核对，不从网页模型推断。
-飞控不同端口的供电脚电压不同，接入前确认电源规格；具体配置流程见 :doc:`mounting-flight-controller`。
+   * - 场景
+     - 如何供电
+     - 必须确认
+   * - USB 接电脑
+     - 由设备 Type-C 接口供电
+     - 线材能传数据，连接稳定
+   * - USB 接手机
+     - 手机主机端或合适的外部供电方案
+     - 手机供电能力和 OTG 模式
+   * - 串口独立运行
+     - 合适的稳压电源接 VIN/GND
+     - VIN 电压、极性与共地
 
-C V3.9 外壳模型
-----------------
+硬件 v1.5 对应资料中，6pin VIN 输入为 **3.3–5 V**，串口逻辑电平为 **3.3 V LVTTL**。
+这是两个不同参数：允许 VIN 接 5 V 不代表 UART_RX 可以接 5 V 信号。
+不要直接接 RS-232；不要把未知飞控电源脚或 TTL 模块 VCC 当作合适电源。
 
-本次提供的 STL 按 mm 使用。按三角网格包围盒测量，上壳为 43.8 × 23.8 × 10.89 mm，底壳为 43.8 × 23.8 × 5.10 mm。
-这两项高度是零件尺寸，不能直接相加作为装配总高；装配需核对搭接位置、镜头及硬件版本。
-
-* `上壳 STL <../upper_C_V3.9_top_down_mm.stl>`_
-* `底壳 STL <../bottom_C_V3.9_mm.stl>`_
+手册描述 USB 与 6pin 同时供电时优先 USB 并自动切换，但接线前仍应核对硬件版本。
+首次测试优先使用一种明确、稳定的供电方式。没有核定供电电流数据时，不用猜测值作为电源选型保证。
