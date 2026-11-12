@@ -38,3 +38,9 @@ python3 -m http.server 8000 --directory tmp/site
 后台前提：GitHub Settings → Pages → Source 为 GitHub Actions。`tmp/site/docs/` 为文档发布目录；构建排除 .doctrees、_sources、.buildinfo 和 source map，保留下载契约、主题资源和搜索索引。遗留 Read the Docs 配置仅供历史兼容，不参与当前发布。
 
 快速开始中的网络检测只有用户点击才发送一次 GET，不改变设备。HTTPS 站点访问 HTTP 设备可能受浏览器本地网络权限或混合内容策略限制，检测失败不代表设备离线；始终提供直接打开设备页面的链接。
+
+## 模型遮挡回归
+
+首页与轨迹演示共用 `site/model-depth.js`，使用逐像素深度测试绘制模型；浏览器无法使用 WebGL 时回退到软件深度缓冲。外壳、镜头和接口按几何深度遮挡。
+
+构建完成后运行 `node tools/check_model.cjs`；需要 Playwright Core（可通过 `PLAYWRIGHT_MODULE` 指定安装位置），`CHROME_PATH` 指定浏览器。测试覆盖相交面的遮挡与绘制顺序、WebGL/软件两条路径、裸机/带壳旋转、俯仰、手机宽度和轨迹进度操作。截图默认保存到 `release/model-depth/`；`MODEL_TEST_OUTPUT` 可更改结果目录，`SITE_URL` 可指定线上站点。

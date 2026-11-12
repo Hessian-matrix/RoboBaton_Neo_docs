@@ -66,13 +66,9 @@ box([11.94,0,-15.3],[.1,12.5,2.3],'#81998a');box([12.01,0,-15.3],[.1,11.5,1.3],'
 const tfSlotFaces=faces.splice(tfSlotStart);
 const caseFaces=faces;faces=bareFaces;
 function model(projector){
- const projected=fs=>fs.map(f=>{const points=f.points.map(projector);return {...f,points,depth:points.reduce((s,p)=>s+p[2],0)/points.length}}).sort((a,b)=>a.depth-b.depth);
- const queue=projected(variant==='case'?caseFaces:bareFaces);
- // Connector surfaces sit on the end wall: draw after it when facing the viewer.
- // Sorting thin connector boxes against the whole wall by centroid hid the lower port.
- if(variant==='case'&&projector([0,32,-14])[2]>projector([0,30,-14])[2])queue.push(...projected(connectorFaces),...projected(contactFaces));
- if(variant==='case'&&projector([13,0,-15.3])[2]>projector([11,0,-15.3])[2])queue.push(...projected(tfSlotFaces));
- ctx.save();ctx.lineJoin='round';for(const f of queue){ctx.beginPath();f.points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fillStyle=f.color;ctx.fill();ctx.strokeStyle='#2d51402b';ctx.lineWidth=.45;ctx.stroke()}ctx.restore();
+ const geometry=variant==='case'?[...caseFaces,...connectorFaces,...contactFaces,...tfSlotFaces]:bareFaces;
+ const projected=geometry.map(f=>({color:f.color,points:f.points.map(projector)}));
+ drawNeoDepthModel(ctx,projected,width,height);
 }
 // Place the synthetic image on a real plane in camera space, not a screen overlay.
 // This shares the exact focal length / principal point used by imagePoint().
