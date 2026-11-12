@@ -61,7 +61,8 @@ function render(){
  const popup=false;NeoPopupRunner.configure({enabled:popup,step,base:origin(),language:$('integration-language').value});$('connection-art').hidden=step>2;$('code-view').hidden=step!==3||browser||popup;$('result-view').hidden=true;
  $('integration-back').disabled=step===1;$('integration-next').textContent=step===3?'重新选择接入方式':'下一步 →';
  $('integration-next').disabled=step===2&&!valid();$('settings-error').textContent=valid()?'':transport==='usb'?'请输入有效 IP 或 IP:端口，端口范围 1–65535。':'请填写有效串口名和正整数波特率，以设备实际配置为准。';
- if(step===3){createCode();if(!browser&&!examples) $('code-status').textContent='示例正在加载；若加载失败请刷新重试。'}
+ createCode();
+ if(step===3){if(!browser&&!examples) $('code-status').textContent='示例正在加载；若加载失败请刷新重试。'}
  if(step===3){result();if(browser){$('verification-intro').textContent='左侧只显示本次从设备收到的结果，移动设备观察变化。';$('coordinate-note').textContent=transport==='serial'?'位置单位米，姿态顺序 w/x/y/z；以输出 frame_id 与 child_frame_id 核对坐标系。':'位置单位米，四元数为 x/y/z/w；HTTP 位姿以 IMU 为参考。';$('verify-list').replaceChildren();}}
 }
 function go(next){if(next>2&&!valid()){step=2;render();return}step=next;render()}

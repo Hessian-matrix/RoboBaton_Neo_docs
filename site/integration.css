@@ -45,3 +45,7 @@
 /* Both modes contribute to the same grid track; switching never resizes it. */
 .run-method-content{display:grid;align-items:start;min-width:0}.run-method-content>#manual-run-panel,.run-method-content>#ai-run-panel{grid-area:1/1;min-width:0;display:block!important}.run-method-content>#manual-run-panel[hidden],.run-method-content>#ai-run-panel[hidden]{display:block!important;visibility:hidden;pointer-events:none}
 #ai-copy-status{box-sizing:border-box;min-height:3.6em;line-height:1.8;margin:8px 0;font-size:13px}#code-status{min-height:3.6em;line-height:1.8}.run-methods button{font-weight:500}.run-method-content .run-command{overflow-wrap:anywhere;white-space:pre-wrap}
+
+/* Reserve every step in the shared grid, including hidden steps. */
+.integration .integration-card .integration-copy>.step-content[hidden]{display:block!important;visibility:hidden;pointer-events:none}
+.integration .integration-card .integration-visual>#connection-art[hidden]{display:grid!important;visibility:hidden;pointer-events:none}
