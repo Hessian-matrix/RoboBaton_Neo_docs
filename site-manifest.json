@@ -5,6 +5,7 @@
   "applications.css",
   "applications.js",
   "benchmark-results.json",
+  "bottom_C_V3.9_mm.stl",
   "browser-receiver.js",
   "browser-runner.css",
   "browser-runner.js",
@@ -30,6 +31,8 @@
   "neo-bare-dimensions.png",
   "neo-bare-side.png",
   "neo-bare-top.png",
+  "neo-shell-bottom.png",
+  "neo-shell-upper.png",
   "performance.css",
   "port-scene.js",
   "product-cad.js",
@@ -47,5 +50,6 @@
   "three-LICENSE.txt",
   "three.module.js",
   "tutorial-scroll.css",
-  "tutorial-scroll.js"
+  "tutorial-scroll.js",
+  "upper_C_V3.9_top_down_mm.stl"
 ]
