@@ -3,3 +3,5 @@
 @media(max-width:480px){.runner-position{grid-template-columns:1fr;gap:4px}.runner-position span{display:flex;align-items:center;justify-content:space-between;padding:6px 10px}.runner-position b{margin:0;font-size:16px}.runner-top{flex-wrap:wrap}}
 
 .connector-download{display:inline-flex;padding:10px 15px;border:1px solid var(--line,#c5d8cc);border-radius:9px;font-weight:650;text-decoration:none}#connector-guide{margin:12px 0 16px}#connector-guide .quiet{font-size:13px;line-height:1.6;margin:8px 0}#connector-guide[hidden]{display:none}
+
+#popup-runner{background:#fff;border:1px solid #d6e4db;border-radius:12px;padding:18px;box-sizing:border-box;max-height:520px;overflow:auto;min-width:0}#popup-runner[hidden]{display:none!important}#popup-status{font-size:14px;line-height:1.7;min-height:44px;color:#355c49}#popup-output,#popup-code{font:12px/1.7 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:190px;overflow:auto;color:#355c49}#popup-runner details,#popup-engine{font-size:12px;color:#52775f}#popup-runner summary{cursor:pointer}
