@@ -8,8 +8,8 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'tmp/site'
-DOCS = ROOT / 'tmp/docs'
-DOCS_URL = 'https://neo-docs.readthedocs.io/zh-cn/latest/'
+DOCS = SITE / 'docs'
+DOCS_URL = 'docs/'
 
 class Page(HTMLParser):
     def __init__(self, text):
@@ -25,7 +25,11 @@ class Page(HTMLParser):
         self.text.append(data)
 
 names = json.loads((ROOT / 'site-manifest.json').read_text())
-assert {p.name for p in SITE.iterdir()} == set(names) | {'.nojekyll'}
+assert {p.name for p in SITE.iterdir()} == set(names) | {'.nojekyll', 'docs'}
+assert (DOCS / 'searchindex.js').is_file()
+assert (DOCS / 'search.html').is_file()
+assert not (DOCS / '.doctrees').exists()
+assert not (DOCS / '_sources').exists()
 for name in names:
     data = (SITE / name).read_bytes()
     assert data == (ROOT / 'site' / name).read_bytes(), name
@@ -39,7 +43,7 @@ for name in names:
         parsed = urlsplit(link)
         if parsed.scheme or parsed.netloc or not parsed.path:
             continue
-        assert Path(parsed.path).as_posix() in names, (name, link)
+        assert Path(parsed.path).as_posix() in names or parsed.path == 'docs/', (name, link)
         if parsed.query.startswith('v='):
             digest = hashlib.sha256((SITE / parsed.path).read_bytes()).hexdigest()[:12]
             assert digest == parsed.query[2:], (name, 'stale cache hash', link)

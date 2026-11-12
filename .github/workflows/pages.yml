@@ -1,4 +1,4 @@
-name: Publish product website
+name: Publish product website and documentation
 on:
   push:
     branches: [master]
@@ -26,6 +26,8 @@ jobs:
         run: python tools/build_site.py
       - name: Verify shared content and links
         run: python tools/check_site.py
+      - name: Verify deployed documentation links
+        run: python tools/check_docs.py tmp/site/docs
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
         with:

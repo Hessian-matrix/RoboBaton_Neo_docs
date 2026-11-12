@@ -29,7 +29,7 @@ const digest = b => crypto.createHash('sha256').update(b).digest('hex');
       for (const filename of ['index.html','quick-start.html']) {
         await page.goto(base+filename,{waitUntil:'networkidle'});
         assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'horizontal overflow');
-        assert.equal(await page.locator('nav[aria-label=主导航] a').last().getAttribute('href'),'https://neo-docs.readthedocs.io/zh-cn/latest/');
+        assert.equal(await page.locator('nav[aria-label=主导航] a').last().getAttribute('href'),'docs/');
         const target=filename==='index.html'?page.locator('.hero'):page.locator('body');
         const screenshot=await target.screenshot({animations:'disabled'});
         fs.writeFileSync(path.join(output,`${filename}-${width}.png`),screenshot);
