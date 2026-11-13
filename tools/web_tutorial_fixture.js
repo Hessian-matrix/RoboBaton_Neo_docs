@@ -25,7 +25,7 @@
     browser.startCalibration = async () => calibration;
     browser.stopCalibration = async () => calibration;
     let previewEnabled = false;
-    function drawPreview(canvas) {
+    function drawPreview(canvas, orient = true) {
         canvas.width = 544; canvas.height = 640;
         const context = canvas.getContext('2d');
         context.fillStyle = '#e7ece9'; context.fillRect(0, 0, 544, 640);
@@ -35,7 +35,7 @@
         }
         context.fillStyle = '#244d40'; context.font = '24px sans-serif';
         context.fillText('↑ UP · 演示图像', 125, 610);
-        if (canvas.parentElement) globalThis.RoboBatonNeoPreviewOrientation?.apply(canvas.parentElement, 544, 640);
+        if (orient && canvas.parentElement) globalThis.RoboBatonNeoPreviewOrientation?.apply(canvas.parentElement, 544, 640);
     }
     browser.setPreview = value => { previewEnabled = value; };
     browser.previewStatus = () => ({connected: true, width: 544, height: 640, rate_hz: 15});
@@ -56,7 +56,19 @@
         }, 200);
         return stream;
     };
-    browser.subscribeImu = () => () => {};
+    browser.subscribeImu = callback => {
+        let sample = 0;
+        const timer = setInterval(() => {
+            const samples = Array.from({length: 10}, () => {
+                const time = ++sample / 200;
+                return [String(sample * 5000000), Math.sin(time * 3) * 2, Math.cos(time * 2) * 1.5,
+                    9.81 + Math.sin(time * 4) * 0.8, Math.sin(time * 2) * 0.3,
+                    Math.cos(time * 3) * 0.2, Math.sin(time) * 0.4];
+            });
+            callback({type: 'imu', frame_id: sample, samples});
+        }, 50);
+        return () => clearInterval(timer);
+    };
     let usbResult = null;
     browser.startSelectedRecording = async channels => {
         calibration.usb_recording = true; calibration.record_state = 'recording';
@@ -78,7 +90,7 @@
             calibration.state = 'CAPTURING'; calibration.recording = true;
             calibration.record_images = 120; calibration.record_imu = 4800; calibration.record_duration_s = 24;
             calibration.diagnostics = {image_live: true};
-            calibration.auto_capture = {minimum_ready: true, visual: {valid: true}};
+            calibration.action_coverage = {minimum_ready: true, count: 8, total: 8, completed: Object.fromEntries(['framing', 'roll', 'pitch', 'yaw', 'translation_horizontal', 'translation_vertical', 'translation_depth', 'combined'].map(name => [name, true])), framing_regions: Array(9).fill(true), visual: {valid: true}};
         }
         if (url.endsWith('/guide/next') && body.finish) {
             completed(); calibration.workflow.jobs[session].state = 'EUROC_READY';
@@ -87,10 +99,11 @@
             calibration.workflow.jobs[session].state = 'CALIBRATING';
             calibration.workflow.active_job = session;
             setTimeout(() => { completed(); calibration.workflow.active_job = null; }, 800);
+            if (url.endsWith('/solve-filtered')) result = {session};
         }
         if (url.endsWith('/cancel')) { calibration.state = 'IDLE'; calibration.recording = false; }
         if (url.endsWith('/parameters/save')) calibration.workflow.jobs[session].parameter_deployment = {state: 'SAVED', path: '/home/VIO/parameters/'};
-        if (url.includes('frame-review')) result = {session, source_run: 'demo', input_sha256: '0'.repeat(64), frames: Array.from({length: 60}, (_, index) => ({timestamp: String(index + 1), filename: String(index + 1) + '.png', rms_px: index < 3 ? 1.5 : 0.2, corners: 60}))};
+        if (url.includes('frame-review')) result = {session, source_run: 'demo', input_sha256: '0'.repeat(64), frames: Array.from({length: 60}, (_, index) => ({timestamp: String(index + 1), filename: String(index + 1) + '.png', rms_px: index < 3 ? 1.5 : 0.2, max_px: index < 3 ? 2.1 : 0.4, corners: 60}))};
         return new Response(JSON.stringify(result), {headers: {'Content-Type': 'application/json'}});
     };
     browser.downloadCalibration = () => {
@@ -126,8 +139,12 @@
         let sequence = 0;
         setInterval(() => {
             const time = ++sequence / 20;
+            calibration.preview.last_frame_time = Date.now() / 1000;
+            calibration.preview.frame_count = sequence;
+            const calibrationImage = document.getElementById('calibrationImage');
+            if (calibrationImage && !document.getElementById('calibrationPage').hidden) drawPreview(calibrationImage, false);
             browser.acceptPublicOdometry({type: 'connection', connected: true});
-            browser.acceptPublicOdometry({type: 'state', frame_id: String(sequence), timestamp_ns: String(sequence * 50000000), valid: true, position: [Math.sin(time) * 0.5, Math.cos(time) * 0.5, time * 0.01], quaternion_wxyz: [1,0,0,0], velocity: [0.1,0,0], angular_velocity: [0,0,0.1], confidence: 0.95, trip_distance_m: time * 0.1});
+            browser.acceptPublicOdometry({type: 'state', frame_id: String(sequence), timestamp_ns: String(sequence * 50000000), valid: true, position: [Math.sin(time) * 3, Math.cos(time) * 3, Math.sin(time / 2) * 0.4], quaternion_wxyz: [Math.cos(time / 8),0,0,Math.sin(time / 8)], velocity: [Math.cos(time) * 3,-Math.sin(time) * 3,Math.cos(time / 2) * 0.2], angular_velocity: [0,0,0.25], confidence: 0.95, trip_distance_m: time * 3});
             if (previewEnabled) {
                 drawPreview(document.getElementById('imageCanvas'));
                 document.getElementById('cameraPlaceholder').hidden = true;

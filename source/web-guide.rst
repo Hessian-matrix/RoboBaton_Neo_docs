@@ -4,81 +4,27 @@
 1. 打开设备网页
 ---------------
 
-连接 Neo 后，打开：
+.. raw:: html
 
-`http://192.168.11.1/ <http://192.168.11.1/>`_
-
-如果修改过设备地址，请使用实际地址；连接方法见 :doc:`connect-computer` 或 :doc:`connect-phone`。
+   <div class="device-entry">
+     <span class="device-entry-label">连接 Neo 后，在浏览器打开</span>
+     <a class="device-entry-address" href="http://192.168.11.1/" target="_blank" rel="noopener"><span>http://192.168.11.1/</span><span class="device-entry-arrow" aria-hidden="true">↗</span></a>
+     <div class="device-entry-help"><span>连接帮助</span><a href="connect-computer.html">接入电脑</a><a href="connect-phone.html">接入手机</a></div>
+   </div>
 
 2. 认识功能页面
 ---------------
 
-.. figure:: _static/manual/web-overview.png
-   :alt: Neo设备网页总览：1顶部导航与连接状态，2左侧功能控制，3中央轨迹与图像，4右侧位姿读数
-   :target: _static/manual/web-overview.png
-   :figclass: web-overview-figure
-
-   实时视图 · 点击图片可放大
+通过顶部导航切换页面；点击页面名称查看操作，点击截图放大。
 
 .. raw:: html
 
-   <div class='web-overview-keys'>
-     <div><strong>01 · 导航与设备状态</strong></div>
-     <div><strong>02 · 功能控制</strong></div>
-     <div><strong>03 · 图像与轨迹</strong></div>
-     <div><strong>04 · 位姿读数</strong></div>
+   <div class="web-page-grid">
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-vioTab-annotated.png" aria-label="放大实时视图页面截图"><img src="_static/manual/page-vioTab-annotated.png" alt="实时视图页面：启停定位、运动轨迹、相机图像、位姿读数" loading="lazy"></a><div class="web-page-card-body"><h3><a href="positioning.html">实时视图<span aria-hidden="true"> ↗</span></a></h3><p>查看图像、运动轨迹与位姿，启停定位。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-flightTab-annotated.png" aria-label="放大飞控接入页面截图"><img src="_static/manual/page-flightTab-annotated.png" alt="飞控接入页面：接入步骤、搜索飞控、连接状态" loading="lazy"></a><div class="web-page-card-body"><h3><a href="flight-page.html">飞控接入<span aria-hidden="true"> ↗</span></a></h3><p>配置飞控连接，查看外部定位接入状态。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-buttonTab-annotated.png" aria-label="放大设备设置页面截图"><img src="_static/manual/page-buttonTab-annotated.png" alt="设备设置页面：设置分类、设备地址、修改地址、保存设置" loading="lazy"></a><div class="web-page-card-body"><h3><a href="device-settings.html">设备设置<span aria-hidden="true"> ↗</span></a></h3><p>设置网络、实体按键与开机行为。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-mountTab-annotated.png" aria-label="放大安装补偿页面截图"><img src="_static/manual/page-mountTab-annotated.png" alt="安装补偿页面：安装参数、三维预览、保存配置" loading="lazy"></a><div class="web-page-card-body"><h3><a href="mount-settings.html">安装补偿<span aria-hidden="true"> ↗</span></a></h3><p>设置设备相对机器人参考点的位置与朝向。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-recordTab-annotated.png" aria-label="放大数据管理页面截图"><img src="_static/manual/page-recordTab-annotated.png" alt="数据管理页面：筛选来源、存储状态、录制列表" loading="lazy"></a><div class="web-page-card-body"><h3><a href="recording.html">数据管理<span aria-hidden="true"> ↗</span></a></h3><p>录制数据，查看、下载与导出文件。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-calibrationTab-annotated.png" aria-label="放大标定页面截图"><img src="_static/manual/page-calibrationTab-annotated.png" alt="标定页面：设备参数、标定向导、屏幕标定板、采集状态" loading="lazy"></a><div class="web-page-card-body"><h3><a href="calibration.html">标定<span aria-hidden="true"> ↗</span></a></h3><p>采集标定数据，求解并保存相机与 IMU 参数。</p></div></div>
+     <div class="web-page-card"><a class="page-preview" href="_static/manual/page-updateTab-annotated.png" aria-label="放大在线更新页面截图"><img src="_static/manual/page-updateTab-annotated.png" alt="在线更新页面：版本与状态、选择安装包、上传并校验" loading="lazy"></a><div class="web-page-card-body"><h3><a href="maintenance.html">在线更新<span aria-hidden="true"> ↗</span></a></h3><p>上传更新包，查看安装进度与运行版本。</p></div></div>
    </div>
-
-通过顶部导航切换页面。每个页面的用途如下，点击名称查看具体操作。
-
-.. list-table::
-   :header-rows: 1
-   :widths: 24 76
-   :class: web-page-index
-
-   * - 页面
-     - 主要用途
-   * - :doc:`实时视图 <positioning>`
-     - 启停定位，查看图像、运动轨迹和位姿；图像、IMU 与深度的详细操作见 :doc:`imaging`。
-   * - :doc:`飞控接入 <flight-page>`
-     - 查看飞控连接状态，配置外部定位接入并确认结果。
-   * - :doc:`设备设置 <device-settings>`
-     - 修改网络地址、实体按键动作和开机行为。
-   * - :doc:`安装补偿 <mount-settings>`
-     - 设置 Neo 相对机器人参考点的安装位置与朝向。
-   * - :doc:`数据管理 <recording>`
-     - 选择录制数据与保存位置，查看、下载和导出录制结果。
-   * - :doc:`标定 <calibration>`
-     - 采集标定数据，求解、查看并保存相机与 IMU 参数。
-   * - :doc:`在线更新 <maintenance>`
-     - 上传更新包、安装更新、重启设备并核对版本。
-   * - :doc:`代码示例 <api-examples>`
-     - 查看程序接入示例，读取位姿、图像等数据。
-
-操作演示
---------
-
-.. raw:: html
-
-   <details class='computer-help'><summary>打开网页、切换页面、语言与主题</summary>
-
-.. web-tutorials:: navigation
-
-.. raw:: html
-
-   </details>
-   <details class='computer-help'><summary>在网页中查找和使用代码示例</summary>
-
-.. web-tutorials:: examples
-
-.. raw:: html
-
-   </details>
-
-.. container:: doc-next
-
-   定位操作见 :doc:`positioning`；程序接入见 :doc:`api-examples`。
-
-.. container:: product-footnote
-
-   \* 截图与视频为演示数据。

@@ -1,0 +1,70 @@
+.bd-sidebar-primary {
+  --pst-sidebar-font-size: 14px;
+  padding: 24px 16px;
+}
+.docs-sidebar-home {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px 18px;
+  color: var(--pst-color-text-base);
+  text-decoration: none;
+}
+.docs-sidebar-home:hover { text-decoration: none; }
+.docs-sidebar-product { font-size: 18px; font-weight: 650; letter-spacing: -.4px; }
+.docs-sidebar-label { color: var(--pst-color-text-muted); font-size: 12px; }
+.bd-sidebar-primary .sidebar-primary-item { padding: 0; }
+.bd-sidebar-primary .search-button-field {
+  width: 100%;
+  margin: 0 0 4px;
+  padding: 9px 12px;
+  border: 1px solid var(--baton-line);
+  border-radius: 8px;
+  background: var(--pst-color-background);
+  box-shadow: none;
+  font-size: 13px;
+}
+.bd-sidebar-primary .bd-links { padding: 0; }
+.bd-sidebar-primary .bd-links .caption {
+  margin: 24px 0 7px;
+  padding: 0 12px;
+  line-height: 1.6;
+}
+.bd-sidebar-primary .caption-text {
+  color: var(--pst-color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.bd-sidebar-primary .bd-sidenav { margin: 0; padding: 0; }
+.bd-sidebar-primary .bd-sidenav > li { margin: 2px 0; padding: 0; }
+.bd-sidebar-primary .bd-sidenav > li > a {
+  display: block;
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--pst-color-text-base);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.bd-sidebar-primary .bd-sidenav > li > a:hover {
+  background: var(--baton-summary-bg);
+}
+.bd-sidebar-primary .bd-sidenav > li.current > a,
+.bd-sidebar-primary .bd-sidenav > li.active > a {
+  background: var(--baton-summary-bg);
+  color: var(--baton-accent);
+  font-weight: 600;
+  box-shadow: inset 2px 0 var(--baton-accent);
+}
+.bd-sidebar-primary .bd-sidenav ul { padding-left: 12px; }
+.bd-sidebar-primary .bd-sidenav .toctree-toggle { margin: 0; }
+.docs-sidebar-home:focus-visible,
+.bd-sidebar-primary .bd-sidenav a:focus-visible {
+  outline: 2px solid var(--baton-accent);
+  outline-offset: 2px;
+}

@@ -28,7 +28,7 @@ Neo 使用文档
    :maxdepth: 1
    :caption: 01 · Neo 性能与参数
 
-   性能参数与能力范围 <product>
+   硬件与定位性能 <product>
 
 .. toctree::
    :hidden:
@@ -39,7 +39,7 @@ Neo 使用文档
    接入电脑 <connect-computer>
    接入手机 <connect-phone>
    串口接线 <connect-serial>
-   插入与准备 TF 卡 <install-tf>
+   TF 卡准备 <install-tf>
 
 .. toctree::
    :hidden:
@@ -49,11 +49,11 @@ Neo 使用文档
    网页总览 <web-guide>
    实时视图 <positioning>
    图像、IMU 与深度 <imaging>
-   安装补偿页面 <mount-settings>
-   飞控接入页面 <flight-page>
-   数据管理页面 <recording>
-   标定页面 <calibration>
-   网络、按键与开机设置 <device-settings>
+   安装补偿 <mount-settings>
+   飞控接入 <flight-page>
+   数据管理 <recording>
+   相机与 IMU 标定 <calibration>
+   设备设置 <device-settings>
    在线更新与重启 <maintenance>
 
 .. toctree::

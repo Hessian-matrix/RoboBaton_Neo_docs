@@ -1,4 +1,6 @@
 .web-lesson { margin-block: 2.5rem; scroll-margin-top: 6rem; }
+.tutorial-notes { border-top: 1px solid var(--baton-line); padding-top: 1rem; margin-top: 2rem; }
+.tutorial-notes p { margin-bottom: .4rem; }
 .web-tutorial-player { border: 1px solid var(--baton-line); border-radius: 16px; overflow: hidden; margin-block: 1rem; }
 .web-tutorial-screen { min-width: 0; background: var(--pst-color-on-background); }
 .web-tutorial-screen video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; }
@@ -10,5 +12,21 @@
 .web-tutorial-steps button span { color: var(--baton-accent); font-variant-numeric: tabular-nums; }
 .web-tutorial-steps button[aria-current="step"] { border-left-color: var(--baton-accent); background: var(--pst-color-on-background); font-weight: 600; }
 .web-tutorial-steps button:focus-visible { outline: 2px solid var(--baton-accent); outline-offset: 2px; }
-@media (min-width: 1500px) { .web-tutorial-player { display: grid; grid-template-columns: minmax(0, 3fr) minmax(210px, 1fr); } }
+.web-tutorial-player { display: block; }
+.web-tutorial-directions { border-top: 1px solid var(--baton-line); }
+.bd-main .bd-content .bd-article-container { max-width: 1040px; width: 100%; }
+.bd-header-article .secondary-toggle { display: none; }
+.docs-toc-rail { flex: 0 0 76px; width: 76px; position: sticky; top: calc(var(--pst-header-height) + 16px); align-self: flex-start; margin: 28px 8px 0 0; z-index: 25; }
+.docs-page-toc { position: relative; width: 76px; margin: 0; border: 1px solid var(--baton-line); border-radius: 8px; font-size: 13px; background: var(--pst-color-background); }
+.docs-page-toc summary { padding: 8px 10px; min-height: 38px; cursor: pointer; color: var(--pst-color-text-muted); white-space: nowrap; }
+.docs-page-toc nav { position: absolute; top: calc(100% + 8px); right: 0; width: min(280px, calc(100vw - 32px)); padding: 12px 16px; max-height: 60vh; overflow: auto; background: var(--pst-color-background); border: 1px solid var(--baton-line); border-radius: 8px; }
+.docs-page-toc nav ul { list-style: none; padding-left: 16px; margin: 0; }
+.docs-page-toc nav > ul { padding-left: 0; }
+.docs-page-toc nav a { display: block; padding: 5px 0; text-decoration: none; }
+.docs-page-toc nav a:hover { text-decoration: underline; }
+.docs-page-toc summary:focus-visible { outline: 2px solid var(--baton-accent); outline-offset: 2px; }
+@media (max-width: 1199px) {
+  .docs-toc-rail { position: fixed; right: 16px; top: auto; bottom: 20px; margin: 0; }
+  .docs-page-toc nav { top: auto; bottom: calc(100% + 8px); }
+}
 @media (max-width: 600px) { .web-tutorial-directions { padding: .7rem; } .web-tutorial-steps button { font-size: .9rem; } }

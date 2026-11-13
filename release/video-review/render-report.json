@@ -1,0 +1,2908 @@
+{
+  "passed": true,
+  "realDevice": false,
+  "videos": [
+    {
+      "id": "vio-control",
+      "title": "启停定位",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "df978290419f630faca3b87f785d971d90deb5505e48a01004a96e62a7e10103",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "vio-control",
+          "captureSha256": "340326c11ad4f627bc1171fdc474ad3cc56013265224b411e1c9db45309671a3"
+        }
+      ],
+      "checks": [
+        {
+          "source": "vio-control",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#algoToggle"
+        },
+        {
+          "source": "vio-control",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7472527472527473,
+          "targetContained": true,
+          "selector": "#algorithmStatus + #algoToggle"
+        },
+        {
+          "source": "vio-control",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.73224043715847,
+          "targetContained": true,
+          "selector": "#algorithmStatus"
+        },
+        {
+          "source": "vio-control",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.73224043715847,
+          "targetContained": true,
+          "selector": "#algorithmStatus"
+        },
+        {
+          "source": "vio-control",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#algoToggle"
+        },
+        {
+          "source": "vio-control",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7472527472527473,
+          "targetContained": true,
+          "selector": "#algorithmStatus + #algoToggle"
+        }
+      ],
+      "storyboard": "vio-control-storyboard.jpg"
+    },
+    {
+      "id": "monitor-panel",
+      "title": "查看 IMU 数据",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "0e000d00f4333e946d261f185119d8f06cad298e87f335d60df1da10fa4dd29f",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "monitor-panel",
+          "captureSha256": "efd6b01db81b5060ae67cbbe632303770c325d5f645e98487debeedd0d8783f3"
+        }
+      ],
+      "checks": [
+        {
+          "source": "monitor-panel",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7472527472527473,
+          "targetContained": true,
+          "selector": "#railMonitorTab"
+        },
+        {
+          "source": "monitor-panel",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#imuAccelValue + #imuGyroValue + #imuSampleRate + #imuReceiveRate"
+        },
+        {
+          "source": "monitor-panel",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#imuAccelChart"
+        },
+        {
+          "source": "monitor-panel",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#imuAccelChart"
+        },
+        {
+          "source": "monitor-panel",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#imuGyroChart"
+        },
+        {
+          "source": "monitor-panel",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#imuGyroChart"
+        }
+      ],
+      "storyboard": "monitor-panel-storyboard.jpg"
+    },
+    {
+      "id": "record-capture",
+      "title": "开始与结束录制",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "d056f45ca96bb0785a6b5bd5affc1e8d6b6d5f936661938cfe8807d6f82c6f6d",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "record-tf",
+          "captureSha256": "3299c3f579a051d3ae2e673c81c783653c2a9f15418c7f8da983e2d089818c14"
+        },
+        {
+          "id": "record-browser",
+          "captureSha256": "1a797652a4de827b2c8bbc3890d780d79e3289a3d367b8a23cf58a5a04228869"
+        }
+      ],
+      "checks": [
+        {
+          "source": "record-tf",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStartBtn"
+        },
+        {
+          "source": "record-tf",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStopBtn + #captureRecordDuration + #captureRecordCounts"
+        },
+        {
+          "source": "record-tf",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#captureRecordState"
+        },
+        {
+          "source": "record-tf",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStopBtn + #captureRecordDuration + #captureRecordCounts"
+        },
+        {
+          "source": "record-tf",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStopBtn"
+        },
+        {
+          "source": "record-tf",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStartBtn + #captureRecordDuration + #captureRecordCounts"
+        },
+        {
+          "source": "record-browser",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-browser",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-browser",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStartBtn"
+        },
+        {
+          "source": "record-browser",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStopBtn"
+        },
+        {
+          "source": "record-browser",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordStopBtn"
+        },
+        {
+          "source": "record-browser",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 1.250048830032423,
+          "targetContained": true,
+          "selector": "[data-id=\"usb:browser-tutorial-demo\"] .dataset-identity + [data-id=\"usb:browser-tutorial-demo\"] .dataset-state + [data-id=\"usb:browser-tutorial-demo\"] .dataset-metrics"
+        }
+      ],
+      "storyboard": "record-capture-storyboard.jpg"
+    },
+    {
+      "id": "calibration-review",
+      "title": "检查结果并保存参数",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "09caf51024b7a2fe05a103855a423a521a94a842d23a891f02d0ea0ff4c482a1",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "calibration-results",
+          "captureSha256": "1c1c9295c75fc7f7a5279f2bd4c85d2b51050eb292d7364217957ae9ffffae82"
+        },
+        {
+          "id": "calibration-filter",
+          "captureSha256": "681efedc967213abccda93e4a625d52dc0061a0e3777a18cb9dd95492e37e8dc"
+        },
+        {
+          "id": "calibration-save",
+          "captureSha256": "37bab7fd9c019d6f1d90b748fd14692ea37412db290c854366818234f05bc578"
+        }
+      ],
+      "checks": [
+        {
+          "source": "calibration-results",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#viewResultBtn"
+        },
+        {
+          "source": "calibration-results",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.3711497407746265,
+          "targetContained": true,
+          "selector": "#intrinsicsList"
+        },
+        {
+          "source": "calibration-results",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 1.3711497407746265,
+          "targetContained": true,
+          "selector": "#intrinsicsList"
+        },
+        {
+          "source": "calibration-results",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.3711497407746265,
+          "targetContained": true,
+          "selector": "#intrinsicsList"
+        },
+        {
+          "source": "calibration-results",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 1.8050541516245486,
+          "targetContained": true,
+          "selector": "#resultFiles"
+        },
+        {
+          "source": "calibration-results",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.8050541516245486,
+          "targetContained": true,
+          "selector": "#resultFiles"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 0.9363295880149812,
+          "targetContained": true,
+          "selector": "#frameFilterPanel summary"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 0.9079618316756703,
+          "targetContained": true,
+          "selector": "#frameFilterPanel"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#frameFilterThreshold"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 0.9079618316756703,
+          "targetContained": true,
+          "selector": "#frameFilterPanel"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#frameFilterSolve"
+        },
+        {
+          "source": "calibration-filter",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#jobState"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#downloadSessionZip"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#downloadSessionZip"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#saveBoardParametersBtn"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#savedResultPath"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#savedResultPath"
+        },
+        {
+          "source": "calibration-save",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#savedResultPath"
+        }
+      ],
+      "storyboard": "calibration-review-storyboard.jpg"
+    },
+    {
+      "id": "trajectory-views",
+      "title": "查看运动轨迹",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "9d762e3c764eb9e274983ac1709c5751a79d7d91a17ead50eccde7141479c904",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "trajectory-views",
+          "captureSha256": "a626b22543208d448658e5858f78d38c2caf6dc126d2739f38a079577162f583"
+        }
+      ],
+      "checks": [
+        {
+          "source": "trajectory-views",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-scene-view=\"follow\"]"
+        },
+        {
+          "source": "trajectory-views",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 0.8646153846153847,
+          "targetContained": true,
+          "selector": "#trajCanvas"
+        },
+        {
+          "source": "trajectory-views",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-scene-view=\"top\"]"
+        },
+        {
+          "source": "trajectory-views",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 0.8646153846153847,
+          "targetContained": true,
+          "selector": "#trajCanvas"
+        },
+        {
+          "source": "trajectory-views",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-scene-view=\"iso\"]"
+        },
+        {
+          "source": "trajectory-views",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 0.8646153846153847,
+          "targetContained": true,
+          "selector": "#trajCanvas"
+        }
+      ],
+      "storyboard": "trajectory-views-storyboard.jpg"
+    },
+    {
+      "id": "pose-readout",
+      "title": "查看位姿读数",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "d5356a6400c0d114da72064bd221b39173e700d27854613eeba005adca399dc6",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "pose-readout",
+          "captureSha256": "4f3fa7163c00a72ec0094e96aacfbfd6c8256b7bb2b6ebfa00af8a1584463918"
+        }
+      ],
+      "checks": [
+        {
+          "source": "pose-readout",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#posePosition"
+        },
+        {
+          "source": "pose-readout",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.7362425178605905,
+          "targetContained": true,
+          "selector": ".pose-panel"
+        },
+        {
+          "source": "pose-readout",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[name=\"pose-format\"][value=\"quaternion\"]"
+        },
+        {
+          "source": "pose-readout",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.7362425178605905,
+          "targetContained": true,
+          "selector": ".pose-panel"
+        },
+        {
+          "source": "pose-readout",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[name=\"pose-format\"][value=\"euler\"]"
+        },
+        {
+          "source": "pose-readout",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.7362425178605905,
+          "targetContained": true,
+          "selector": ".pose-panel"
+        }
+      ],
+      "storyboard": "pose-readout-storyboard.jpg"
+    },
+    {
+      "id": "preview-toggle",
+      "title": "查看相机图像",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "fe82abd6bbf96a3def56c1bd773d66d200dfb7f6fdf8cf0b7ca01455ce9d8f67",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "preview-toggle",
+          "captureSha256": "e5e2ad836ca106f88b31b1e7df76e6de0f9a957d74973ec6312ed65f74324147"
+        }
+      ],
+      "checks": [
+        {
+          "source": "preview-toggle",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#videoToggle"
+        },
+        {
+          "source": "preview-toggle",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#videoToggle"
+        },
+        {
+          "source": "preview-toggle",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#videoToggle"
+        },
+        {
+          "source": "preview-toggle",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.8733333333333337,
+          "targetContained": true,
+          "selector": ".camera-panel"
+        },
+        {
+          "source": "preview-toggle",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#videoToggle"
+        },
+        {
+          "source": "preview-toggle",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.8733333333333337,
+          "targetContained": true,
+          "selector": ".camera-panel"
+        }
+      ],
+      "storyboard": "preview-toggle-storyboard.jpg"
+    },
+    {
+      "id": "depth-control",
+      "title": "查看相对深度",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "9c061082cdc41c1ccb043ceb23f59804f9bae2a0832095f64c2dc49adbfdb8cb",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "depth-control",
+          "captureSha256": "d4397ee73eca7aa52af562abc3bb266ad10bc013f67f2258b7ade3d9ccfd0f73"
+        }
+      ],
+      "checks": [
+        {
+          "source": "depth-control",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#depthRunToggle"
+        },
+        {
+          "source": "depth-control",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#depthRunToggle"
+        },
+        {
+          "source": "depth-control",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#depthRunToggle"
+        },
+        {
+          "source": "depth-control",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.6289855072463766,
+          "targetContained": true,
+          "selector": "#depthPreview"
+        },
+        {
+          "source": "depth-control",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#depthRunToggle"
+        },
+        {
+          "source": "depth-control",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#depthRunToggle"
+        }
+      ],
+      "storyboard": "depth-control-storyboard.jpg"
+    },
+    {
+      "id": "mount-setup",
+      "title": "选择平台与安装方向",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "0639175862d46ef56924a8ccd32da5c2316b6c46e987c926b06d53136838cd49",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "mount-platform",
+          "captureSha256": "c6edd7ce270558dd8c2f60d8771c0236cbd23b55e02d3e4592f6eaa260d7d1d3"
+        },
+        {
+          "id": "mount-coordinates",
+          "captureSha256": "d0a49715d456d221975daae1d7295ed3edf2750443cdecdc3ddb28cc560302e0"
+        },
+        {
+          "id": "mount-orientation",
+          "captureSha256": "519a0ec2b57ead96cad475b9591852bafea9e7ee3da0b56c1a8141d453f40da8"
+        }
+      ],
+      "checks": [
+        {
+          "source": "mount-platform",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRobot"
+        },
+        {
+          "source": "mount-platform",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".mount-editor-heading"
+        },
+        {
+          "source": "mount-platform",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRobot"
+        },
+        {
+          "source": "mount-platform",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".mount-editor-heading"
+        },
+        {
+          "source": "mount-platform",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRobot"
+        },
+        {
+          "source": "mount-platform",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountBodySize"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-coordinates",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountConvention"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-mount-preset=\"inverted\"]"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRotationFields"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountReset"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRotationFields"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountNumber2"
+        },
+        {
+          "source": "mount-orientation",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRotationFields"
+        }
+      ],
+      "storyboard": "mount-setup-storyboard.jpg"
+    },
+    {
+      "id": "mount-adjust",
+      "title": "调整位置并检查补偿",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "11d226b71f99400d5d7d8fae1446888a82bc8baed5315c8009e88cd6d804a5f7",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "mount-position",
+          "captureSha256": "d1969a84926a20d211b2a1e5520ac94b87b98406af8c58a78fe3eacff0775ba7"
+        },
+        {
+          "id": "mount-simulation",
+          "captureSha256": "daa280679f4084f004d92ef7f8ae38a9b591ebf3c29dd919f4c1096d5c50ee95"
+        },
+        {
+          "id": "mount-matrix",
+          "captureSha256": "0838cf883482eef099b041fb0aa88344b74543c8da4f4ca3ae384a1f607d75dc"
+        }
+      ],
+      "checks": [
+        {
+          "source": "mount-position",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountNumber3"
+        },
+        {
+          "source": "mount-position",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountPositionFields"
+        },
+        {
+          "source": "mount-position",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountNumber3"
+        },
+        {
+          "source": "mount-position",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountPositionFields"
+        },
+        {
+          "source": "mount-position",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountNumber5"
+        },
+        {
+          "source": "mount-position",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountPositionFields"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 1.4534883720930232,
+          "targetContained": true,
+          "selector": "#mountOffsetDemo"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 1.248888888888889,
+          "targetContained": true,
+          "selector": "#mountCanvas"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 1.4534883720930232,
+          "targetContained": true,
+          "selector": "#mountMotion"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 1.248888888888889,
+          "targetContained": true,
+          "selector": "#mountCanvas"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 1.4534883720930232,
+          "targetContained": true,
+          "selector": "#mountPlay"
+        },
+        {
+          "source": "mount-simulation",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 1.248888888888889,
+          "targetContained": true,
+          "selector": "#mountCanvas"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountMatrixShow"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 1.6233766233766234,
+          "targetContained": true,
+          "selector": "#mountMatrixRows"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 1.6233766233766234,
+          "targetContained": true,
+          "selector": "#mountMatrixRows"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 1.6233766233766234,
+          "targetContained": true,
+          "selector": "#mountMatrixRows"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 1.6181229773462784,
+          "targetContained": true,
+          "selector": "#mountMatrixDialog [data-mount-close]"
+        },
+        {
+          "source": "mount-matrix",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountExport"
+        }
+      ],
+      "storyboard": "mount-adjust-storyboard.jpg"
+    },
+    {
+      "id": "mount-confirm",
+      "title": "保存并回读安装配置",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "343d1131f32ca29c806da50739f01ebd0fff122b795d32e0ed02f904940d2a83",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "mount-save",
+          "captureSha256": "11bc6c4549e2cc4832de1842865572125b00a6187bbff1016bb3c6256d2240c2"
+        }
+      ],
+      "checks": [
+        {
+          "source": "mount-save",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountNumber3"
+        },
+        {
+          "source": "mount-save",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountPositionFields"
+        },
+        {
+          "source": "mount-save",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountSave"
+        },
+        {
+          "source": "mount-save",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.8129946065829936,
+          "targetContained": true,
+          "selector": ".mount-save-area"
+        },
+        {
+          "source": "mount-save",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#mountRead"
+        },
+        {
+          "source": "mount-save",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.7156212735511562,
+          "targetContained": true,
+          "selector": ".mount-save-area"
+        }
+      ],
+      "storyboard": "mount-confirm-storyboard.jpg"
+    },
+    {
+      "id": "flight-connect",
+      "title": "搜索与连接飞控",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "b1cb8a9a88d721112f04e7a4dd74b68c98ced2e2392578acabc5c9d7c3372c6c",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "flight-scan",
+          "captureSha256": "ce78467cd5823505a14e318c5803fec3c4981bff45e95745c2ab063b15f9e1f9"
+        },
+        {
+          "id": "flight-manual",
+          "captureSha256": "cfb7002ad6f061e756ff30db22b3b228f9956c0a8619f19f11836dabfb3109e5"
+        }
+      ],
+      "checks": [
+        {
+          "source": "flight-scan",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.4199690506627194,
+          "targetContained": true,
+          "selector": "#fgSteps"
+        },
+        {
+          "source": "flight-scan",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.4199690506627194,
+          "targetContained": true,
+          "selector": "#fgSteps"
+        },
+        {
+          "source": "flight-scan",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "summary:text-is(\"连接详情\")"
+        },
+        {
+          "source": "flight-scan",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.1112937309227515,
+          "targetContained": true,
+          "selector": "#fgStatus"
+        },
+        {
+          "source": "flight-scan",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgAutoScan"
+        },
+        {
+          "source": "flight-scan",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.0256410256410255,
+          "targetContained": true,
+          "selector": "#fgConnectFeedback"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 1.0256410256410255,
+          "targetContained": true,
+          "selector": "#fgManualPanel"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 1.0256410256410255,
+          "targetContained": true,
+          "selector": "#fgManualPanel"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"choose-ardupilot\"]"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"choose-ardupilot\"]"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.1551724137931036,
+          "targetContained": true,
+          "selector": "#fgTryRate"
+        },
+        {
+          "source": "flight-manual",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.1551724137931036,
+          "targetContained": true,
+          "selector": "#fgTryRate"
+        }
+      ],
+      "storyboard": "flight-connect-storyboard.jpg"
+    },
+    {
+      "id": "flight-configure",
+      "title": "核对并确认定位参数",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "2c4082428619fdb93b03a3c5d490b957f09282e1870c8bd4fb6135539a70fec0",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "flight-parameters",
+          "captureSha256": "de435e394b307a41b574a76bd953d222a080ba74fd4a51a4f834177388110e70"
+        },
+        {
+          "id": "flight-apply",
+          "captureSha256": "d21d10b1c18c15aac78459065eb8d607356f5fee9ef507c652160a527ddb8f93"
+        }
+      ],
+      "checks": [
+        {
+          "source": "flight-parameters",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgSteps [data-step=\"1\"]"
+        },
+        {
+          "source": "flight-parameters",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-source-tabs"
+        },
+        {
+          "source": "flight-parameters",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgRead"
+        },
+        {
+          "source": "flight-parameters",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-source-tabs"
+        },
+        {
+          "source": "flight-parameters",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"recommend\"]"
+        },
+        {
+          "source": "flight-parameters",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-source-tabs"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-source-tabs"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-source-tabs"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgReferenceConfirm"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgReferenceConfirm"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.6595744680851063,
+          "targetContained": true,
+          "selector": "#fgReviewOpen"
+        },
+        {
+          "source": "flight-apply",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 0.7375781810724904,
+          "targetContained": true,
+          "selector": "#fgReview"
+        }
+      ],
+      "storyboard": "flight-configure-storyboard.jpg"
+    },
+    {
+      "id": "flight-check",
+      "title": "检查飞控运行状态",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "dd5d92969861519ed6b16621073bd9a6d19611d348dfe3ac122bd7879649f73b",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "flight-verify",
+          "captureSha256": "235ac52a3a26a79fefe6a42dc08025d55cb29e7c5fc7c67b07ec34a20d9356ab"
+        }
+      ],
+      "checks": [
+        {
+          "source": "flight-verify",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgSteps [data-step=\"2\"]"
+        },
+        {
+          "source": "flight-verify",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.1904761904761905,
+          "targetContained": true,
+          "selector": "#fgVerification"
+        },
+        {
+          "source": "flight-verify",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#fgStatusDetails summary"
+        },
+        {
+          "source": "flight-verify",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": ".fg-dock-primary"
+        },
+        {
+          "source": "flight-verify",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 1.0256410256410255,
+          "targetContained": true,
+          "selector": "#fgVerification"
+        },
+        {
+          "source": "flight-verify",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.1904761904761905,
+          "targetContained": true,
+          "selector": "#fgVerification"
+        }
+      ],
+      "storyboard": "flight-check-storyboard.jpg"
+    },
+    {
+      "id": "record-prepare",
+      "title": "选择保存位置与录制内容",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "ebb8f83b0fb31aa663c8c981309c588bfda2939fadd4588bbb58c630285ae058",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "record-destination",
+          "captureSha256": "40a646f83e1f86aa5ab96744e88fbf2cd98f4449366c5a06af99b3aa3e2ae71f"
+        },
+        {
+          "id": "record-channels",
+          "captureSha256": "43ea72c43339abf2569864358217b3b8cd8c3bb0f4fde544962bef9013c1224c"
+        },
+        {
+          "id": "record-preflight",
+          "captureSha256": "4152c4f2e527a6ba6f88282264853f513befe2ed0080acfae6464771667aee8f"
+        }
+      ],
+      "checks": [
+        {
+          "source": "record-destination",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-destination",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-destination",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-destination",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-destination",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-destination",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordDestination"
+        },
+        {
+          "source": "record-channels",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordChannels"
+        },
+        {
+          "source": "record-channels",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordChannels"
+        },
+        {
+          "source": "record-channels",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordGray"
+        },
+        {
+          "source": "record-channels",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordChannels"
+        },
+        {
+          "source": "record-channels",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordChannels"
+        },
+        {
+          "source": "record-channels",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.3286287712029003,
+          "targetContained": true,
+          "selector": "#recordChannels"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7472527472527473,
+          "targetContained": true,
+          "selector": "#railMonitorTab"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tfStorageDetails"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 2.7472527472527473,
+          "targetContained": true,
+          "selector": "#railRecordTab"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordCheckStart"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordCheckStart"
+        },
+        {
+          "source": "record-preflight",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordCheckStart"
+        }
+      ],
+      "storyboard": "record-prepare-storyboard.jpg"
+    },
+    {
+      "id": "record-files",
+      "title": "查看、下载与管理数据",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "711d7c9b750d164b6ab132b00a71499646d101adc375c9f05e31a6d43ce44a3c",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "record-catalog",
+          "captureSha256": "d46cdf338442944cddc1222d876120353c781658671a97be562c6a88595fa425"
+        },
+        {
+          "id": "record-download-delete",
+          "captureSha256": "e306bb1c75fb6688fcc39b4c4a0edec01a87f4108ae56d5b1bb2b483d309bbe0"
+        }
+      ],
+      "checks": [
+        {
+          "source": "record-catalog",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 0.7980845969672785,
+          "targetContained": true,
+          "selector": "#recordSessions"
+        },
+        {
+          "source": "record-catalog",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 0.8176614881439084,
+          "targetContained": true,
+          "selector": "#recordSourceFilter"
+        },
+        {
+          "source": "record-catalog",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 0.8176614881439084,
+          "targetContained": true,
+          "selector": "#recordSourceFilter"
+        },
+        {
+          "source": "record-catalog",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 0.8176614881439084,
+          "targetContained": true,
+          "selector": "#recordSourceFilter"
+        },
+        {
+          "source": "record-catalog",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#recordRefreshBtn"
+        },
+        {
+          "source": "record-catalog",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.3123359580052494,
+          "targetContained": true,
+          "selector": ".dataset-detail-body section:first-child"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"detail\"]"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 1.3123359580052494,
+          "targetContained": true,
+          "selector": ".dataset-detail-body section:first-child"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 1.2468827930174564,
+          "targetContained": true,
+          "selector": ".record-detail-dialog button"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"download\"]"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"delete\"]"
+        },
+        {
+          "source": "record-download-delete",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "[data-action=\"delete\"]"
+        }
+      ],
+      "storyboard": "record-files-storyboard.jpg"
+    },
+    {
+      "id": "calibration-prepare",
+      "title": "准备标定板并确认尺寸",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "4383f703acf3ffacb18d8323b3400f218cb542a09f85e73be40741d0596c8bff",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "calibration-board",
+          "captureSha256": "34a1efff7c8174a128a19b2923511e12f0518f2a2b6a48de530e4a272ee14c2a"
+        },
+        {
+          "id": "calibration-measure-tag",
+          "captureSha256": "d971bc2c2965c98373fd32036326e93d6a1feb72a78c65e649fec01dc229825a"
+        },
+        {
+          "id": "calibration-settings",
+          "captureSha256": "10f2f4064033012b06ac679324c96608c2f776fe6dc95b00f77c1af0433c90e9"
+        }
+      ],
+      "checks": [
+        {
+          "source": "calibration-board",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 1.0347823585258495,
+          "targetContained": true,
+          "selector": "#boardCanvas"
+        },
+        {
+          "source": "calibration-board",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.0347823585258495,
+          "targetContained": true,
+          "selector": "#boardCanvas"
+        },
+        {
+          "source": "calibration-board",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#downloadBoardBtn"
+        },
+        {
+          "source": "calibration-board",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.0347823585258495,
+          "targetContained": true,
+          "selector": "#boardCanvas"
+        },
+        {
+          "source": "calibration-board",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#enterScreenBtn"
+        },
+        {
+          "source": "calibration-board",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#measureConfirm"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.4727072734772446,
+          "targetContained": true,
+          "selector": "input[name=\"measureMode\"][value=\"tag\"]"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagMeasuredSize"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagMeasuredSize"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagMeasuredSize"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#measureConfirm"
+        },
+        {
+          "source": "calibration-measure-tag",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#confirmScreenBtn"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#openSettingsBtn"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagRows"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagRows"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#tagRows"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 2.2222222222222223,
+          "targetContained": true,
+          "selector": "#spacingRatio"
+        },
+        {
+          "source": "calibration-settings",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.2222222222222223,
+          "targetContained": true,
+          "selector": "#spacingRatio"
+        }
+      ],
+      "storyboard": "calibration-prepare-storyboard.jpg"
+    },
+    {
+      "id": "calibration-capture",
+      "title": "采集数据并开始求解",
+      "passed": true,
+      "realDevice": false,
+      "duration": 27,
+      "frames": 675,
+      "mediaSha256": "9831608ce4936b31e91f6d3118556a2d6d34d3309d3cd552cbb5a8a61bb36ced",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "calibration-motion",
+          "captureSha256": "869ca86607eae064e918d79b142cefdca47729300f25e380d79bd38a985bdb7b"
+        },
+        {
+          "id": "calibration-finish",
+          "captureSha256": "63d4404fda430f711200270cfb40fd7db12899f431dc086d5fd7f76aedbb1b98"
+        },
+        {
+          "id": "calibration-solve",
+          "captureSha256": "45464adfb6b5f5c32795d377364e60b37563d5a9df260187f11753d015f6ca13"
+        }
+      ],
+      "checks": [
+        {
+          "source": "calibration-motion",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 0.751933770957896,
+          "targetContained": true,
+          "selector": "#captureTutorialDialog"
+        },
+        {
+          "source": "calibration-motion",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 0.751933770957896,
+          "targetContained": true,
+          "selector": "#captureTutorialDialog"
+        },
+        {
+          "source": "calibration-motion",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 0.751933770957896,
+          "targetContained": true,
+          "selector": "#captureTutorialDialog"
+        },
+        {
+          "source": "calibration-motion",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 0.751933770957896,
+          "targetContained": true,
+          "selector": "#captureTutorialDialog"
+        },
+        {
+          "source": "calibration-motion",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#skipCaptureTutorialBtn"
+        },
+        {
+          "source": "calibration-motion",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#startRecordBtn"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#actionCoverageGrid"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#actionCoverageGrid"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#guideFinishEarly"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#guideFinishEarly"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#guideFinishEarly"
+        },
+        {
+          "source": "calibration-finish",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#jobState"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 0,
+          "afterAction": false,
+          "time": 18.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#jobState"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 0,
+          "afterAction": true,
+          "time": 20.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#jobState"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 1,
+          "afterAction": false,
+          "time": 21.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#solveBtn"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 1,
+          "afterAction": true,
+          "time": 23.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#jobState"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 2,
+          "afterAction": false,
+          "time": 24.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#viewResultBtn"
+        },
+        {
+          "source": "calibration-solve",
+          "stage": 2,
+          "afterAction": true,
+          "time": 26.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#viewResultBtn"
+        }
+      ],
+      "storyboard": "calibration-capture-storyboard.jpg"
+    },
+    {
+      "id": "settings-network",
+      "title": "查看与修改网络地址",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "1a8f4e485f9e63a6e2570479afb89e5b3c7120984729d6bb02a4039d4f7c1137",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "network-read",
+          "captureSha256": "85c3ad1d9e98c3ff137252f5963e149855502012e9fe581b1b5a91ecebced2ea"
+        },
+        {
+          "id": "network-change",
+          "captureSha256": "e7fb9f1c79061d4648abaeba84591a6d62beeec059221da9a698d76e16a0c01c"
+        }
+      ],
+      "checks": [
+        {
+          "source": "network-read",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#settingsNetworkTab"
+        },
+        {
+          "source": "network-read",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.3262599469496021,
+          "targetContained": true,
+          "selector": "#networkCurrentIP"
+        },
+        {
+          "source": "network-read",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 1.3262599469496021,
+          "targetContained": true,
+          "selector": "#networkCurrentIP"
+        },
+        {
+          "source": "network-read",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.3262599469496021,
+          "targetContained": true,
+          "selector": "#networkCurrentIP"
+        },
+        {
+          "source": "network-read",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.1551724137931036,
+          "targetContained": true,
+          "selector": "#networkRead"
+        },
+        {
+          "source": "network-read",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.3262599469496021,
+          "targetContained": true,
+          "selector": "#networkCurrentIP"
+        },
+        {
+          "source": "network-change",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#networkIP"
+        },
+        {
+          "source": "network-change",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#networkIP"
+        },
+        {
+          "source": "network-change",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.1551724137931036,
+          "targetContained": true,
+          "selector": "#networkApply"
+        },
+        {
+          "source": "network-change",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 1.710399923914594,
+          "targetContained": true,
+          "selector": "#networkConfirm"
+        },
+        {
+          "source": "network-change",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.358490566037736,
+          "targetContained": true,
+          "selector": "#networkCancel"
+        },
+        {
+          "source": "network-change",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#networkIP"
+        }
+      ],
+      "storyboard": "settings-network-storyboard.jpg"
+    },
+    {
+      "id": "settings-button",
+      "title": "设置实体按键操作",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "c1809e349ee0e0c79486dbaed54d9bf3de67b1e36e0a8a2b2c9816c00434c0ce",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "button-actions",
+          "captureSha256": "d9c46dfee63e06617656730b6d952641c8254b542668971c2fffe92b631f4ba9"
+        },
+        {
+          "id": "button-channels",
+          "captureSha256": "6d0efcc2ef50eb04b1ac869a055f54487716670b6b7a1969d9029aed84bec119"
+        }
+      ],
+      "checks": [
+        {
+          "source": "button-actions",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 1.151233876388311,
+          "targetContained": true,
+          "selector": "#buttonSettingsFields"
+        },
+        {
+          "source": "button-actions",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.151233876388311,
+          "targetContained": true,
+          "selector": "#buttonSettingsFields"
+        },
+        {
+          "source": "button-actions",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonShortAction"
+        },
+        {
+          "source": "button-actions",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonShortAction"
+        },
+        {
+          "source": "button-actions",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonLongAction"
+        },
+        {
+          "source": "button-actions",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonLongAction"
+        },
+        {
+          "source": "button-channels",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": ".button-recording-options"
+        },
+        {
+          "source": "button-channels",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": ".button-recording-options"
+        },
+        {
+          "source": "button-channels",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonRecord_color"
+        },
+        {
+          "source": "button-channels",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": ".button-recording-options"
+        },
+        {
+          "source": "button-channels",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#buttonSave"
+        },
+        {
+          "source": "button-channels",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 1.5633396844008012,
+          "targetContained": true,
+          "selector": "#buttonSettingsState"
+        }
+      ],
+      "storyboard": "settings-button-storyboard.jpg"
+    },
+    {
+      "id": "settings-boot",
+      "title": "配置开机自动启动",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "2630158806d537f7e5bcb2b67b6f2883dea37ff16c3dc0f057a97d14b471af5d",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "boot-start",
+          "captureSha256": "71111c3451c9641ad1dc62643c6aa3056d13abf16e35bbddcbf8c40e2fb88bbf"
+        }
+      ],
+      "checks": [
+        {
+          "source": "boot-start",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#bootSettings summary"
+        },
+        {
+          "source": "boot-start",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.6486008836524304,
+          "targetContained": true,
+          "selector": "#bootSettings"
+        },
+        {
+          "source": "boot-start",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#bootAutostart"
+        },
+        {
+          "source": "boot-start",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.6486008836524304,
+          "targetContained": true,
+          "selector": "#bootSettings"
+        },
+        {
+          "source": "boot-start",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#bootSave"
+        },
+        {
+          "source": "boot-start",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.6486008836524304,
+          "targetContained": true,
+          "selector": "#bootSettings"
+        }
+      ],
+      "storyboard": "settings-boot-storyboard.jpg"
+    },
+    {
+      "id": "maintenance-version",
+      "title": "查看运行版本与状态",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "b4cfa063df1ca2a493583babd53c3df7fb7e36f49924adae175603e0820b6050",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "update-version",
+          "captureSha256": "2c902ce4e7bc10a5f2c19eb685497de2a8e402b21ddb8fad5d0a681d66ccd51b"
+        }
+      ],
+      "checks": [
+        {
+          "source": "update-version",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateRunning"
+        },
+        {
+          "source": "update-version",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 0.9578544061302682,
+          "targetContained": true,
+          "selector": ".update-current"
+        },
+        {
+          "source": "update-version",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateRefresh"
+        },
+        {
+          "source": "update-version",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 0.9578544061302682,
+          "targetContained": true,
+          "selector": ".update-current"
+        },
+        {
+          "source": "update-version",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateDetailsLabel"
+        },
+        {
+          "source": "update-version",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 0.9578544061302682,
+          "targetContained": true,
+          "selector": ".update-details"
+        }
+      ],
+      "storyboard": "maintenance-version-storyboard.jpg"
+    },
+    {
+      "id": "maintenance-install",
+      "title": "上传并核对安装包",
+      "passed": true,
+      "realDevice": false,
+      "duration": 18,
+      "frames": 450,
+      "mediaSha256": "5f32e1786487af7ece51c085bacfc548a725cbdc9aaa9cfac1186e4a336f8826",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "update-upload",
+          "captureSha256": "442e8d3c819898e6d541f7c1caa41697d63bdbde9086ffde3207a2162c07f953"
+        },
+        {
+          "id": "update-install",
+          "captureSha256": "291c06d372162faa57ea09eda65cd566c034577044bbc0fb3533d67f581970d1"
+        }
+      ],
+      "checks": [
+        {
+          "source": "update-upload",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 1.69316648588587,
+          "targetContained": true,
+          "selector": "#updateHelp"
+        },
+        {
+          "source": "update-upload",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 1.69316648588587,
+          "targetContained": true,
+          "selector": "#updateHelp"
+        },
+        {
+          "source": "update-upload",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateChoose + #updateFileInfo"
+        },
+        {
+          "source": "update-upload",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateChoose + #updateFileInfo"
+        },
+        {
+          "source": "update-upload",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateUpload"
+        },
+        {
+          "source": "update-upload",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateInstall"
+        },
+        {
+          "source": "update-install",
+          "stage": 0,
+          "afterAction": false,
+          "time": 9.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateInstall"
+        },
+        {
+          "source": "update-install",
+          "stage": 0,
+          "afterAction": true,
+          "time": 11.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateInstall"
+        },
+        {
+          "source": "update-install",
+          "stage": 1,
+          "afterAction": false,
+          "time": 12.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateInstall"
+        },
+        {
+          "source": "update-install",
+          "stage": 1,
+          "afterAction": true,
+          "time": 14.32,
+          "zoom": 2.0661157024793386,
+          "targetContained": true,
+          "selector": "#updateConfirm"
+        },
+        {
+          "source": "update-install",
+          "stage": 2,
+          "afterAction": false,
+          "time": 15.8,
+          "zoom": 2.304147465437788,
+          "targetContained": true,
+          "selector": "#updateConfirmCancel"
+        },
+        {
+          "source": "update-install",
+          "stage": 2,
+          "afterAction": true,
+          "time": 17.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateInstall"
+        }
+      ],
+      "storyboard": "maintenance-install-storyboard.jpg"
+    },
+    {
+      "id": "maintenance-restart",
+      "title": "重启确认与状态检查",
+      "passed": true,
+      "realDevice": false,
+      "duration": 9,
+      "frames": 225,
+      "mediaSha256": "e49eecf7d67c1628dd362732e752d005171fb6bd103809894aad5c3625c40285",
+      "captionTop": 48,
+      "sceneTop": 116,
+      "sceneBottom": 678,
+      "captureSources": [
+        {
+          "id": "update-reboot",
+          "captureSha256": "cf60aade7ecf91a83400d13b4142da7ec369e8c2cd86fbff8e2d63ab89c3d56f"
+        }
+      ],
+      "checks": [
+        {
+          "source": "update-reboot",
+          "stage": 0,
+          "afterAction": false,
+          "time": 0.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateState"
+        },
+        {
+          "source": "update-reboot",
+          "stage": 0,
+          "afterAction": true,
+          "time": 2.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateState"
+        },
+        {
+          "source": "update-reboot",
+          "stage": 1,
+          "afterAction": false,
+          "time": 3.8,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateReboot"
+        },
+        {
+          "source": "update-reboot",
+          "stage": 1,
+          "afterAction": true,
+          "time": 5.32,
+          "zoom": 2.0661157024793386,
+          "targetContained": true,
+          "selector": "#updateConfirm"
+        },
+        {
+          "source": "update-reboot",
+          "stage": 2,
+          "afterAction": false,
+          "time": 6.8,
+          "zoom": 2.304147465437788,
+          "targetContained": true,
+          "selector": "#updateConfirmCancel"
+        },
+        {
+          "source": "update-reboot",
+          "stage": 2,
+          "afterAction": true,
+          "time": 8.32,
+          "zoom": 2.7777777777777777,
+          "targetContained": true,
+          "selector": "#updateState"
+        }
+      ],
+      "storyboard": "maintenance-restart-storyboard.jpg"
+    }
+  ]
+}
