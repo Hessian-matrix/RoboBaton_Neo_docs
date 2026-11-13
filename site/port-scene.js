@@ -1,5 +1,5 @@
 import * as T from './three.module.js';
-import {createEnclosure,lightProduct} from './enclosure-model.js';
+import {createEnclosure,lightProduct} from './enclosure-model.js?v=dfc7a1e200a6';
 
 const canvas=document.getElementById('interface-model');
 const stage=canvas.closest('.port-showcase'),host=canvas.parentElement;
@@ -21,7 +21,7 @@ function mat(color){return new T.MeshLambertMaterial({color,side:T.DoubleSide})}
 const metal=mat(0xbcc8c0),dark=mat(0x203b2d),gold=mat(0xced9c9);
 function mesh(g,m,parent=model){const o=new T.Mesh(g,m);parent.add(o);return o}
 // Side-entry direction confirmed by the user arrow: long side near the lens end.
-const tfAssembly=new T.Group();scene.add(tfAssembly);tfAssembly.visible=true; tfAssembly.rotation.z=Math.PI/2;tfAssembly.position.set(12,-9,-4.1);
+const tfAssembly=new T.Group();scene.add(tfAssembly);tfAssembly.visible=true; tfAssembly.rotation.z=-Math.PI/2;tfAssembly.position.set(-12,-9,-4.1);
 const cardMaterial=mat(0x263b32,.9);
 const card=mesh(new T.BoxGeometry(11,15,1),cardMaterial,tfAssembly);card.position.set(0,-18,0);
 const cardStripe=mesh(new T.BoxGeometry(9,3,.08),mat(0x719381),card);cardStripe.position.set(0,-3,.54);
