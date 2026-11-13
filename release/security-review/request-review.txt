@@ -1,0 +1,9 @@
+Please rescan https://hessian-matrix.github.io/RoboBaton_Neo_docs/ and review its current security classification.
+
+This is a static product documentation website. On November 13, 2026, we removed a previously distributed unsigned Windows executable (NeoConnect-Windows-x64.exe), its download link, and the associated checksum entry. The old download URL now returns HTTP 404. We have not confirmed that this executable was the reason for the warning.
+
+Chrome currently displays a phishing/social-engineering warning. We are requesting a review of the published website itself, not a bypass of browser protection or an allowlist for the removed executable. We have not yet received the specific sample URLs from the site-owner security report.
+
+We reviewed the clean build for commit 278f5e3: 527 published files and 6 ZIP members passed checks for native executables, executable download links, unsafe archive paths, and active URL schemes. We downloaded 116 published HTML, JavaScript, CSS, JSON, Python, ZIP, and text assets and verified their SHA256 hashes against that clean build; all matched. Python source examples remain available for inspection. We also added publication regression checks to prevent executable installers from being included again.
+
+These checks are not an antivirus certification. Please evaluate the current published content and provide any remaining flagged URLs or threat classifications so that we can address them specifically.
