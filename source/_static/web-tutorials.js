@@ -1,8 +1,20 @@
 'use strict';
 (() => {
     const players = [...document.querySelectorAll('[data-web-tutorial]')];
+    const visible = new Map();
+    const playVisible = () => {
+        const candidate = document.hidden ? null : [...visible.entries()]
+            .filter(([, ratio]) => ratio >= 0.55)
+            .sort((first, second) => second[1] - first[1])[0]?.[0];
+        for (const player of players) {
+            const video = player.querySelector('video');
+            if (video !== candidate) video.pause();
+        }
+        if (candidate && candidate.paused && !candidate.ended) candidate.play().catch(() => {});
+    };
     for (const player of players) {
         const video = player.querySelector('video');
+        video.muted = true;
         const steps = [...player.querySelectorAll('[data-tutorial-time]')];
         const sync = () => {
             const active = steps.filter(step => Number(step.dataset.tutorialTime) <= video.currentTime).at(-1) || steps[0];
@@ -31,12 +43,13 @@
         sync();
     }
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden) for (const player of players) player.querySelector('video').pause();
+        playVisible();
     });
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver(entries => {
-            for (const entry of entries) if (!entry.isIntersecting) entry.target.querySelector('video').pause();
-        });
-        for (const player of players) observer.observe(player);
+            for (const entry of entries) visible.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+            playVisible();
+        }, {threshold: [0, 0.55, 0.75, 1]});
+        for (const player of players) observer.observe(player.querySelector('video'));
     }
 })();

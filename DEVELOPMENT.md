@@ -2,13 +2,17 @@
 
 ## 网页使用：逐项短视频
 
-第三部分的十个章节以 60 段独立操作视频为主，每段约 9 秒，配三个可跳转步骤、中文字幕、结果确认与注意事项。目录和文字维护在 source/_static/web-tutorials/catalog.json，Sphinx 的 web-tutorials 指令生成可搜索的正文；不依赖 JavaScript 才能读到说明。视频使用原公开网页和本机模拟状态，始终标注演示，不接触设备，也不代表实机验收。
+第三部分先用标注截图说明页面分区，再展示 8 个功能页、每页 3 段主要操作视频，时长约 9–27 秒。目录和文字维护在 source/_static/web-tutorials/catalog.json；publishedLessons 明确页面发布顺序，保留的基础片段不单独展开。Sphinx 的 web-tutorials 指令生成可搜索的正文；compact 模式把限制说明集中在页尾。视频始终标注演示，不接触设备，也不代表实机验收。
 
-视频、封面和字幕随 Sphinx 静态资源发布，preload=none，不自动播放；同时只播放一段，离开视口或切到后台暂停。桌面与手机均保留浏览器原生播放、进度及全屏操作。source/web_tutorials.py 与两个 web-tutorials 静态文件负责渲染和步骤同步，录制夹具、设备页面源码和测试脚本均不进入部署目录。
+视频、封面和字幕随 Sphinx 静态资源发布，preload=none，进入视口后静音自动播放；同时只播放一段，离开视口或切到后台暂停。媒体 URL 带内容 SHA256 的短版本号，更新素材后不复用旧缓存。桌面与手机保留原生播放、进度及全屏。录制夹具、设备页面源码和测试脚本均不进入部署目录。
 
 重录使用 tools/record_web_tutorials.cjs --record；NEO_APP_ROOT 指向应用仓库，PLAYWRIGHT_MODULE 和 CHROME_PATH 选择本机浏览器工具，PLAYWRIGHT_BROWSERS_PATH 指向 tmp/web-tutorials/browsers。首次用 Playwright CLI 的 install ffmpeg 安装匹配编码工具。FFMPEG_PATH 可指定支持 VP8 解码与 libvpx 编码的完整工具；默认使用该临时目录中的 ffmpeg-1011。TUTORIAL_ONLY 以逗号选择重录片段；不带 --record 只检查操作，不联系板卡。--encode-existing 只重新编码 tmp 中已录好的素材。临时素材在 tmp/web-tutorials，检查报告在 release/web-tutorials。
 
-构建后运行 python tools/check_web_tutorials.py tmp/site/docs 检查全部素材、正文步骤与发布隔离；node tools/check_web_tutorials.cjs 验证真实视频解码、字幕、跳转、多播放器与手机明暗模式。录像复用的是当前公开源码候选，不能据此推断全部出厂设备已具备“代码示例”入口。
+当前 24 段发布视频统一使用 node tools/record_reviewed_tutorials.cjs 重新采集公开页面的 2 倍分辨率画面，再运行 python tools/render_reviewed_tutorials.py。采集保留操作前后状态；渲染依据 DOM 取景平滑放大、移动，字幕置于顶部，底部留给播放器控件。IMU 分别特写读数、加速度曲线、角速度曲线。TUTORIAL_ONLY 在采集时选择基础来源 ID，在渲染时选择发布视频 ID；完整重录时不设置该变量。临时素材在 tmp/reviewed-tutorials；逐段前后对照图及校验报告在 release/video-review，标注为模拟演示，不代表实机验收。旧 focus_web_tutorials.py 和 IMU 专用渲染器仅供历史素材维护，不要用低清基础视频覆盖当前发布视频。
+
+本地预览使用 python tools/serve_docs_preview.py --port 8873。它只监听 127.0.0.1，并支持媒体 Range 请求；不要用不支持 Range 的 python -m http.server 验证步骤跳转，否则浏览器可能把视频跳回开头。默认目录为 tmp/docs-review，HTML 不缓存。
+
+构建后运行 python tools/check_web_tutorials.py tmp/site/docs 检查全部 78 组素材、媒体版本号、正文步骤与发布隔离；python tools/check_reviewed_tutorials.py 核对 24 段视频的高清来源、操作前后、取景完整性和媒体哈希；node tools/check_focused_pages.cjs 验证八页、48 种明暗及响应式布局、24 段解码跳转和实际 IMU 播放画面。还需人工检查 release/video-review 下每段对照图。录像复用当前公开源码候选，不代表实机验收。修改指令扩展后使用 sphinx -E -a 重建。
 
 产品网站：https://hessian-matrix.github.io/RoboBaton_Neo_docs/
 

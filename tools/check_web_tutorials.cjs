@@ -43,8 +43,8 @@ const server = http.createServer((req, res) => {
         await page.goto(base + '/docs/quick-start.html', {waitUntil: 'networkidle'});
         await page.waitForURL('**/web-guide.html');
         await page.goto(base + '/docs/positioning.html', {waitUntil: 'networkidle'});
-        assert.equal(await page.locator('#tutorial-positioning video').count(), 6);
-        assert.equal(videos.length, 0, 'No video bytes before an explicit play');
+        assert.equal(await page.locator('#tutorial-positioning video').count(), 3);
+        assert(await page.locator('video').evaluateAll(elements => elements.every(video => video.muted && video.preload === 'none')));
         const first = page.locator('[data-web-tutorial]').nth(0), second = page.locator('[data-web-tutorial]').nth(1);
         await first.scrollIntoViewIfNeeded();
         await first.locator('[data-tutorial-time="3"]').click();
@@ -64,14 +64,17 @@ const server = http.createServer((req, res) => {
                 for (const chapter of chapters) {
                     await page.goto(base + '/docs/' + chapter + '.html', {waitUntil: 'load'});
                     await page.evaluate(theme => {document.documentElement.dataset.mode = theme; document.documentElement.dataset.theme = theme;}, theme);
-                    await page.locator('[data-web-tutorial]').first().evaluate(node => {
-                        for (let parent = node.parentElement; parent; parent = parent.parentElement) {
-                            if (parent.tagName === 'DETAILS') parent.open = true;
-                        }
-                    });
-                    await page.locator('[data-web-tutorial]').first().scrollIntoViewIfNeeded();
+                    const player = page.locator('[data-web-tutorial]').first();
+                    if (await player.count()) {
+                        await player.evaluate(node => {
+                            for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+                                if (parent.tagName === 'DETAILS') parent.open = true;
+                            }
+                        });
+                        await player.scrollIntoViewIfNeeded();
+                        const bounds = await page.locator('video').first().boundingBox(); assert(bounds.width > 160 && bounds.height > 100);
+                    }
                     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), chapter + ' overflow at ' + width);
-                    const bounds = await page.locator('video').first().boundingBox(); assert(bounds.width > 160 && bounds.height > 100);
                     await page.screenshot({path: path.join(output, chapter + '-' + width + '-' + theme + '.png')});
                     report.layouts.push({chapter, width, theme});
                 }
@@ -92,19 +95,19 @@ const server = http.createServer((req, res) => {
                     return {id: identity, duration: video.duration, width: video.videoWidth, height: video.videoHeight};
                 } finally {video.pause(); video.removeAttribute('src'); video.load(); video.remove();}
             }, {base, identity: lesson.id});
-            assert(metadata.duration >= 8.8 && metadata.duration <= 9.2, JSON.stringify(metadata));
+            assert(Math.abs(metadata.duration - lesson.duration) <= .25, JSON.stringify(metadata));
             assert.equal(metadata.width, 1000); assert.equal(metadata.height, 750);
             report.decoded.push(metadata);
         }
         const offline = await browser.newContext({javaScriptEnabled: false, viewport: {width: 320, height: 800}});
         const fallback = await offline.newPage(); await fallback.goto(base + '/docs/calibration.html');
-        assert.equal(await fallback.locator('[data-web-tutorial]').count(), 12);
-        assert.equal(await fallback.locator('[data-tutorial-time]').count(), 36);
-        assert((await fallback.locator('article').innerText()).includes('确认结果'));
+        assert.equal(await fallback.locator('[data-web-tutorial]').count(), 3);
+        assert.equal(await fallback.locator('[data-tutorial-time]').count(), 9);
+        assert((await fallback.locator('article').innerText()).includes('保存参数'));
         await fallback.screenshot({path: path.join(output, 'no-javascript-320.png'), fullPage: true}); await offline.close();
         assert.deepEqual(errors, []); assert.deepEqual(failed, []); assert.deepEqual(external, []);
         report.passed = true;
-        console.log('PASS: 60 decoded clips, captions, seeking, one-at-a-time playback, offscreen pause, 60 responsive light/dark views, no-JavaScript text, no external requests');
+        console.log('PASS: ' + report.decoded.length + ' decoded clips, captions, seeking, playback, responsive light/dark views, no-JavaScript text, no external requests');
     } finally {
         Object.assign(report, {errors, failed, external});
         fs.writeFileSync(path.join(output, 'browser-report.json'), JSON.stringify(report, null, 2));

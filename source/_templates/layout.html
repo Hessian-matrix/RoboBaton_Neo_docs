@@ -13,3 +13,14 @@
   </div>
 </header>
 {% endblock %}
+{% block docs_toc %}
+{% set page_toc = generate_toc_html() %}
+{% if page_toc | length >= 1 %}
+<aside class="docs-toc-rail d-print-none" aria-label="本页目录">
+<details class="docs-page-toc">
+  <summary>目录</summary>
+  <nav aria-label="本页目录">{{ page_toc }}</nav>
+</details>
+</aside>
+{% endif %}
+{% endblock %}

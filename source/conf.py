@@ -15,8 +15,9 @@ html_theme = 'sphinx_book_theme'
 templates_path = ['_templates']
 html_title = 'RoboBaton Neo 文档'
 html_static_path = ['_static']
-html_css_files = ['custom.css', 'docs-review.css', 'web-tutorials.css']
-html_js_files = [('docs-examples.js', {'defer': 'defer'}), ('web-tutorials.js', {'defer': 'defer'})]
+html_css_files = ['custom.css', 'docs-review.css', 'web-tutorials.css', 'docs-navigation.css']
+html_sidebars = {'**': ['docs-sidebar-header.html', 'search-button-field.html', 'sbt-sidebar-nav.html']}
+html_js_files = [('docs-examples.js', {'defer': 'defer'}), ('web-tutorials.js', {'defer': 'defer'}), ('docs-image-viewer.js', {'defer': 'defer'})]
 html_show_sourcelink = False
 html_copy_source = False
 html_theme_options = {
@@ -25,9 +26,10 @@ html_theme_options = {
     'use_repository_button': False,
     'use_issues_button': False,
     'use_edit_page_button': False,
-    'home_page_in_toc': True,
+    'home_page_in_toc': False,
     'show_navbar_depth': 1,
     'navbar_persistent': ['search-button-field'],
+    'secondary_sidebar_items': [],
 }
 
 from urllib.parse import urljoin

@@ -1,7 +1,17 @@
 数据录制与管理
 ========================
 
+.. figure:: _static/manual/page-recordTab-annotated.png
+   :alt: 筛选来源、存储状态与录制列表
+   :target: _static/manual/page-recordTab-annotated.png
+   :figclass: web-page-overview
+
+   点击图片查看分区标注
+
 .. web-tutorials:: recording
+   :title: 功能演示
+   :no-intro:
+   :compact:
 
 .. container:: doc-next
 

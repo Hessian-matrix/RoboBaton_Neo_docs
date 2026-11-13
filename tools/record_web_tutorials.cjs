@@ -43,9 +43,9 @@ async function mock(page, base) {
         '/api/datasets': {datasets: [{id: 'tutorial-demo', channels: ['gray', 'imu'], result: {state: 'completed', complete: true, end_reason: 'user_stop', duration_s: 12, bytes_written: '1400000', counts: {gray: '60', imu: '2400'}}}], next_offset: null},
         '/api/mount/config': {configured: true, ...require(path.join(app, 'visualization/public/robot-frame-core.js')).toPublic(require(path.join(app, 'visualization/public/robot-frame-core.js')).identity())},
         '/api/color/config': {codec: 'mjpeg', width: 1080, height: 1280, fps: 5, fps_max: 60, quality: 80},
-        '/api/mavlink/status': {connected: true, flight_controller: 'ardupilot', system_id: 1, flight_controller_component_id: 1, firmware_version: '4.5.0', armed: false, active_operation_id: null},
+        '/api/mavlink/status': {connected: true, flight_controller: 'ardupilot', system_id: 1, flight_controller_component_id: 1, neo_component_id: 197, firmware_version: '4.5.0', flight_mode: 'STABILIZE', armed: false, active_operation_id: null},
         '/api/mavlink/serial': {baud: 921600, system_id: 1, component_id: 197},
-        '/api/serial/status': {mode: 'mavlink', baud: 921600, system_id: 1, component_id: 197},
+        '/api/serial/status': {mode: 'mavlink', baudrate: 921600, system_id: 1, component_id: 197},
         '/api/update': {available: true, running: {version: '演示版本'}, installed: {metadata: {version: '演示版本'}}, limits: {free_bytes: '200000000', max_package_bytes: '100000000'}, package: null, operation: null},
         '/api/system/status': {available: true, reboot: null},
         '/api/calibration/status': {connected: true, state: 'IDLE', recording: false, preview: {connected: true, frame_count: 100, last_frame_time: Date.now() / 1000, rate_hz: 15}, workflow: {runtime: {state: 'STARTED'}, jobs: {}}, quality: {}, imu_rate_hz: 200},
@@ -63,7 +63,7 @@ async function mock(page, base) {
         const json = (value, status = 200) => route.fulfill({status, contentType: 'application/json', body: JSON.stringify(value)});
         if (endpoint === '/api/mavlink/parameters' && req.method() === 'GET') return json({parameters: Object.fromEntries((url.searchParams.get('names') || '').split(',').map(name => [name, {value: 0, type: 'int32'}]))});
         if (endpoint === '/api/mavlink' && body?.action) {
-            stored['/api/mavlink/status'].operation = {operation_id: 'tutorial-scan', action: body.action, state: stored.__manual ? 'failed' : 'succeeded', result: {}, error: stored.__manual ? {code: 'scan_failed'} : null};
+            stored['/api/mavlink/status'].operation = {operation_id: 'tutorial-scan', action: body.action, state: stored.__manual ? 'failed' : 'succeeded', result: {}, error: stored.__manual ? 'scan_failed' : null};
             return json({accepted: true, operation_id: 'tutorial-scan'}, 202);
         }
         if (endpoint === '/api/datasets/tutorial-demo') return json(stored['/api/datasets'].datasets[0]);
@@ -75,7 +75,7 @@ async function mock(page, base) {
             stored[endpoint] = {state: 'passed', active: null, result: {reason: 'short_test_passed'}};
             return json({accepted: true}, 202);
         }
-        if (endpoint === '/api/update/upload') {
+        if (endpoint === '/api/update/package') {
             stored['/api/update'].package = {package_id: 'tutorial', metadata: {version: '演示候选', trust: 'test', notes: '仅演示界面，不可安装到设备。'}};
             return json({package: stored['/api/update'].package});
         }
@@ -177,7 +177,7 @@ async function runLessons(browser, base, recordVideo) {
     const catalogue = JSON.parse(fs.readFileSync(path.join(assets, 'catalog.json'), 'utf8'));
     const scenarios = require('./web_tutorial_scenarios.cjs');
     const wanted = process.env.TUTORIAL_ONLY?.split(',');
-    const lessons = catalogue.flatMap(group => group.lessons).filter(lesson => !wanted || wanted.includes(lesson.id));
+    const lessons = catalogue.flatMap(group => group.lessons).filter(lesson => !lesson.sourceLessons && (!wanted || wanted.includes(lesson.id)));
     const results = [];
     const queue = [...lessons];
     async function worker() {
@@ -291,4 +291,5 @@ async function main() {
         console.log(JSON.stringify({errors, output: scratch}));
     } finally { await browser.close(); server.close(); }
 }
-main().catch(error => { console.error(error); server.close(); process.exitCode = 1; });
+module.exports = {server, mock, act, prepare};
+if (require.main === module) main().catch(error => { console.error(error); server.close(); process.exitCode = 1; });
