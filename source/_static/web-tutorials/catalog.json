@@ -1,0 +1,1409 @@
+[
+{
+  "id": "navigation",
+  "title": "网页入口与通用操作",
+  "intro": "先认清设备网页与文档站，再学会导航、语言和外观。",
+  "lessons": [
+    {
+      "id": "open-device",
+      "title": "打开设备网页",
+      "purpose": "连接设备后，在浏览器输入设备地址。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "核对设备地址"
+        },
+        {
+          "time": 3,
+          "text": "等待设备状态出现"
+        },
+        {
+          "time": 6,
+          "text": "找到顶部功能导航"
+        }
+      ],
+      "result": "能看到设备网页及连接状态。",
+      "caution": "默认地址为 http://192.168.11.1/；改过网段时使用实际地址。"
+    },
+    {
+      "id": "page-navigation",
+      "title": "切换各个功能页面",
+      "purpose": "从顶部导航进入不同任务，不靠反复刷新。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开实时视图"
+        },
+        {
+          "time": 3,
+          "text": "切换安装补偿"
+        },
+        {
+          "time": 6,
+          "text": "返回实时视图"
+        }
+      ],
+      "result": "选中的导航与正文对应。",
+      "caution": "切页不等于停止定位、TF 录制或深度；需要用对应停止按钮。"
+    },
+    {
+      "id": "language-theme",
+      "title": "切换语言和明暗外观",
+      "purpose": "按阅读习惯切换语言菜单和主题。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开语言菜单"
+        },
+        {
+          "time": 3,
+          "text": "查看可选语言"
+        },
+        {
+          "time": 6,
+          "text": "切换明暗主题"
+        }
+      ],
+      "result": "主题立即变化，界面仍可操作。",
+      "caution": "外观变化不会修改采样坐标或标定参数。"
+    }
+  ]
+}
+,
+{
+  "id": "first-run",
+  "title": "第一次使用网页",
+  "intro": "先检查画面和参数，再启动定位，不把请求受理当作初始化成功。",
+  "lessons": [
+    {
+      "id": "first-check",
+      "title": "检查连接与参数",
+      "purpose": "第一次运行先确认连接、镜头和参数。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看设备状态"
+        },
+        {
+          "time": 3,
+          "text": "打开相机视频"
+        },
+        {
+          "time": 6,
+          "text": "进入标定参数检查"
+        }
+      ],
+      "result": "画面清晰，参数匹配当前设备。",
+      "caution": "默认参数或 CALIBRATION_REQUIRED 不能按出厂已标定处理。"
+    },
+    {
+      "id": "first-start",
+      "title": "启动并完成初始化",
+      "purpose": "动态初始化时上下平缓移动，静止初始化时平稳放置。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "点击启动 VIO"
+        },
+        {
+          "time": 3,
+          "text": "等待正在初始化"
+        },
+        {
+          "time": 6,
+          "text": "确认跟踪有效"
+        }
+      ],
+      "result": "定位状态与位置持续更新。",
+      "caution": "视频中的状态为演示；实际移动相机完成初始化，切勿连续点击启停。"
+    },
+    {
+      "id": "first-stop",
+      "title": "结束第一次运行",
+      "purpose": "结束前先停止依赖定位的录制，再停止 VIO。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看当前运行状态"
+        },
+        {
+          "time": 3,
+          "text": "点击停止 VIO"
+        },
+        {
+          "time": 6,
+          "text": "等待设备确认停止"
+        }
+      ],
+      "result": "按钮恢复为启动 VIO。",
+      "caution": "录制里程计时应先停止录制；重新启动不保证沿用上次坐标。"
+    }
+  ]
+}
+,
+{
+  "id": "positioning",
+  "title": "实时视图",
+  "intro": "功能控制、三维轨迹、位姿读数和运行监测分别用小视频说明。",
+  "lessons": [
+    {
+      "id": "vio-control",
+      "title": "启动、停止与重启算法",
+      "purpose": "用功能控制区管理当前 VIO 实例。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "启动 VIO"
+        },
+        {
+          "time": 3,
+          "text": "等待初始化完成"
+        },
+        {
+          "time": 6,
+          "text": "查看重启算法入口"
+        }
+      ],
+      "result": "状态反映实际执行结果，而不仅是命令受理。",
+      "caution": "重启会建立新的运行实例；先结束依赖里程计的录制。"
+    },
+    {
+      "id": "vio-status",
+      "title": "看懂设备与跟踪状态",
+      "purpose": "区分未启动、初始化、有效跟踪和连接异常。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到设备状态"
+        },
+        {
+          "time": 3,
+          "text": "启动观察状态变化"
+        },
+        {
+          "time": 6,
+          "text": "检查状态提示"
+        }
+      ],
+      "result": "只有跟踪有效才可把输出当作有效定位。",
+      "caution": "程序 running 不等于 tracking=valid；未知状态不是零位姿。"
+    },
+    {
+      "id": "trajectory-views",
+      "title": "跟随、俯视与立体视图",
+      "purpose": "从不同方向观察同一条三维轨迹。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "切换跟随"
+        },
+        {
+          "time": 3,
+          "text": "切换俯视"
+        },
+        {
+          "time": 6,
+          "text": "切换立体"
+        }
+      ],
+      "result": "视角变化，原有运动数据不变。",
+      "caution": "拖动旋转、滚轮缩放只改变观察视角，不改变设备坐标。"
+    },
+    {
+      "id": "trajectory-tools",
+      "title": "显示网格与清空轨迹",
+      "purpose": "控制轨迹画布的辅助显示。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "切换网格显示"
+        },
+        {
+          "time": 3,
+          "text": "找到清空轨迹"
+        },
+        {
+          "time": 6,
+          "text": "清空当前绘制历史"
+        }
+      ],
+      "result": "画布重新开始显示轨迹。",
+      "caution": "清空显示不等于重启 VIO，不会重置真实输出坐标和累计里程。"
+    },
+    {
+      "id": "pose-readout",
+      "title": "切换姿态格式和角度单位",
+      "purpose": "在位姿卡片中查看位置、姿态、速度和里程。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看位置和速度"
+        },
+        {
+          "time": 3,
+          "text": "切换四元数"
+        },
+        {
+          "time": 6,
+          "text": "切换欧拉角与弧度"
+        }
+      ],
+      "result": "单位和姿态格式按选择显示。",
+      "caution": "位置为米、速度为 m/s；HTTP 参考点为 IMU 原点，不是机器人中心。"
+    },
+    {
+      "id": "monitor-panel",
+      "title": "查看运行监测与 IMU",
+      "purpose": "展开运行监测，理解各项读数与图表量程。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入运行监测"
+        },
+        {
+          "time": 3,
+          "text": "查看 IMU 图表"
+        },
+        {
+          "time": 6,
+          "text": "切换固定与自动量程"
+        }
+      ],
+      "result": "量程选中状态和图表对应。",
+      "caution": "静止加速度包含重力；200 Hz 是平均后的输出，不是原始 FIFO。"
+    }
+  ]
+}
+,
+{
+  "id": "imaging",
+  "title": "图像、预览与深度",
+  "intro": "预览显示、彩色输出配置和相对深度有各自独立的生命周期。",
+  "lessons": [
+    {
+      "id": "preview-toggle",
+      "title": "打开与关闭相机预览",
+      "purpose": "只在需要时显示相机画面。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到视频开关"
+        },
+        {
+          "time": 3,
+          "text": "打开视频"
+        },
+        {
+          "time": 6,
+          "text": "关闭视频"
+        }
+      ],
+      "result": "开关文字随显示状态变化。",
+      "caution": "关闭预览不等于停止 VIO 或采集。"
+    },
+    {
+      "id": "preview-window",
+      "title": "使用可移动图像浮窗",
+      "purpose": "同时观察图像与轨迹，不用遮挡整个页面。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "点击放大画面"
+        },
+        {
+          "time": 3,
+          "text": "拖动标题栏移动"
+        },
+        {
+          "time": 6,
+          "text": "完整显示并关闭浮窗"
+        }
+      ],
+      "result": "浮窗可以移动，关闭后返回小预览。",
+      "caution": "浮窗不改变原始图像和相机标定；无数据时需检查实际连接。"
+    },
+    {
+      "id": "preview-rotate",
+      "title": "旋转预览方向",
+      "purpose": "按设备安装方向调整网页预览。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到旋转 90°"
+        },
+        {
+          "time": 3,
+          "text": "旋转一次"
+        },
+        {
+          "time": 6,
+          "text": "再旋转一次核对方向"
+        }
+      ],
+      "result": "显示方向随操作改变。",
+      "caution": "只旋转网页显示，不旋转原始灰度像素、IMU 或标定外参。"
+    },
+    {
+      "id": "color-settings",
+      "title": "设置彩图编码、帧率和质量",
+      "purpose": "根据浏览器解码能力选择独立彩色输出。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开设置与接口"
+        },
+        {
+          "time": 3,
+          "text": "选择编码与帧率"
+        },
+        {
+          "time": 6,
+          "text": "应用参数并核对"
+        }
+      ],
+      "result": "设备返回的当前参数与选择一致。",
+      "caution": "VIO 运行时最高 5 fps；MJPEG 质量 1–99，视频码率 64–20000 kbit/s；重启驱动恢复默认。"
+    },
+    {
+      "id": "color-stream",
+      "title": "查看彩图与接口地址",
+      "purpose": "从同一个设置窗口查看彩图取流和 HTTP 地址。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "展开查看彩色画面"
+        },
+        {
+          "time": 3,
+          "text": "开启取流"
+        },
+        {
+          "time": 6,
+          "text": "停止取流并查看地址"
+        }
+      ],
+      "result": "本页取流状态随开关变化。",
+      "caution": "H.265 需要浏览器与系统解码支持；有字节不代表已显示首帧。"
+    },
+    {
+      "id": "depth-control",
+      "title": "启动、观察与停止相对深度",
+      "purpose": "需要深度时订阅，结束时明确停止。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到启动深度"
+        },
+        {
+          "time": 3,
+          "text": "启动并查看深度浮窗"
+        },
+        {
+          "time": 6,
+          "text": "点击停止深度"
+        }
+      ],
+      "result": "停止操作释放本页订阅。",
+      "caution": "相对深度没有米制单位，近远极性未确认；颜色不能当作测距或离地高度。"
+    }
+  ]
+}
+,
+{
+  "id": "mount",
+  "title": "安装补偿页面",
+  "intro": "先确定机器人参考点，再填写光心的位置和方向。",
+  "lessons": [
+    {
+      "id": "mount-platform",
+      "title": "选择机器人与模型尺寸",
+      "purpose": "使三维预览接近实际机身，便于核对安装。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开安装补偿"
+        },
+        {
+          "time": 3,
+          "text": "选择平台类型"
+        },
+        {
+          "time": 6,
+          "text": "按实物填写模型尺寸"
+        }
+      ],
+      "result": "模型外观随所选平台和尺寸变化。",
+      "caution": "模型尺寸只影响展示；位置偏移以光心相对机器人参考点测量。"
+    },
+    {
+      "id": "mount-coordinates",
+      "title": "选择 FLU 或 FRD 坐标约定",
+      "purpose": "按下游系统的本体轴定义填写安装参数。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看当前平台坐标"
+        },
+        {
+          "time": 3,
+          "text": "切换 FRD"
+        },
+        {
+          "time": 6,
+          "text": "切回 FLU 核对方向"
+        }
+      ],
+      "result": "坐标约定切换并换算已有数值。",
+      "caution": "FLU 为前左上，FRD 为前右下；二者不是世界 ENU/NED。"
+    },
+    {
+      "id": "mount-position",
+      "title": "填写光心相对参考点的位置",
+      "purpose": "从机器人参考点量到相机光心，并按界面单位填写。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到 X / m 偏移"
+        },
+        {
+          "time": 3,
+          "text": "填写前后位置"
+        },
+        {
+          "time": 6,
+          "text": "填写高度并核对模型"
+        }
+      ],
+      "result": "光心位置与实际机械安装一致。",
+      "caution": "输入 0.12 m 表示 12 cm；不要将 IMU 安装位置当作光心位置。"
+    },
+    {
+      "id": "mount-orientation",
+      "title": "设置正装、倒装与安装角",
+      "purpose": "先用预设朝向，再用角度或三维手柄微调。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择倒装预设"
+        },
+        {
+          "time": 3,
+          "text": "恢复正装"
+        },
+        {
+          "time": 6,
+          "text": "微调安装 Yaw"
+        }
+      ],
+      "result": "模型的镜头方向与实物一致。",
+      "caution": "相机固定为 X 图像右、Y 图像下、Z 光轴前；不是平台坐标轴。"
+    },
+    {
+      "id": "mount-simulation",
+      "title": "用动态演示检查偏心安装",
+      "purpose": "观察旋转和位移，理解杆臂补偿的效果。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择偏心安装示例"
+        },
+        {
+          "time": 3,
+          "text": "切换运动方式"
+        },
+        {
+          "time": 6,
+          "text": "播放并暂停演示"
+        }
+      ],
+      "result": "模型运动与所选示意一致。",
+      "caution": "这是本地模拟世界位姿，不是设备实时定位或机械验收结果。"
+    },
+    {
+      "id": "mount-matrix",
+      "title": "查看变换矩阵与导出配置",
+      "purpose": "在矩阵窗口核对变换方向和四元数。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开变换矩阵"
+        },
+        {
+          "time": 3,
+          "text": "查看方向和米制平移"
+        },
+        {
+          "time": 6,
+          "text": "关闭窗口并导出 JSON"
+        }
+      ],
+      "result": "能保存一份供核对的配置副本。",
+      "caution": "T_robot_camera 是相机到机器人；不要在飞控端再次重复补偿相同杆臂。"
+    },
+    {
+      "id": "mount-save",
+      "title": "保存、回读与生效时间",
+      "purpose": "保存后重新读取，明确当前实例与下次启动的区别。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "修改安装偏移"
+        },
+        {
+          "time": 3,
+          "text": "保存到板卡"
+        },
+        {
+          "time": 6,
+          "text": "重新读取确认"
+        }
+      ],
+      "result": "回读得到刚保存的安装配置。",
+      "caution": "只补偿串口 MAVLink 输出；HTTP 位姿保持 IMU 原点。下次启动或重启 VIO 生效。"
+    }
+  ]
+}
+,
+{
+  "id": "flight",
+  "title": "飞控接入页面",
+  "intro": "飞控保持地面、未解锁，按连接、配置、验证三步操作。",
+  "lessons": [
+    {
+      "id": "flight-scan",
+      "title": "自动搜索与连接详情",
+      "purpose": "先确认接线，再让 Neo 搜索实际飞控。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开飞控接入"
+        },
+        {
+          "time": 3,
+          "text": "展开连接详情"
+        },
+        {
+          "time": 6,
+          "text": "启动自动搜索"
+        }
+      ],
+      "result": "搜索状态与识别到的飞控类型一致。",
+      "caution": "搜索不会自动写参数；连接成功不代表飞控已融合外部定位。"
+    },
+    {
+      "id": "flight-manual",
+      "title": "手动连接与自定义速率",
+      "purpose": "自动搜索无结果时，核对串口与实际波特率。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+        "text": "搜索未完成时查看手动连接"
+        },
+        {
+          "time": 3,
+        "text": "选择实际飞控类型"
+        },
+        {
+          "time": 6,
+        "text": "填写实际波特率并核对连接入口"
+        }
+      ],
+      "result": "配置与接线端口、飞控实际设置匹配。",
+      "caution": "不要把页面草稿当作已经写入设备；失联先检查接线、电平和端口。"
+    },
+    {
+      "id": "flight-parameters",
+      "title": "读取参数和推荐差异",
+      "purpose": "在写入前先读取当前值，区分推荐草稿和真实参数。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入配置定位"
+        },
+        {
+          "time": 3,
+        "text": "读取识别到的飞控参数"
+        },
+        {
+          "time": 6,
+        "text": "加载本组 VIO 推荐草稿"
+        }
+      ],
+      "result": "当前值、推荐值和勾选项可以区分。",
+      "caution": "加载推荐仅改变草稿，不会直接写入；只使用对应固件版本的推荐。"
+    },
+    {
+      "id": "flight-apply",
+      "title": "检查修改并应用到飞控",
+      "purpose": "只应用本次确认的差异，写入后检查需重启项。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看配置分组"
+        },
+        {
+          "time": 3,
+          "text": "检查参考点确认"
+        },
+        {
+          "time": 6,
+        "text": "检查待写入的修改与确认按钮"
+        }
+      ],
+      "result": "逐项写入结果可核对。",
+      "caution": "失败后先读取已生效部分，不能盲目重发整套参数；保持未解锁。"
+    },
+    {
+      "id": "flight-verify",
+      "title": "核对飞控运行状态和融合结果",
+      "purpose": "最后检查方向、位置、速度、高度和飞控融合状态。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入验证接入"
+        },
+        {
+          "time": 3,
+          "text": "查看真实飞控状态区域"
+        },
+        {
+          "time": 6,
+          "text": "核对外部定位提示"
+        }
+      ],
+      "result": "飞控确认使用外部定位，方向和单位一致。",
+      "caution": "心跳和已连接不是验收结论；无测距仪配置不能照搬测距融合。"
+    }
+  ]
+}
+,
+{
+  "id": "recording",
+  "title": "数据录制与管理",
+  "intro": "录制控件在实时视图的“数据录制”，数据管理负责查看、下载和删除。",
+  "lessons": [
+    {
+      "id": "record-destination",
+      "title": "选择 TF 或 USB／浏览器录制",
+      "purpose": "先决定文件保存在哪里，再选择实际需要的数据通道。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入数据录制"
+        },
+        {
+          "time": 3,
+          "text": "选择 TF 卡"
+        },
+        {
+          "time": 6,
+          "text": "切换 USB／浏览器"
+        }
+      ],
+      "result": "保存位置与所选方式一致。",
+      "caution": "浏览器数据只在当前页内存中；刷新或关闭前必须下载，TF 则独立继续。"
+    },
+    {
+      "id": "record-channels",
+      "title": "选择灰度、IMU、彩图和里程计",
+      "purpose": "只录需要的通道，并检查依赖条件。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看四类数据通道"
+        },
+        {
+          "time": 3,
+          "text": "选择灰度与 IMU"
+        },
+        {
+          "time": 6,
+          "text": "检查里程计依赖提示"
+        }
+      ],
+      "result": "选中通道显示在录制配置中。",
+      "caution": "选择里程计要先启动 VIO；彩图配置可能因相关录制而被锁定。"
+    },
+    {
+      "id": "record-preflight",
+      "title": "检查 TF 卡并进行约 30 秒检测",
+      "purpose": "用真实录制路径检测当前通道组合。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "确认卡状态与空间"
+        },
+        {
+          "time": 3,
+          "text": "找到检测当前配置"
+        },
+        {
+          "time": 6,
+          "text": "运行检测并等待结果"
+        }
+      ],
+      "result": "结果分为 passed、risk、failed 或 incomplete。",
+      "caution": "视频演示压缩等待时间；实际约 30 秒加准备与收尾。至少保留 512 MiB 空间。"
+    },
+    {
+      "id": "record-tf",
+      "title": "开始、停止并确认 TF 录制",
+      "purpose": "录制中观察计数，停止后等待保存收尾。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择 TF 并开始"
+        },
+        {
+          "time": 3,
+          "text": "观察录制状态与计数"
+        },
+        {
+          "time": 6,
+          "text": "停止并等待保存完成"
+        }
+      ],
+      "result": "数据管理中本次 ID 的结果为 complete，并核对结束原因。",
+      "caution": "idle 不代表上一条成功；saving 时不要断电或拔卡。"
+    },
+    {
+      "id": "record-browser",
+      "title": "浏览器录制与及时下载",
+      "purpose": "适合短时采集，停止后手动归档。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择 USB／浏览器"
+        },
+        {
+          "time": 3,
+          "text": "查看开始和停止入口"
+        },
+        {
+          "time": 6,
+          "text": "停止后到数据管理下载"
+        }
+      ],
+      "result": "下载得到 ZIP 后再刷新或离开。",
+      "caution": "不保证传感器全部原始采样无损；长时间任务优先评估 TF 录制。"
+    },
+    {
+      "id": "record-catalog",
+      "title": "筛选、刷新与查看录制详情",
+      "purpose": "区分设备 TF 记录和当前页面的浏览器记录。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开数据管理"
+        },
+        {
+          "time": 3,
+          "text": "按来源筛选"
+        },
+        {
+          "time": 6,
+          "text": "刷新并打开记录详情"
+        }
+      ],
+      "result": "来源、通道、时长、状态和错误可以逐项核对。",
+      "caution": "每次录制保存独立标定快照；旧数据不会随设备新标定而被重写。"
+    },
+    {
+      "id": "record-download-delete",
+      "title": "下载文件与删除确认",
+      "purpose": "先核对完整性并下载，再删除不需要的记录。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开一条录制记录"
+        },
+        {
+          "time": 3,
+          "text": "查看下载入口"
+        },
+        {
+          "time": 6,
+          "text": "查看删除确认并取消"
+        }
+      ],
+      "result": "TF 下载为 TAR，浏览器下载为 ZIP。",
+      "caution": "删除不可撤销；下载受活动任务与存储状态限制，先保留需要的数据。"
+    }
+  ]
+}
+,
+{
+  "id": "calibration",
+  "title": "标定页面",
+  "intro": "只使用本次设备采集，按尺寸、动作采集、求解、结果保存逐段学习。",
+  "lessons": [
+    {
+      "id": "calibration-read",
+      "title": "读取当前设备标定参数",
+      "purpose": "判断是否需要重新标定，避免无必要地重做。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入标定页面"
+        },
+        {
+          "time": 3,
+          "text": "展开设备标定参数"
+        },
+        {
+          "time": 6,
+          "text": "读取参数来源"
+        }
+      ],
+      "result": "saved 表示有已保存文件，default 表示名义默认参数。",
+      "caution": "saved 仍需匹配当前镜头与设备；文件损坏会报错，不静默退回默认。"
+    },
+    {
+      "id": "calibration-board",
+      "title": "全屏显示与下载标定板",
+      "purpose": "准备平整、无反光、尺寸可确认的 AprilTag 图案。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看标定板"
+        },
+        {
+          "time": 3,
+          "text": "下载 SVG 副本"
+        },
+        {
+          "time": 6,
+          "text": "全屏显示标定板"
+        }
+      ],
+      "result": "显示完整、清晰的图案，未被裁切。",
+      "caution": "屏幕缩放会改变物理尺寸；视频画面不能作为实际标定板。"
+    },
+    {
+      "id": "calibration-measure-board",
+      "title": "测量标定板 A—B 的真实长度",
+      "purpose": "按完整黑色图案外缘测量，不包含最外侧白色留边。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择量标定板"
+        },
+        {
+          "time": 3,
+          "text": "填写 A—B 长度 / cm"
+        },
+        {
+          "time": 6,
+          "text": "勾选实际尺寸确认"
+        }
+      ],
+      "result": "确认按钮在满足条件后可用。",
+      "caution": "包含外围黑色小方块；6 列、3 cm Tag、0.3 间隙时 A—B 为 24.3 cm。"
+    },
+    {
+      "id": "calibration-measure-screen",
+      "title": "用有效显示区的宽和高确认尺寸",
+      "purpose": "按页面要求输入当前屏幕有效区域，不用对角线。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择量显示屏"
+        },
+        {
+          "time": 3,
+          "text": "填写有效宽度"
+        },
+        {
+          "time": 6,
+          "text": "填写有效高度并检查"
+        }
+      ],
+      "result": "页面按当前显示几何计算标定板尺寸。",
+      "caution": "修改显示几何或退出全屏后须重新确认，不沿用旧测量。"
+    },
+    {
+      "id": "calibration-measure-tag",
+      "title": "直接填写已知 Tag 边长",
+      "purpose": "已精确测得单个 Tag 时，填写其黑框实际边长。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "选择已知 Tag 大小"
+        },
+        {
+          "time": 3,
+          "text": "输入黑框边长 / cm"
+        },
+        {
+          "time": 6,
+          "text": "确认尺寸进入采集"
+        }
+      ],
+      "result": "界面将厘米换算为求解使用的米。",
+      "caution": "30 mm 填 3 cm；包含黑边，不含白边和 Tag 间隙。"
+    },
+    {
+      "id": "calibration-settings",
+      "title": "核对标定板行列与相机设置",
+      "purpose": "图案参数必须与实际使用的板一致。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开标定板与相机设置"
+        },
+        {
+          "time": 3,
+          "text": "查看行列与间隙"
+        },
+        {
+          "time": 6,
+          "text": "检查后返回尺寸确认"
+        }
+      ],
+      "result": "参数与实际打印或显示的图案一致。",
+      "caution": "当前公开相机模型固定 DS；不开放内部开发求解选项或离线导入。"
+    },
+    {
+      "id": "calibration-motion",
+      "title": "观看动作教学与开始采集",
+      "purpose": "固定标定板，按引导移动相机，覆盖不同位置和方向。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "确认尺寸进入动作采集"
+        },
+        {
+          "time": 3,
+          "text": "观看动作教学"
+        },
+        {
+          "time": 6,
+          "text": "找到开始采集与动作进度"
+        }
+      ],
+      "result": "图案识别和动作进度正常推进。",
+      "caution": "先停止 VIO、录制和其他占用任务；保持清晰，避免快速运动模糊。"
+    },
+    {
+      "id": "calibration-finish",
+      "title": "完成、提前结束或取消采集",
+      "purpose": "根据当前数据量选择正常收尾，而不是直接关闭页面。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看采集进度"
+        },
+        {
+          "time": 3,
+          "text": "查看提前结束入口"
+        },
+        {
+          "time": 6,
+          "text": "区分取消采集与完成"
+        }
+      ],
+      "result": "完成后保留本次数据并进入求解；取消不是成功结束。",
+      "caution": "提前结束只跳过动作门槛，不跳过结果校验；过少或重复角度数据可能不可靠。"
+    },
+    {
+      "id": "calibration-solve",
+      "title": "浏览器求解与进度",
+      "purpose": "采集结束后由当前浏览器计算，保持页面打开。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看本次采集"
+        },
+        {
+          "time": 3,
+          "text": "进入求解步骤"
+        },
+        {
+          "time": 6,
+          "text": "等待计算并检查状态"
+        }
+      ],
+      "result": "求解完成后才进入结果检查。",
+      "caution": "不导入历史包或 EuRoC；计算完成不是实机精度验收。"
+    },
+    {
+      "id": "calibration-results",
+      "title": "查看结果、残差和下载报告",
+      "purpose": "把参数和报告放在一起判断质量。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开查看结果"
+        },
+        {
+          "time": 3,
+          "text": "查看参数与指标"
+        },
+        {
+          "time": 6,
+          "text": "查看报告和下载入口"
+        }
+      ],
+      "result": "缺失指标显示为 —，不能当作零误差。",
+      "caution": "示例报告只用于介绍界面；实际须下载本次报告核对物理单位残差。"
+    },
+    {
+      "id": "calibration-filter",
+      "title": "逐图筛选并重新求解",
+      "purpose": "在本次采集中排除模糊或误识别图像。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "展开逐图筛选"
+        },
+        {
+          "time": 3,
+          "text": "查看阈值与排除选项"
+        },
+        {
+          "time": 6,
+          "text": "重新求解并比较结果"
+        }
+      ],
+      "result": "新结果来自确认过的图像集合。",
+      "caution": "不要仅为了降低数字删除所有困难图像；公开版不开放离线数据导入。"
+    },
+    {
+      "id": "calibration-save",
+      "title": "下载本次数据、保存并验证生效",
+      "purpose": "先归档，再把确认有效的参数写入设备。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "下载数据与结果副本"
+        },
+        {
+          "time": 3,
+          "text": "保存标定参数"
+        },
+        {
+          "time": 6,
+          "text": "重新读取并在下次启动验证"
+        }
+      ],
+      "result": "回读为 saved，下一次启动 VIO 使用新参数。",
+      "caution": "先释放采集连接、停止 VIO、TF 预检／录制和深度；保存不改变当前实例快照。"
+    }
+  ]
+}
+,
+{
+  "id": "settings",
+  "title": "网络、按键与开机设置",
+  "intro": "区分立即生效、下次录制采用和下次开机生效。",
+  "lessons": [
+    {
+      "id": "network-read",
+      "title": "查看和刷新当前 USB 网络地址",
+      "purpose": "在设备设置的网络页核对实际网段。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开设备设置"
+        },
+        {
+          "time": 3,
+          "text": "查看当前 IP"
+        },
+        {
+          "time": 6,
+          "text": "刷新设备网络设置"
+        }
+      ],
+      "result": "当前地址和设备返回网段一致。",
+      "caution": "默认 192.168.11.1；设备网页与文档网站不是同一个地址。"
+    },
+    {
+      "id": "network-change",
+      "title": "修改网段并在新地址确认",
+      "purpose": "只修改允许的第三段，提交前确认新旧地址。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "填写新网段"
+        },
+        {
+          "time": 3,
+          "text": "查看保存并应用确认"
+        },
+        {
+          "time": 6,
+          "text": "取消演示并核对目标地址"
+        }
+      ],
+      "result": "实际应用后到新地址重新连接并核对。",
+      "caution": "范围 11–255；网络会断开，电脑需自动获取 IP；请求结果未知时不要盲目重发。"
+    },
+    {
+      "id": "button-actions",
+      "title": "设置实体按键的短按、长按和时长",
+      "purpose": "实体按键动作与网页点击互不替代。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "进入按键设置"
+        },
+        {
+          "time": 3,
+          "text": "选择准备后短按动作"
+        },
+        {
+          "time": 6,
+          "text": "选择长按动作和时长"
+        }
+      ],
+      "result": "草稿显示未保存，保存后回读确认。",
+      "caution": "先短按准备再长按执行；动作名称与当前设备界面一致，不适用旧固件。"
+    },
+    {
+      "id": "button-channels",
+      "title": "设置按键录制内容并保存",
+      "purpose": "单独设置实体按键写入 TF 的通道组合。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看按键录制内容"
+        },
+        {
+          "time": 3,
+          "text": "勾选需要的通道"
+        },
+        {
+          "time": 6,
+          "text": "保存并生效"
+        }
+      ],
+      "result": "新配置持久化，供下次按键录制使用。",
+      "caution": "与实时视图录制选项独立，不改变正在进行的录制；至少选择一项内容。"
+    },
+    {
+      "id": "button-reset",
+      "title": "恢复按键默认草稿与重新读取",
+      "purpose": "清楚区分恢复默认草稿和已经保存到设备。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "恢复默认设置"
+        },
+        {
+          "time": 3,
+          "text": "检查默认草稿"
+        },
+        {
+          "time": 6,
+          "text": "重新读取设备配置"
+        }
+      ],
+      "result": "回读显示设备真实已保存值。",
+      "caution": "恢复默认不直接写设备；未保存修改可能被重新读取覆盖。"
+    },
+    {
+      "id": "boot-start",
+      "title": "配置开机自动启动 VIO",
+      "purpose": "用开机设置控制下次上电行为，而不是当前启停。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "展开开机设置"
+        },
+        {
+          "time": 3,
+          "text": "勾选自动启动"
+        },
+        {
+          "time": 6,
+          "text": "保存并刷新确认"
+        }
+      ],
+      "result": "配置保存到设备，当前 VIO 状态不变。",
+      "caution": "下次开机仅自动启动一次；手动停止或异常退出后不会自动反复启动。"
+    }
+  ]
+}
+,
+{
+  "id": "update",
+  "title": "在线更新与重启",
+  "intro": "先备份浏览器数据并结束任务，再选择正确的 .viofw 更新包。",
+  "lessons": [
+    {
+      "id": "update-version",
+      "title": "查看当前运行与已安装版本",
+      "purpose": "更新前先确认设备状态、空间和版本详情。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "打开在线更新"
+        },
+        {
+          "time": 3,
+          "text": "刷新当前状态"
+        },
+        {
+          "time": 6,
+          "text": "展开版本详情"
+        }
+      ],
+      "result": "运行版本与已安装版本可以分别核对。",
+      "caution": "版本不同可能表示等待重启，不要只看上传成功。"
+    },
+    {
+      "id": "update-upload",
+      "title": "选择安装包、上传并校验",
+      "purpose": "只选择适配当前设备的完整 .viofw 文件。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看安装包要求"
+        },
+        {
+          "time": 3,
+          "text": "选择本地 .viofw"
+        },
+        {
+          "time": 6,
+          "text": "点击上传并等待校验"
+        }
+      ],
+      "result": "校验通过后才出现可安装候选。",
+      "caution": "保持供电；上传失败或中断不得安装残缺包。演示文件不可用于设备。"
+    },
+    {
+      "id": "update-install",
+      "title": "核对候选并确认安装",
+      "purpose": "确认版本、签名与更新说明后再提交。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看已校验候选"
+        },
+        {
+          "time": 3,
+          "text": "点击安装此版本"
+        },
+        {
+          "time": 6,
+          "text": "阅读确认并取消演示"
+        }
+      ],
+      "result": "实际执行后等待安装状态完成。",
+      "caution": "请求受理不等于完成；结果未知先刷新，勿重复安装；会保留设备参数和 TF 数据。"
+    },
+    {
+      "id": "update-reboot",
+      "title": "重启并核对更新已生效",
+      "purpose": "完成安装后显式重启，重新连接并检查运行版本。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "查看等待重启状态"
+        },
+        {
+          "time": 3,
+          "text": "打开重启确认"
+        },
+        {
+          "time": 6,
+          "text": "重连后刷新版本"
+        }
+      ],
+      "result": "更新已生效且运行版本匹配目标。",
+      "caution": "重启前保存浏览器标定与录制数据；失败时按错误码处理，不把失联当作成功。"
+    }
+  ]
+}
+,
+{
+  "id": "examples",
+  "title": "代码示例候选入口",
+  "intro": "当前源码提供只读示例候选，不假定所有已出厂固件都已具备。",
+  "lessons": [
+    {
+      "id": "examples-entry",
+      "title": "找到代码示例与选择语言",
+      "purpose": "有该入口的固件可在独立页面阅读只读接收示例。",
+      "duration": 9,
+      "steps": [
+        {
+          "time": 0,
+          "text": "找到代码示例入口"
+        },
+        {
+          "time": 3,
+          "text": "查看独立示例页面"
+        },
+        {
+          "time": 6,
+          "text": "选择语言和数据类型"
+        }
+      ],
+      "result": "示例内容与所选语言、通道一致。",
+      "caution": "仅当前源码候选入口；已出厂设备使用第四部分 Python 快速验证。"
+    }
+  ]
+}
+]

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang='zh-CN'><meta charset='utf-8'><title>Neo TF 卡安装示意</title>
+<style>html,body{margin:0;background:white}canvas,svg{position:absolute;inset:0;width:960px;height:600px}text{font-family:'Microsoft YaHei',sans-serif;font-size:23px}path{stroke-linejoin:round;stroke-linecap:round}</style>
+<canvas id='model'></canvas><svg id='labels' viewBox='0 0 960 600' aria-label='产品介绍同源模型，TF卡金手指朝上'></svg>
+<script type='module'>
+import * as T from '../site/three.module.js';
+import {createEnclosure,lightProduct} from '../site/enclosure-model.js';
+const renderer = new T.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(960,600);renderer.setPixelRatio(1);renderer.setClearColor(0xffffff,1);
+renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+const scene=new T.Scene();lightProduct(scene);
+const shell=createEnclosure();scene.add(shell);
+const camera=new T.OrthographicCamera(-48,48,30,-30,.1,500);camera.up.set(0,0,1);camera.position.set(85,-80,65);camera.lookAt(5,6,-5);camera.updateMatrixWorld();
+const card=new T.Group();card.position.set(24,0,-15.65);scene.add(card);
+const outline=new T.Shape();outline.moveTo(-7.5,-5.5);outline.lineTo(7.5,-5.5);outline.lineTo(7.5,2.5);outline.lineTo(6,2.5);outline.lineTo(6,4);outline.lineTo(7.5,4);outline.lineTo(7.5,5.5);outline.lineTo(-7.5,5.5);outline.closePath();
+const cardBody=new T.Mesh(new T.ExtrudeGeometry(outline,{depth:.7,bevelEnabled:false}),new T.MeshLambertMaterial({color:0x25342c}));card.add(cardBody);
+for(let index=0;index<8;index++){
+ const contact=new T.Mesh(new T.BoxGeometry(3.3,.86,.08),new T.MeshLambertMaterial({color:0xd6b05a}));
+ contact.position.set(-5.25,-4.45+index*1.27,.76);card.add(contact);
+}
+renderer.render(scene,camera);
+function point(x,y,z){const p=new T.Vector3(x,y,z).project(camera);return [(p.x+1)*480,(1-p.y)*300];}
+const slot=point(12.1,-5,-15.3),contact=point(18.8,0,-14.85),tail=point(32,0,-15.3),outer=point(40,0,-15.3);
+const labels=document.getElementById('labels');
+const line=(anchor,end,color)=>'<path d="M '+anchor[0]+' '+anchor[1]+' L '+end[0]+' '+end[1]+'" fill="none" stroke="'+color+'" stroke-width="2"/><circle cx="'+anchor[0]+'" cy="'+anchor[1]+'" r="3" fill="'+color+'"/>';
+labels.innerHTML=line(slot,[175,465],'#87958b')+'<text x="70" y="490" fill="#4b5d51">TF 卡槽</text>'+line(contact,[740,340],'#b18c4f')+'<text x="740" y="320" fill="#89662f">金手指朝上</text>';
+const dx=tail[0]-outer[0],dy=tail[1]-outer[1],length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length;
+labels.innerHTML+='<path d="M '+outer[0]+' '+outer[1]+' L '+tail[0]+' '+tail[1]+'" stroke="#3776ad" stroke-width="4"/><path d="M '+tail[0]+' '+tail[1]+' L '+(tail[0]-ux*16-uy*7)+' '+(tail[1]-uy*16+ux*7)+' L '+(tail[0]-ux*16+uy*7)+' '+(tail[1]-uy*16-ux*7)+' Z" fill="#3776ad"/><text x="670" y="530" fill="#3776ad">平直插入</text>';
+window.tfModelReceipt={ready:true,source:'site/enclosure-model.js',cardMillimetres:[15,11,.7],contactCount:8,slot:[12.01,0,-15.3]};
+document.title='TF_MODEL_READY';
+</script></html>

@@ -1,0 +1,25 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 440 550' role='img' aria-labelledby='title desc'>
+<title id='title'>Neo 接电脑串口接线</title>
+<desc id='desc'>3 TX 接模块 RX，4 RX 可选接模块 TX，5 GND 接模块 GND 与独立电源负极，6 VIN 接电源正极；模块 VCC 不接，1、2号不接。</desc>
+<rect width='440' height='550' rx='14' fill='#fff'/>
+<g font-family='Microsoft YaHei, sans-serif' font-size='17' fill='#243b33'>
+<text x='24' y='38' font-size='21' font-weight='600'>Neo 6pin</text>
+<text x='286' y='38' font-size='20' font-weight='600'>USB 转 TTL</text>
+<text x='286' y='66' font-size='15' fill='#62766a'>USB 端接电脑</text>
+<text x='24' y='112' fill='#62766a'>1 / 2 同步信号</text><text x='286' y='112' fill='#62766a'>不接</text>
+<text x='24' y='170' fill='#2563b5'>3 · TX</text><text x='326' y='170' fill='#2563b5'>RX</text>
+<path d='M111 164H308l-8-5m8 5-8 5' fill='none' stroke='#2563b5' stroke-width='3'/>
+<text x='24' y='230' fill='#087f83'>4 · RX</text><text x='326' y='230' fill='#087f83'>TX</text>
+<path d='M308 224H111l8-5m-8 5 8 5' fill='none' stroke='#087f83' stroke-width='3' stroke-dasharray='6 4'/>
+<text x='196' y='251' text-anchor='middle' fill='#62766a' font-size='14'>可选 · 双向通信时接</text>
+<text x='24' y='300' fill='#4b5563'>5 · GND</text><text x='326' y='300' fill='#4b5563'>GND</text>
+<path d='M111 294H308M200 294V450H277' fill='none' stroke='#4b5563' stroke-width='3'/>
+<circle cx='200' cy='294' r='4' fill='#4b5563'/>
+<text x='24' y='389' fill='#c33e3e'>6 · VIN</text>
+<rect x='263' y='344' width='158' height='132' rx='10' fill='#f2f7f3' stroke='#dce7e0'/>
+<text x='342' y='373' text-anchor='middle' font-weight='600' font-size='17'>独立稳压电源</text>
+<path d='M111 383V411H277' fill='none' stroke='#c33e3e' stroke-width='3'/>
+<text x='285' y='416' fill='#c33e3e'>＋ VIN 供电</text><text x='285' y='455' fill='#4b5563'>－ 共地</text>
+<text x='24' y='511' font-size='16' font-weight='600'>信号电平 3.3 V · 模块 VCC 不接</text>
+<text x='24' y='537' font-size='14' fill='#62766a'>VIN 范围和插头方向以对应硬件手册为准</text>
+</g></svg>

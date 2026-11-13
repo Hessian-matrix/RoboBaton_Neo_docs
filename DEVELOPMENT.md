@@ -1,5 +1,15 @@
 # RoboBaton Neo 产品网站与文档
 
+## 网页使用：逐项短视频
+
+第三部分的十个章节以 60 段独立操作视频为主，每段约 9 秒，配三个可跳转步骤、中文字幕、结果确认与注意事项。目录和文字维护在 source/_static/web-tutorials/catalog.json，Sphinx 的 web-tutorials 指令生成可搜索的正文；不依赖 JavaScript 才能读到说明。视频使用原公开网页和本机模拟状态，始终标注演示，不接触设备，也不代表实机验收。
+
+视频、封面和字幕随 Sphinx 静态资源发布，preload=none，不自动播放；同时只播放一段，离开视口或切到后台暂停。桌面与手机均保留浏览器原生播放、进度及全屏操作。source/web_tutorials.py 与两个 web-tutorials 静态文件负责渲染和步骤同步，录制夹具、设备页面源码和测试脚本均不进入部署目录。
+
+重录使用 tools/record_web_tutorials.cjs --record；NEO_APP_ROOT 指向应用仓库，PLAYWRIGHT_MODULE 和 CHROME_PATH 选择本机浏览器工具，PLAYWRIGHT_BROWSERS_PATH 指向 tmp/web-tutorials/browsers。首次用 Playwright CLI 的 install ffmpeg 安装匹配编码工具。FFMPEG_PATH 可指定支持 VP8 解码与 libvpx 编码的完整工具；默认使用该临时目录中的 ffmpeg-1011。TUTORIAL_ONLY 以逗号选择重录片段；不带 --record 只检查操作，不联系板卡。--encode-existing 只重新编码 tmp 中已录好的素材。临时素材在 tmp/web-tutorials，检查报告在 release/web-tutorials。
+
+构建后运行 python tools/check_web_tutorials.py tmp/site/docs 检查全部素材、正文步骤与发布隔离；node tools/check_web_tutorials.cjs 验证真实视频解码、字幕、跳转、多播放器与手机明暗模式。录像复用的是当前公开源码候选，不能据此推断全部出厂设备已具备“代码示例”入口。
+
 产品网站：https://hessian-matrix.github.io/RoboBaton_Neo_docs/
 
 文档中心：https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/
@@ -10,7 +20,7 @@
 
 `site-manifest.json` 是公开资源白名单。`tools/build_site.py` 将列出的文件原样复制至干净的 `tmp/site`。不发布原型编辑脚本、参考资料、截图、测试依赖或设备应用源码。Three.js 为 MIT 许可，其许可证随站点发布。产品数据中的性能说明保留历史基准范围，不表示当前固件重新实测。
 
-Sphinx 的产品介绍和快速开始从相同 HTML 提取文字、规格、表格和来源说明。修改产品页面并推送后，两边对应内容一起更新；Sphinx 使用文档主题，不复制交互画布或设备检测功能。详细文档仍在 `source/*.rst` 维护。
+Sphinx 的产品介绍从同份产品 HTML 提取文字、规格、表格和来源说明。文档中的第一次使用与逐页网页使用改由短视频目录生成；产品站的连接引导仍在原 quick-start.html 维护。Sphinx 使用文档主题，不复制交互画布或设备检测功能。
 
 首页 CSS/JS 引用带 SHA-256 前 12 位缓存版本；修改资源后运行 `python3 tools/version_assets.py`，检查会拒绝过期哈希。
 

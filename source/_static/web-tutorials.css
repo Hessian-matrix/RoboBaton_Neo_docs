@@ -1,0 +1,14 @@
+.web-lesson { margin-block: 2.5rem; scroll-margin-top: 6rem; }
+.web-tutorial-player { border: 1px solid var(--baton-line); border-radius: 16px; overflow: hidden; margin-block: 1rem; }
+.web-tutorial-screen { min-width: 0; background: var(--pst-color-on-background); }
+.web-tutorial-screen video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; }
+.web-tutorial-directions { padding: 1rem; background: var(--baton-summary-bg); }
+.web-tutorial-label { margin: 0 0 .35rem; font-weight: 650; }
+.web-tutorial-disclosure { color: var(--pst-color-text-muted); font-size: .85rem; margin-bottom: .8rem; }
+.web-tutorial-steps { display: grid; gap: .35rem; }
+.web-tutorial-steps button { display: flex; gap: .75rem; align-items: baseline; width: 100%; padding: .7rem; text-align: left; border: 0; border-left: 3px solid transparent; border-radius: 6px; background: transparent; color: var(--pst-color-text-base); font: inherit; cursor: pointer; }
+.web-tutorial-steps button span { color: var(--baton-accent); font-variant-numeric: tabular-nums; }
+.web-tutorial-steps button[aria-current="step"] { border-left-color: var(--baton-accent); background: var(--pst-color-on-background); font-weight: 600; }
+.web-tutorial-steps button:focus-visible { outline: 2px solid var(--baton-accent); outline-offset: 2px; }
+@media (min-width: 1500px) { .web-tutorial-player { display: grid; grid-template-columns: minmax(0, 3fr) minmax(210px, 1fr); } }
+@media (max-width: 600px) { .web-tutorial-directions { padding: .7rem; } .web-tutorial-steps button { font-size: .9rem; } }

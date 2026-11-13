@@ -4,15 +4,19 @@ copyright = '2026, Baton'
 version = '0.1'
 release = '0.1.0'
 language = 'zh_CN'
-extensions = []
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+extensions = ['web_tutorials']
 source_suffix = {'.rst': 'restructuredtext'}
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'sphinx_book_theme'
 templates_path = ['_templates']
 html_title = 'RoboBaton Neo 文档'
 html_static_path = ['_static']
-html_css_files = ['custom.css', 'docs-review.css']
-html_js_files = [('docs-examples.js', {'defer': 'defer'})]
+html_css_files = ['custom.css', 'docs-review.css', 'web-tutorials.css']
+html_js_files = [('docs-examples.js', {'defer': 'defer'}), ('web-tutorials.js', {'defer': 'defer'})]
 html_show_sourcelink = False
 html_copy_source = False
 html_theme_options = {
@@ -26,7 +30,6 @@ html_theme_options = {
     'navbar_persistent': ['search-button-field'],
 }
 
-from pathlib import Path
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from docutils import nodes

@@ -1,0 +1,641 @@
+{
+  "realDevice": false,
+  "layouts": [
+    {
+      "chapter": "web-guide",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "positioning",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "imaging",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "recording",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "calibration",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 1440,
+      "theme": "light"
+    },
+    {
+      "chapter": "web-guide",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "positioning",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "imaging",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "recording",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "calibration",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 1440,
+      "theme": "dark"
+    },
+    {
+      "chapter": "web-guide",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "positioning",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "imaging",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "recording",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "calibration",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 390,
+      "theme": "light"
+    },
+    {
+      "chapter": "web-guide",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "positioning",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "imaging",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "recording",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "calibration",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 390,
+      "theme": "dark"
+    },
+    {
+      "chapter": "web-guide",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "positioning",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "imaging",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "recording",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "calibration",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 320,
+      "theme": "light"
+    },
+    {
+      "chapter": "web-guide",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "positioning",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "imaging",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "mount-settings",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "flight-page",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "recording",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "calibration",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "device-settings",
+      "width": 320,
+      "theme": "dark"
+    },
+    {
+      "chapter": "maintenance",
+      "width": 320,
+      "theme": "dark"
+    }
+  ],
+  "decoded": [
+    {
+      "id": "open-device",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "page-navigation",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "language-theme",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "first-check",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "first-start",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "first-stop",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "vio-control",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "vio-status",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "trajectory-views",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "trajectory-tools",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "pose-readout",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "monitor-panel",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "preview-toggle",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "preview-window",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "preview-rotate",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "color-settings",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "color-stream",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "depth-control",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-platform",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-coordinates",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-position",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-orientation",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-simulation",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-matrix",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "mount-save",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "flight-scan",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "flight-manual",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "flight-parameters",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "flight-apply",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "flight-verify",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-destination",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-channels",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-preflight",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-tf",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-browser",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-catalog",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "record-download-delete",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-read",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-board",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-measure-board",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-measure-screen",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-measure-tag",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-settings",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-motion",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-finish",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-solve",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-results",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-filter",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "calibration-save",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "network-read",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "network-change",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "button-actions",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "button-channels",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "button-reset",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "boot-start",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "update-version",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "update-upload",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "update-install",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "update-reboot",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    },
+    {
+      "id": "examples-entry",
+      "duration": 9,
+      "width": 1000,
+      "height": 750
+    }
+  ],
+  "passed": true,
+  "errors": [],
+  "failed": [],
+  "external": []
+}
