@@ -30,6 +30,12 @@ Sphinx 的产品介绍从同份产品 HTML 提取文字、规格、表格和来�
 
 ## 用户文档维护
 
+### SDK 接入文档
+
+外部系统统一以应用仓库 SDK/ 为基准。运行 `python3 tools/sync_sdk.py /path/to/cv-610-pub` 同步显式白名单客户端源码、测试及公开 API 文档；source/_sdk 仅用于 literalinclude 和本地来源核验，Sphinx 不复制源码树。公开下载只通过 SDK ZIP 提供；source/_downloads/sdk-provenance.json 记录逐文件哈希、应用 HEAD 与工作区修改状态，不能将未提交快照标成已发布固件。
+
+本次同步同时从 SDK 更新原 Python ZIP 和单文件示例，不发布 tools/http-api 旧兼容入口。SDK 白名单不含 VIO/驱动/系统实现；HAL 生产编码器联测只在应用仓库可选构建，独立 ZIP 不捆绑设备实现。SDK 页按 Python、C++、ROS 1、ROS 2、STM32 组织，示例源码直接引用快照，运行范围和实机验收分开。修改后运行 `python3 tools/check_sdk.py`、Sphinx 严格构建和组装站点链接检查。
+
 文档顶部提供产品介绍、快速开始、文档中心及搜索入口，各正文页和搜索页共享。`source/_templates/layout.html` 定义导航，`source/_static/custom.css` 统一产品站绿色强调、无衬线字体及明暗/手机布局；保留 Sphinx 目录和搜索。链接校验在组装后的 `tmp/site/docs` 上运行，以包含返回产品站的相对路径。
 
 详细章节覆盖安装连接、定位、标定、两种录制、图像/深度、安装与飞控、设备设置、更新及排障；版本与验证边界见 `source/scope.rst`。操作说明依据公开版源码和当前接口，不照搬历史内部版说明。

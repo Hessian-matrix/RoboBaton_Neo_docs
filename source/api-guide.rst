@@ -1,6 +1,9 @@
 HTTP API 接入
 =============
 
+外部程序优先使用 :doc:`sdk` 中的 C++ / Python 客户端；ROS / ROS 2 复用同一 Python SDK。
+本页用于解释 HTTP 契约，不要求为每种语言重新实现协议。STM32 UART 见 :doc:`sdk-stm32`。
+
 地址与请求约定
 --------------
 

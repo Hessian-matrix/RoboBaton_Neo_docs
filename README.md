@@ -47,6 +47,10 @@
 
 连接脚本的[源码与使用说明](connector/README.md)公开提供；产品站不再提供 Windows 可执行程序下载。需要本机集成时，参考 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
 
+## 统一 SDK 接入
+
+后续外部程序接入以应用仓库 SDK/ 为基准。网页文档第四部分新增 [SDK 总览与下载](source/sdk.rst)、[Python](source/sdk-python.rst)、[C++](source/sdk-cpp.rst)、[ROS](source/ros.rst)、[ROS 2](source/ros2.rst) 和 [STM32 串口](source/sdk-stm32.rst)。保留单文件快速验证，正式示例直接来自 SDK 快照；主机验证、ROS 环境与 STM32 实机验收分别说明。维护和同步方法见 [开发指南](DEVELOPMENT.md)，本轮检查范围见 [验证记录](release/sdk-docs/README.md)。
+
 ## 关于这个仓库
 
 文档中的“Neo 网页的使用”先用标注图介绍分区，再用每页约 3 段短视频展示重点。关键区域平滑放大，步骤放在视频下方，限制说明集中页尾。支持步骤跳转、原生全屏和手机浏览；演示使用本机模拟数据，不会操作你的设备。

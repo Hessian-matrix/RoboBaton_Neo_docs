@@ -4,6 +4,10 @@
 VIO 初始化完成后，通过 3.3 V LVTTL 串口接收 MAVLink 2 ODOMETRY（消息 ID 331）。
 本步骤接收位姿；图像请通过 :doc:`api-examples` 获取。
 
+嵌入式系统统一使用 :doc:`sdk-stm32` 的 C99 解码器与 HAL 适配，完整下载在 :doc:`sdk`。
+本页 pymavlink 示例是电脑侧协议参考，不是 Python HTTP SDK 的串口方法，
+也不要求 STM32 安装 Python。示例检查不等同串口实机验收。
+
 接线与配置
 ----------
 

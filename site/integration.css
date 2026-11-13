@@ -49,3 +49,8 @@
 /* Reserve every step in the shared grid, including hidden steps. */
 .integration .integration-card .integration-copy>.step-content[hidden]{display:block!important;visibility:hidden;pointer-events:none}
 .integration .integration-card .integration-visual>#connection-art[hidden]{display:grid!important;visibility:hidden;pointer-events:none}
+.sdk-entry{margin:1.5rem 0;padding:1.25rem 0;min-width:0}
+.sdk-entry h2{font-size:1.25rem;margin:0 0 .5rem}
+.sdk-entry p{max-width:65ch;line-height:1.7}
+.sdk-entry nav{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;margin:1rem 0}
+.sdk-entry nav a{display:inline-flex;overflow-wrap:anywhere}

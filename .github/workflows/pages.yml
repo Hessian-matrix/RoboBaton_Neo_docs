@@ -18,6 +18,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r source/requirements.txt
+      - name: Validate SDK snapshot and downloads
+        run: python tools/check_sdk.py
       - name: Validate documentation
         run: python -m sphinx -b html -W --keep-going source tmp/docs
       - name: Build product website

@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 extensions = ['web_tutorials']
 source_suffix = {'.rst': 'restructuredtext'}
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_sdk/**']
 html_theme = 'sphinx_book_theme'
 templates_path = ['_templates']
 html_title = 'RoboBaton Neo 文档'
