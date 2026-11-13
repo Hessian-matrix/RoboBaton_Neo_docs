@@ -26,7 +26,7 @@ const contactFaces=faces.splice(contactStart);
 const connectorFaces=faces.splice(portFaceStart);
 box([11.93,22,-12.5],[.12,2.6,3.5],'#324e40');box([11.99,17,-9.5],[.12,1.3,1.3],'#e4c58b');
 const tfSlotStart=faces.length;
-box([11.94,0,-15.3],[.1,12.5,2.3],'#81998a');box([12.01,0,-15.3],[.1,11.5,1.3],'#203b2d');
+box([-11.94,0,-15.3],[.1,12.5,2.3],'#81998a');box([-12.01,0,-15.3],[.1,11.5,1.3],'#203b2d');
 const tfSlotFaces=faces.splice(tfSlotStart);
 
 const geometryFaces=[...faces,...connectorFaces,...contactFaces,...tfSlotFaces];

@@ -1,0 +1,71 @@
+{
+  "geometry": {
+    "slotVertices": 36,
+    "slotMaxX": -11.890000343322754,
+    "firstHitX": 11.899999618530273,
+    "insertionMatches": true
+  },
+  "results": [
+    {
+      "width": 1440,
+      "mode": "pins",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "mode": "usb",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "mode": "tf",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "mode": "pins",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "mode": "pins",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "mode": "usb",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "mode": "tf",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "mode": "pins",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "mode": "pins",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "mode": "usb",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "mode": "tf",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "mode": "pins",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -1,5 +1,5 @@
 import * as T from './three.module.js';
-import {createEnclosure,lightProduct} from './enclosure-model.js';
+import {createEnclosure,lightProduct} from './enclosure-model.js?v=dfc7a1e200a6';
 const canvas=document.getElementById('connection-model');
 if(canvas){try{
  const renderer=new T.WebGLRenderer({canvas,alpha:true,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;

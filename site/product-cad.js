@@ -1,5 +1,5 @@
 import * as T from './three.module.js';
-import {createEnclosure,lightProduct} from './enclosure-model.js';
+import {createEnclosure,lightProduct} from './enclosure-model.js?v=dfc7a1e200a6';
 import {GLTFLoader} from './GLTFLoader.js';
 
 // CAD coordinates remain in millimetres. Reuse the page's projector and controls.
