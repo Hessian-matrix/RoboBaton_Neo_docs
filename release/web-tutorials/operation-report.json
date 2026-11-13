@@ -1,0 +1,3815 @@
+{
+  "realDevice": false,
+  "recorded": false,
+  "results": [
+    {
+      "id": "open-device",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        }
+      ]
+    },
+    {
+      "id": "first-start",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        }
+      ]
+    },
+    {
+      "id": "page-navigation",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "language-theme",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "first-check",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "vio-control",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "vio-status",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "trajectory-views",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        }
+      ]
+    },
+    {
+      "id": "trajectory-tools",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        }
+      ]
+    },
+    {
+      "id": "first-stop",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "POST",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "pose-readout",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "monitor-panel",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "preview-toggle",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "preview-window",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "preview-rotate",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "color-settings",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/color/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/color/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/color/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "color-stream",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/color/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/color/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "depth-control",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-coordinates",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-platform",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-position",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-orientation",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-simulation",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "mount-save",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        }
+      ]
+    },
+    {
+      "id": "mount-matrix",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "flight-scan",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/mavlink"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        }
+      ]
+    },
+    {
+      "id": "flight-manual",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "POST",
+          "path": "/api/mavlink"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "flight-parameters",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/parameters"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/parameters"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "flight-verify",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "record-destination",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "flight-apply",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/parameters"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/parameters"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mount/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/mavlink/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/serial/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "record-channels",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "record-preflight",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "POST",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "record-tf",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "POST",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "record-browser",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "record-download-delete",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets/tutorial-demo"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "record-catalog",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets/tutorial-demo"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-read",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-board",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-measure-screen",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-measure-board",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-measure-tag",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-settings",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-motion",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-finish",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "network-read",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-solve",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-results",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-filter",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "calibration-save",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "network-change",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "button-actions",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "button-channels",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "POST",
+          "path": "/api/buttons/config"
+        }
+      ]
+    },
+    {
+      "id": "update-version",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "button-reset",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/network/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/buttons/config"
+        }
+      ]
+    },
+    {
+      "id": "boot-start",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/boot/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/boot/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/boot/config"
+        },
+        {
+          "method": "GET",
+          "path": "/api/boot/config"
+        }
+      ]
+    },
+    {
+      "id": "update-upload",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "POST",
+          "path": "/api/update/package"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        }
+      ]
+    },
+    {
+      "id": "update-install",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "examples-entry",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        }
+      ]
+    },
+    {
+      "id": "update-reboot",
+      "passed": true,
+      "errors": [],
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/recording"
+        },
+        {
+          "method": "GET",
+          "path": "/api/monitor"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/recording/check"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasets"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/vio"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/update"
+        },
+        {
+          "method": "GET",
+          "path": "/api/system/status"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

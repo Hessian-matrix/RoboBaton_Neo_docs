@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 960 390' role='img' aria-labelledby='title desc'>
+<title id='title'>Neo 接入手机示意图</title>
+<desc id='desc'>Neo 通过 USB 数据线和 OTG 转接配件连接手机，在手机浏览器访问 192.168.11.1。</desc>
+<rect width='960' height='390' rx='18' fill='white'/>
+<g font-family='Microsoft YaHei, PingFang SC, sans-serif'>
+<g transform='translate(70 105)'>
+<rect width='195' height='140' rx='18' fill='#303835'/>
+<path d='M12 18h171M12 123h171' stroke='#56605b' stroke-width='2'/>
+<circle cx='75' cy='70' r='47' fill='#171e1b' stroke='#6c7972' stroke-width='3'/>
+<circle cx='75' cy='70' r='33' fill='#293e36' stroke='#7b8f84' stroke-width='2'/>
+<circle cx='75' cy='70' r='19' fill='#111c17'/>
+<circle cx='65' cy='60' r='7' fill='#637e6e'/>
+<rect x='176' y='53' width='20' height='34' rx='5' fill='#a5afa9'/>
+<rect x='181' y='58' width='15' height='24' rx='3' fill='#17221c'/>
+</g>
+<text x='167' y='302' text-anchor='middle' fill='#243b33' font-size='20' font-weight='600'>Neo · Type-C</text>
+<path d='M305 185H660' fill='none' stroke='#8ca99a' stroke-width='4'/>
+<text x='482' y='142' text-anchor='middle' fill='#243b33' font-size='20' font-weight='600'>USB 数据连接</text>
+<text x='482' y='228' text-anchor='middle' fill='#62766a' font-size='16'>按手机接口选用 OTG 转接配件</text>
+<rect x='695' y='24' width='185' height='290' rx='25' fill='#f4f7f5' stroke='#496557' stroke-width='3'/>
+<rect x='707' y='47' width='161' height='237' rx='8' fill='white'/>
+<rect x='718' y='62' width='139' height='29' rx='7' fill='#edf3ef'/>
+<text x='787' y='81' text-anchor='middle' fill='#315c49' font-size='15'>192.168.11.1</text>
+<text x='727' y='125' fill='#315c49' font-size='21' font-weight='600'>Neo</text>
+<rect x='722' y='141' width='131' height='90' rx='6' fill='#edf3ef'/>
+<path d='M730 209l31-33 25 22 21-30 38 41' fill='none' stroke='#8ca99a' stroke-width='3'/>
+<text x='787' y='260' text-anchor='middle' fill='#62766a' font-size='13'>设备网页 · 示意</text>
+<text x='787' y='350' text-anchor='middle' fill='#243b33' font-size='20' font-weight='600'>手机浏览器</text>
+</g>
+</svg>

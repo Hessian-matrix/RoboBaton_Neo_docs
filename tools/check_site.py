@@ -80,7 +80,8 @@ for filename in ['index.html', 'quick-start.html']:
     assert '127.0.0.1' not in (SITE / filename).read_text()
 for filename, phrases in {
     'product.html': ['位姿', '硬件参数', '定位性能', '193.8', '历史算法基准'],
-    'quick-start.html': ['连接电脑', '出厂已标定', '无需重新标定'],
+    'web-guide.html': ['打开设备网页', '认识功能页面', '主要用途', '演示数据，不连接设备'],
+    'quick-start.html': ['此入口已转到'],
 }.items():
     text = ''.join(Page((DOCS / filename).read_text()).text)
     for phrase in phrases:

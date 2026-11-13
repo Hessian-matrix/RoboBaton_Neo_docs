@@ -26,6 +26,8 @@ jobs:
         run: python tools/check_site.py
       - name: Verify deployed documentation links
         run: python tools/check_docs.py tmp/site/docs
+      - name: Verify short-video tutorials and transcripts
+        run: python tools/check_web_tutorials.py tmp/site/docs
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
         with:
