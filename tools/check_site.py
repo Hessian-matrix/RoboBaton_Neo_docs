@@ -26,6 +26,7 @@ class Page(HTMLParser):
 
 names = json.loads((ROOT / 'site-manifest.json').read_text())
 assert {p.name for p in SITE.iterdir()} == set(names) | {'.nojekyll', 'docs'}
+assert not any(path.suffix.lower() in {'.exe', '.msi', '.msix'} for path in SITE.rglob('*') if path.is_file())
 assert (DOCS / 'searchindex.js').is_file()
 assert (DOCS / 'search.html').is_file()
 assert not (DOCS / '.doctrees').exists()
@@ -35,10 +36,6 @@ for name in names:
     assert data == (ROOT / 'site' / name).read_bytes(), name
     if name == 'neo_connect.py':
         assert data == (ROOT / 'connector/neo_connect.py').read_bytes()
-    if name == 'NeoConnect-Windows-x64.exe':
-        assert data[:2] == b'MZ' and len(data) > 100000, name
-        assert hashlib.sha256(data).hexdigest() in (SITE / 'NeoConnect-SHA256.txt').read_text()
-        continue
     if name.endswith('.glb'):
         assert data[:4] == b'glTF', name
         continue

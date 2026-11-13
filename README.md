@@ -43,9 +43,9 @@
 
 **Python 也能在线运行**：选择“Python · 网页直接运行”，先加载 Python，再连接设备。页面使用浏览器内的 Pyodide 执行展示的 Python 代码，并显示实际输出；首次需联网下载运行环境，设备数据不上传到云端。
 
-**USB 位姿和图像也能在网页验证**：Windows x64 打开[免安装连接工具](https://hessian-matrix.github.io/RoboBaton_Neo_docs/NeoConnect-Windows-x64.exe)，网页选择 USB → 电脑连接工具，填写设备地址后运行。无需修改板端设置；工具只做本机只读转发，Python 仍在浏览器执行。首次连接请允许浏览器访问本地网络。
+**USB 位姿和图像也能在网页验证**：使用 Python 3 运行连接脚本，再在网页选择 USB → 电脑连接工具。工具仅做本机只读转发，不修改设备设置；首次连接请允许浏览器访问本地网络。
 
-已用现有板卡验证真实位姿输出和 **544 × 640 灰度 JPEG**。Windows 包未签名，提供 [SHA256](https://hessian-matrix.github.io/RoboBaton_Neo_docs/NeoConnect-SHA256.txt) 和[源码/使用说明](connector/README.md)。需要本机集成时，可使用 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
+连接脚本的[源码与使用说明](connector/README.md)公开提供；产品站不再提供 Windows 可执行程序下载。需要本机集成时，参考 [Python / Node.js 示例](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/api-examples.html)。
 
 ## 关于这个仓库
 

@@ -4,13 +4,13 @@
 
 ## 使用
 
-1. Windows x64 下载产品站的 `NeoConnect-Windows-x64.exe`，双击并保持窗口打开。程序免安装，已包含运行环境；未签名。
+1. 安装 Python 3，下载产品站的 neo_connect.py；Windows 运行 py -3 neo_connect.py --headless，macOS / Linux 运行 python3 neo_connect.py --headless，并保持运行。
 2. 在同一台连接 Neo USB 网络的电脑上，用 Chrome / Edge 打开产品站“接入你的程序”。
 3. 选择 USB、填写设备的实际地址（当前测试设备为 `192.168.46.1`，默认 80 端口），网页连接方式选“电脑连接工具”。不要沿用已停用的 `:46002`。
 4. 选择 Python，点击“加载 Python”，再“连接并运行”；允许浏览器请求的本地网络访问权限。JavaScript 可直接连接。
 5. 关闭工具窗口即停止。工具不注册开机启动、不安装服务，也不保存设备数据。
 
-macOS / Linux 尚未提供免安装包，可使用 Python 3 运行 `python3 neo_connect.py --headless`；仅依赖标准库。网页串口可独立使用，不经过此工具。
+仅依赖 Python 标准库，不再发布 Windows 可执行程序。网页串口可独立使用，不经过此工具。
 
 ## 边界
 
@@ -23,14 +23,6 @@ macOS / Linux 尚未提供免安装包，可使用 Python 3 运行 `python3 neo_
 
 错误：`DEVICE_UNREACHABLE` 检查 USB 网络/地址；`DEVICE_HTTP_ERROR` 携带设备状态码；`DEVICE_PROTOCOL_MISMATCH` 表示不是所需数据流；`CONNECTOR_BUSY` 表示两个连接已占满。
 
-## 构建与测试
+## 维护与测试
 
-在 Windows Python 虚拟环境安装 `pip install -r connector/build-requirements.txt`（PyInstaller 6.16.0）：
-
-```powershell
-python -m PyInstaller --noconfirm --clean --onefile --windowed --name NeoConnect-Windows-x64 --distpath site --workpath tmp/connector-pyinstaller --specpath tmp/connector-pyinstaller connector/neo_connect.py
-python tools/package_connector.py
-python connector/test_connector.py
-```
-
-Windows 包当前使用 Python 3.9.11、PyInstaller 6.16.0，版本与 SHA256 随发布文件记录。单元回归覆盖地址校验、来源/Host、重复头、预检、只读路径、真实 HTTP 分块转发、错误及连接数上限。实机结果另存 release，不将测试源或模拟器打包进程序。
+运行 python tools/package_connector.py 同步公开 Python 脚本与 SHA256；运行 python connector/test_connector.py 验证只读转发与访问边界。发布检查禁止产物包含 .exe、.msi 或 .msix。
