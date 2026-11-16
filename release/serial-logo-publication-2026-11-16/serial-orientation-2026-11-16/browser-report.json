@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "width": 1280,
+      "embedded": false,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "embedded": true,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "embedded": false,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "embedded": true,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "embedded": false,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "embedded": true,
+      "physicalOrder": "6-5-4-3-2-1",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

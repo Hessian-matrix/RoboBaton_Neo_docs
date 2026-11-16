@@ -5,9 +5,19 @@ const server=http.createServer((req,res)=>{let n=new URL(req.url,'http://localho
  await p.setViewportSize({width,height:1000});await p.goto('http://127.0.0.1:'+server.address().port+'/integration.html',{waitUntil:'networkidle'});
  const measurements=[];for(const transport of ['usb','serial','usb']){await p.locator('[data-transport='+transport+']').click();assert(await p.locator(transport==='usb'?'#serial-art':'#usb-art').isHidden());assert(await p.locator(transport==='usb'?'#usb-art':'#serial-art').isVisible());
  if(transport==='serial'){for(const pin of ['1','2','3','4','5','6']){await p.locator('[data-wire="'+pin+'"]').click();assert.equal(await p.locator('[data-wire="'+pin+'"]').getAttribute('aria-pressed'),'true');assert(await p.locator('.wire-active').count()>0);assert.equal(await p.locator('.wiring-detail').count(),0);}await p.locator('[data-wire="3"]').click();}
+ if(transport==='serial'){
+  assert(await p.locator('.wiring-orientation').isVisible());
+  assert((await p.locator('.wiring-orientation').innerText()).includes('TF 卡槽在左，6pin 在右；上 6 ↓ 下 1'));
+  assert((await p.locator('.wiring-orientation').innerText()).includes('不是线束插头的线端视图'));
+  assert.equal(await p.locator('.wiring-heading a').getAttribute('href'),'docs/connect-serial.html');
+  assert.deepEqual(await p.locator('.wiring-pins button').evaluateAll(buttons=>buttons.map(button=>button.dataset.wire)),['6','5','4','3','2','1']);
+  const terminals=await p.locator('.wiring-map g[data-wire-part]').evaluateAll(groups=>groups.filter(group=>group.querySelector('circle[cx="141"]')).map(group=>({id:group.dataset.wirePart,y:Number(group.querySelector('circle').getAttribute('cy'))})));
+  assert.deepEqual(terminals,[{id:'6',y:65},{id:'5',y:102},{id:'4',y:139},{id:'3',y:176},{id:'2',y:213},{id:'1',y:250}]);
+  for(const {id,y} of terminals){const lines=await p.locator('.wiring-map g[data-wire-part="'+id+'"] path').evaluateAll(paths=>paths.map(item=>item.getAttribute('d')));assert(lines.some(line=>line.startsWith('M154 '+y)),'wire does not originate from pin '+id);}
+ }
  measurements.push(await p.evaluate(()=>{const r=document.querySelector('#integration-panel').getBoundingClientRect(),a=document.querySelector('.integration-actions').getBoundingClientRect();return {height:r.height,actionY:a.top-r.top};}));
  assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.locator('#integration-panel').screenshot({path:path.join(out,width+'-'+transport+'.png')});}
- assert(Math.max(...measurements.map(x=>x.height))-Math.min(...measurements.map(x=>x.height))<1,'card height shifts');assert(Math.max(...measurements.map(x=>x.actionY))-Math.min(...measurements.map(x=>x.actionY))<1,'actions shift');results.push({width,measurements});
+ assert(Math.max(...measurements.map(x=>x.height))-Math.min(...measurements.map(x=>x.height))<1,'card height shifts '+JSON.stringify({width,measurements}));assert(Math.max(...measurements.map(x=>x.actionY))-Math.min(...measurements.map(x=>x.actionY))<1,'actions shift');results.push({width,measurements});
  }
  for(const width of [1440,1040,768,600,390,320]){
  await p.setViewportSize({width,height:1000});await p.goto('http://127.0.0.1:'+server.address().port+'/integration.html',{waitUntil:'networkidle'});

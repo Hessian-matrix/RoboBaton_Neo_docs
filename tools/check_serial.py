@@ -8,8 +8,11 @@ root = Path(__file__).resolve().parents[1]
 build = Path(sys.argv[1]) if len(sys.argv) > 1 else root / 'tmp/docs'
 article = BeautifulSoup((build / 'connect-serial.html').read_text(encoding='utf-8'), 'html.parser').select_one('article')
 assert article is not None
-pin_image = article.find('img', alt='Neo背视图，TF卡槽在左、6pin接口在右；从上到下为1曝光同步、2触发、3TX、4RX、5GND、6VIN')
+pin_image = article.find('img', alt='Neo背视图，TF卡槽在左、6pin接口在右；从上到下为6VIN、5GND、4RX、3TX、2触发、1曝光同步')
 assert pin_image is not None and pin_image['src'].endswith('serial-pin-order.png')
+assert '6 号 VIN 在接口上端，1 号 EXPOSURE_OUT 在下端' in article.get_text()
+assert '从上到下为 1～6' not in article.get_text()
+assert (root / 'source/_static/manual/serial-pin-order.png').read_bytes() == (build / pin_image['src']).read_bytes()
 figure = article.select_one('.serial-connection-figure')
 assert figure is not None
 assert figure.img['src'].endswith('serial-connection.svg')
