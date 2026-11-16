@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import zipfile
+from public_update_contract import public_update_contract
 
 ROOT = Path(__file__).resolve().parents[1]
 SDK_FILES = (
@@ -48,7 +49,14 @@ def main():
                  'HTTP-API-应用更新.md', 'HTTP-API-开机策略.md', 'HTTP-API-按键.md',
                  'HTTP-API-网络配置.md', 'HTTP-API-浏览器录制.md']
     for name in api_names:
-        selected['docs/public_api/' + name] = (application / 'docs/public_api' / name).read_bytes()
+        if name == 'HTTP-API-应用更新.md':
+            data = (ROOT / 'source/_sdk/docs/public_api' / name).read_bytes()
+        elif name == 'http-api.openapi.json':
+            contract = json.loads((application / 'docs/public_api' / name).read_bytes())
+            data = (json.dumps(public_update_contract(contract), ensure_ascii=False, indent=2) + '\n').encode('utf-8')
+        else:
+            data = (application / 'docs/public_api' / name).read_bytes()
+        selected['docs/public_api/' + name] = data
     snapshot = ROOT / 'source/_sdk'
     if snapshot.exists():
         if snapshot.is_symlink() or snapshot.resolve() != ROOT / 'source/_sdk':
@@ -73,6 +81,7 @@ def main():
     status = subprocess.check_output(['git', '-C', str(application), 'status', '--porcelain', '--',
                                       'SDK', 'docs/public_api', 'tools/http-api'], text=True)
     provenance = {'source': 'cv-610-pub/SDK', 'snapshot_date': '2026-11-13',
+                  'documentation_scope': 'public-client',
                   'application_head': head, 'working_tree_modified': bool(status.strip()),
                   'archive': archive.name, 'sha256': checksum,
                   'files': {name: digest(data) for name, data in sorted(selected.items())},

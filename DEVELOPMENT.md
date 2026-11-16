@@ -36,6 +36,8 @@ Sphinx 的产品介绍从同份产品 HTML 提取文字、规格、表格和来�
 
 ### SDK 接入文档
 
+更新接口文档只面向客户端使用：更新包上传、安装、重启、状态与错误处理。应用更新 Markdown 由本站维护，同步 SDK 时保留该说明；OpenAPI 经 tools/public_update_contract.py 筛选为公开展示字段，允许设备返回未列出的内部字段。同步后的来源记录标记 documentation_scope=public-client，SHA-256 对应实际公开下载内容。修改同步逻辑后运行 tools/test_public_update_contract.py 与 tools/check_sdk.py。
+
 外部系统统一以应用仓库 SDK/ 为基准。运行 `python3 tools/sync_sdk.py /path/to/cv-610-pub` 同步显式白名单客户端源码、测试及公开 API 文档；source/_sdk 仅用于 literalinclude 和本地来源核验，Sphinx 不复制源码树。公开下载只通过 SDK ZIP 提供；source/_downloads/sdk-provenance.json 记录逐文件哈希、应用 HEAD 与工作区修改状态，不能将未提交快照标成已发布固件。
 
 本次同步同时从 SDK 更新原 Python ZIP 和单文件示例，不发布 tools/http-api 旧兼容入口。SDK 白名单不含 VIO/驱动/系统实现；HAL 生产编码器联测只在应用仓库可选构建，独立 ZIP 不捆绑设备实现。SDK 页按 Python、C++、ROS 1、ROS 2、STM32 组织，示例源码直接引用快照，运行范围和实机验收分开。修改后运行 `python3 tools/check_sdk.py`、Sphinx 严格构建和组装站点链接检查。

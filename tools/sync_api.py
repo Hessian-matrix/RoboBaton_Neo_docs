@@ -1,9 +1,10 @@
-"""Copy the reviewed public OpenAPI contract and record its exact provenance."""
+"""Publish the client-facing OpenAPI projection and record its source and hash."""
 import argparse
 import hashlib
 import json
 import subprocess
 from pathlib import Path
+from public_update_contract import public_update_contract
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
@@ -12,14 +13,15 @@ args = parser.parse_args()
 application = args.application.resolve()
 relative = 'docs/public_api/http-api.openapi.json'
 data = (application / relative).read_bytes()
-contract = json.loads(data)
+contract = public_update_contract(json.loads(data))
+data = (json.dumps(contract, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
 commit = subprocess.check_output(['git', '-C', str(application), 'rev-parse', 'HEAD'], text=True).strip()
 if subprocess.check_output(['git', '-C', str(application), 'status', '--porcelain', '--', relative], text=True).strip():
     raise SystemExit('OpenAPI source has uncommitted changes; freeze its provenance first')
 dest = root / 'source/_downloads'
 dest.mkdir(exist_ok=True)
 (dest / 'http-api.openapi.json').write_bytes(data)
-provenance = {'application_commit':commit,'source':relative,'sha256':hashlib.sha256(data).hexdigest(),'openapi':contract['openapi']}
+provenance = {'application_commit':commit,'source':relative,'sha256':hashlib.sha256(data).hexdigest(),'openapi':contract['openapi'], 'documentation_scope':'public-client'}
 (dest / 'api-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 lines = ['接口契约与完整索引','==================','','本页根据应用公开版 OpenAPI 自动列举，逐字段类型、枚举、必填项、请求体和响应以契约为准。',
          '入门示例及流协议见 :doc:`api-guide`，各功能操作步骤见对应用户章节。','',

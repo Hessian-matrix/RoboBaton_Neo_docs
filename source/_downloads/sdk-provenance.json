@@ -63,5 +63,6 @@
     "docs/public_api/README.md": "cd17d47f4120ccdd86312849f155c36f9a312eba08209f51b007fea44d41881c",
     "docs/public_api/http-api.openapi.json": "5046a3b0b5bc97b201ea2122c21ba1904b723da8ee7725f07b2055d04fe9de92"
   },
-  "validation": "Host tests only; ROS runtime and STM32 hardware not validated"
+  "validation": "Host tests only; ROS runtime and STM32 hardware not validated",
+  "documentation_scope": "public-client"
 }
