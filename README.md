@@ -21,6 +21,12 @@
 
 <sub>尺寸与重量依据现有产品资料；模型为外观示意。接口能力及验证范围以[当前版本说明](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/scope.html)为准。</sub>
 
+## 固件下载
+
+[下载最新固件](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases/latest/download/RoboBaton-Neo.viofw) · [SHA256 校验文件](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases/latest/download/RoboBaton-Neo.viofw.sha256) · [历史版本](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases) · [更新操作说明](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/maintenance.html)
+
+下载网址固定，始终指向最新正式版本。V1.0.1：修复串口无法使用的问题，优化 TF 录制时的资源占用。
+
 ## 从连接到结果
 
 **① 连接设备** → **② 启动并初始化 VIO** → **③ 查看轨迹或接收数据**

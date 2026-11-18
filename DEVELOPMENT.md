@@ -48,6 +48,10 @@ Sphinx 的产品介绍从同份产品 HTML 提取文字、规格、表格和来�
 
 `python3 tools/sync_api.py /path/to/cv-610-pub` 从应用公开契约同步 OpenAPI、完整方法索引和来源 SHA-256。同步要求源契约无未提交修改；接口变更仍先在应用仓库维护，再更新文档快照。`python3 tools/check_docs.py` 核对本地引用、示例语法与生成页面链接，不连接或操作设备。
 
+## 固件发布
+
+每个固件版本创建独立 GitHub Release（如 v1.0.1），正式发布时设为 Latest。每个 Release 的下载附件固定命名为 RoboBaton-Neo.viofw 和 RoboBaton-Neo.viofw.sha256；校验文件记录同名固件的 SHA256。最新下载入口始终使用 releases/latest/download/，历史版本使用 releases/tag/ 下各版本入口。不要覆盖旧版本附件；不要将大体积固件加入 Git 源码历史。发布前校验原文件，上传后重新下载核对哈希，再更新 maintenance.rst 与 README 中的版本及更新说明。
+
 ## 构建命令
 
 ```bash
