@@ -80,3 +80,23 @@ Neo 使用文档
 
    故障排查 <troubleshooting>
    版本与兼容性 <scope>
+
+.. _site-privacy:
+
+隐私声明
+--------
+
+本声明适用于 RoboBaton Neo 产品网站和在线文档。更新日期：2026 年 11 月 20 日。
+
+**浏览文档。** 阅读接线教程、查看示意图或下载示例不需要注册，也不要求提供姓名、邮箱或电话。
+本站由 GitHub Pages 托管。为保障服务安全，GitHub 会记录并存储访问者的 IP 地址，详见
+`关于 GitHub Pages <https://docs.github.com/zh/pages/getting-started-with-github-pages/what-is-github-pages#data-collection>`_ 和
+`GitHub 隐私声明 <https://docs.github.com/zh/site-policy/privacy-policies/github-general-privacy-statement>`_。
+
+**可选的设备示例。** 阅读文档不会打开串口。启动串口示例并在浏览器中选择端口后，示例才会读取设备位姿。
+网络接收示例按你选择的通道，从设备直接或经本机连接工具读取位姿或图像。这些设备数据在本机处理，不会上传到文档站。
+运行在线 Python 示例时，浏览器会从 jsDelivr 下载运行环境；该服务会收到下载请求及请求方 IP 地址，下载请求不包含设备数据。
+
+**联系维护者。** 对本站的数据处理有疑问，可通过
+`项目反馈区 <https://github.com/Hessian-matrix/RoboBaton_Neo_docs/issues>`_ 联系维护者。
+反馈内容公开可见，请勿附上个人资料、设备图像或含敏感信息的日志。
