@@ -36,6 +36,14 @@ jobs:
         run: python tools/check_docs.py tmp/site/docs
       - name: Verify short-video tutorials and transcripts
         run: python tools/check_web_tutorials.py tmp/site/docs
+      - name: Build English and Chinese website
+        run: python tools/build_locales.py
+      - name: Validate localized publication
+        run: |
+          python tools/check_locales.py
+          python tools/check_docs.py tmp/site/docs
+          python tools/check_docs.py tmp/site/zh/docs
+          python tools/check_site_security.py tmp/site
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
         with:
