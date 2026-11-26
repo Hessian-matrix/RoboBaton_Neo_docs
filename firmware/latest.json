@@ -1,6 +1,8 @@
 {
   "version": "1.0.1",
   "tag": "v1.0.1",
+  "file": "v1.0.1/RoboBaton-Neo.viofw",
+  "notes": "修复串口无法使用的问题；优化TF录制时的资源占用。",
   "url": "https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/v1.0.1/RoboBaton-Neo.viofw",
   "sha256": "26e9d59ab86395bd5146c2596a25e6853de496221535f1fd14a8b0ae13aacd0b",
   "size": 15773446,
