@@ -1,10 +1,10 @@
 {
-  "version": "1.0.1",
-  "tag": "v1.0.1",
-  "file": "v1.0.1/RoboBaton-Neo.viofw",
-  "notes": "修复串口无法使用的问题；优化TF录制时的资源占用。",
-  "url": "https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/v1.0.1/RoboBaton-Neo.viofw",
-  "sha256": "26e9d59ab86395bd5146c2596a25e6853de496221535f1fd14a8b0ae13aacd0b",
-  "size": 15773446,
-  "published_at": "2026-11-18T08:29:38Z"
+  "version": "2.0.0",
+  "tag": "v2.0.0",
+  "file": "v2.0.0/RoboBaton-Neo.viofw",
+  "notes": "1、新增 MAVLink 串口和遥控拨杆控制 VIO。 通过串口命令可启动、停止或重启 VIO；在网页选定遥控通道后，可用拨杆启动或停止 VIO。\n2、VIO 开启时，图像输出最高可达 30 fps。 未压缩原始灰度在原有 5 fps 基础上新增 30 fps 档位。全分辨率彩色单独输出时，上限从 5 fps 提高到 30 fps；但同时开启独立预览、深度等其他图像业务时，彩色上限仍为 5 fps。\n3、修复 TF 卡异常卸载后无法重新挂载的问题。 未正常卸载的 TF 卡通过文件系统检查后可重新挂载；网页新增“重新检查”和“安全弹出”操作。\n4、修复网页录制提前结束，取消单次录制的 256 MiB 总量上限。\n5、新增官方固件更新提醒。 网页可检查新版本，经确认后下载安装包并上传至设备。\n6、修复实体按键录制无响应的问题。",
+  "url": "https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/v2.0.0/RoboBaton-Neo.viofw",
+  "sha256": "17eeb19fdc3f0f2142e98e7fdd5d02bcaf64e8b8ebae7fb0d190fcdd998a03e6",
+  "size": 14694680,
+  "published_at": "2026-11-26T08:10:50Z"
 }
