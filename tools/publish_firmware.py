@@ -1,4 +1,4 @@
-﻿import hashlib,json,os,re,shutil,urllib.request
+import hashlib,json,os,re,shutil,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 REPO='Hessian-matrix/RoboBaton_Neo_docs'
@@ -14,6 +14,10 @@ def verify(data,checksum):
     digest=hashlib.sha256(data).hexdigest()
     if not data or digest!=fields[0].lower():raise ValueError('Firmware SHA256 verification failed')
     return digest
+
+def release_notes(release):
+    overrides=json.loads((ROOT/'firmware/release-notes.json').read_text(encoding='utf8'))
+    return overrides.get(release['tag_name'], (release.get('body') or '').strip())
 
 def main():
     latest=json.loads(fetch(f'https://api.github.com/repos/{REPO}/releases/latest',True))
@@ -34,12 +38,12 @@ def main():
         folder=dest/tag;folder.mkdir(parents=True,exist_ok=True)
         (folder/NAME).write_bytes(data);(folder/(NAME+'.sha256')).write_text(digest+'  '+NAME+chr(10),encoding='utf8')
         if release['id']==latest['id']:
-            manifest={'version':tag[1:],'tag':tag,'url':BASE+'firmware/'+tag+'/'+NAME,'sha256':digest,'size':len(data),'published_at':release['published_at']}
+            manifest={'version':tag[1:],'tag':tag,'file':tag+'/'+NAME,'notes':release_notes(release),'url':BASE+'firmware/'+tag+'/'+NAME,'sha256':digest,'size':len(data),'published_at':release['published_at']}
             alias=dest/'latest';alias.mkdir(exist_ok=True)
             for name in (NAME,NAME+'.sha256'):shutil.copyfile(folder/name,alias/name)
         print('Verified firmware:',tag,len(data),digest)
     if manifest is None:raise ValueError('Latest firmware missing')
-    serialized=json.dumps(manifest,indent=2)+chr(10)
+    serialized=json.dumps(manifest,ensure_ascii=False,indent=2)+chr(10)
     (dest/'latest.json').write_text(serialized,encoding='utf8')
     (ROOT/'firmware').mkdir(exist_ok=True);(ROOT/'firmware/latest.json').write_text(serialized,encoding='utf8')
 if __name__=='__main__':main()

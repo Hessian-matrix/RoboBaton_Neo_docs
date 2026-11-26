@@ -92,7 +92,10 @@ An invalid or incomplete release fails the build and leaves the existing deploym
 - Manifest: https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest.json
 - Raw manifest: https://raw.githubusercontent.com/Hessian-matrix/RoboBaton_Neo_docs/master/firmware/latest.json
 
-The manifest contains version, tag, url, sha256, size (bytes), and published_at.
+The manifest contains version, tag, file, notes, url, sha256, size (bytes), and published_at.
 The url points to a versioned Pages binary. Fetch a fresh manifest and verify the downloaded
 size and SHA256. The raw manifest is synchronized only after successful Pages deployment.
 Do not replace assets of an existing version; publish a new version instead.
+
+The file field is relative to the firmware directory. Notes use firmware/release-notes.json
+when a version-specific summary is present; otherwise they use the GitHub Release body.
