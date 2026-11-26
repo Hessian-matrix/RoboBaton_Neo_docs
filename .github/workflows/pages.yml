@@ -4,6 +4,8 @@ on:
     branches: [master]
   pull_request:
   workflow_dispatch:
+  release:
+    types: [published, edited]
 permissions:
   contents: read
 concurrency:
@@ -44,6 +46,16 @@ jobs:
           python tools/check_docs.py tmp/site/docs
           python tools/check_docs.py tmp/site/zh/docs
           python tools/check_site_security.py tmp/site
+      - name: Mirror verified firmware to Pages
+        run: |
+          python -m unittest discover -s tools -p test_publish_firmware.py
+          python tools/publish_firmware.py
+          python tools/check_site_security.py tmp/site
+      - uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
+        with:
+          name: firmware-manifest
+          path: firmware/latest.json
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
         with:
@@ -53,6 +65,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       pages: write
       id-token: write
     environment:
@@ -62,3 +75,20 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/download-artifact@v4
+        with:
+          name: firmware-manifest
+          path: firmware
+      - name: Update raw firmware manifest after successful deployment
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add firmware/latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update published firmware manifest"
+            git pull --rebase origin master
+            git push origin HEAD:master
+          fi

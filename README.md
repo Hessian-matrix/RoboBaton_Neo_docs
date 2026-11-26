@@ -23,7 +23,7 @@
 
 ## 固件下载
 
-[下载最新固件](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases/latest/download/RoboBaton-Neo.viofw) · [SHA256 校验文件](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases/latest/download/RoboBaton-Neo.viofw.sha256) · [历史版本](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases) · [更新操作说明](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/maintenance.html)
+[下载最新固件](https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest/RoboBaton-Neo.viofw) · [SHA256 校验文件](https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest/RoboBaton-Neo.viofw.sha256) · [历史版本](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases) · [更新操作说明](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/maintenance.html)
 
 下载网址固定，始终指向最新正式版本。V1.0.1：修复串口无法使用的问题，优化 TF 录制时的资源占用。
 
@@ -79,3 +79,20 @@
 接入引导在不同连接方式、语言和数据选项间保持卡片、标题和操作栏位置一致；网页串口模式在相同字段位置提示运行时选择设备。
 
 快速开始保留轨迹、程序接入、机器人安装三章；标定移至页尾文档入口。带壳尺寸按 C V3.9 STL 零件包围盒展示，支持上下壳模型原文件下载。
+
+### Firmware hosting
+
+Upload RoboBaton-Neo.viofw and RoboBaton-Neo.viofw.sha256 to a stable vX.Y.Z Release.
+Publish the release after both uploads finish. If assets are added later, rerun the Pages workflow.
+Pages downloads all stable firmware releases and verifies SHA256 and size before deployment.
+An invalid or incomplete release fails the build and leaves the existing deployment intact.
+
+- Latest binary: https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest/RoboBaton-Neo.viofw
+- Versioned binary: https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/v1.0.1/RoboBaton-Neo.viofw
+- Manifest: https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest.json
+- Raw manifest: https://raw.githubusercontent.com/Hessian-matrix/RoboBaton_Neo_docs/master/firmware/latest.json
+
+The manifest contains version, tag, url, sha256, size (bytes), and published_at.
+The url points to a versioned Pages binary. Fetch a fresh manifest and verify the downloaded
+size and SHA256. The raw manifest is synchronized only after successful Pages deployment.
+Do not replace assets of an existing version; publish a new version instead.
