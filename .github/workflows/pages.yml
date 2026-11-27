@@ -43,6 +43,7 @@ jobs:
       - name: Validate localized publication
         run: |
           python tools/check_locales.py
+          python tools/check_video_locales.py
           python tools/check_docs.py tmp/site/docs
           python tools/check_docs.py tmp/site/zh/docs
           python tools/check_site_security.py tmp/site

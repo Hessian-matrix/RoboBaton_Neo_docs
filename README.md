@@ -99,3 +99,19 @@ Do not replace assets of an existing version; publish a new version instead.
 
 The file field is relative to the firmware directory. Notes use firmware/release-notes.json
 when a version-specific summary is present; otherwise they use the GitHub Release body.
+
+### Bilingual tutorial videos
+
+English pages use reviewed media in locales/en-media; Chinese pages use the original
+site and source assets. Both versions use the same scenarios, chapter times and controls.
+The build rejects missing English videos, reused Chinese media and mismatched caption timelines.
+Language switching preserves the current tutorial step and playback position, paused.
+
+To regenerate English tutorials, build the locale staging tree, then run
+record_reviewed_tutorials.cjs and render_reviewed_tutorials.py with TUTORIAL_LANGUAGE=en.
+Set PLAYWRIGHT_MODULE, CHROME_PATH, FFMPEG_PATH and TUTORIAL_FONT for the local environment.
+TUTORIAL_ONLY selects scenario IDs for capture and published lesson IDs for rendering.
+Use TUTORIAL_WORKERS=1 on memory-constrained machines. Reuse the paired scenarios and fixtures;
+do not change actions or timing for one language alone. The mounting introduction is generated
+for both languages by record_mount_locales.cjs and render_mount_locales.py.
+Run check_video_locales.py on the built site and check_video_locales.cjs against the local preview.

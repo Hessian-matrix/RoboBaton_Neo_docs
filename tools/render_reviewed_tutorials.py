@@ -11,11 +11,13 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 root = Path(__file__).resolve().parents[1]
-assets = root / 'source/_static/web-tutorials'
-scratch = root / 'tmp/reviewed-tutorials'
-output = root / 'release/video-review'
+english = os.environ.get('TUTORIAL_LANGUAGE') == 'en'
+assets = root / ('locales/en-media/source/_static/web-tutorials' if english else 'source/_static/web-tutorials')
+assets.mkdir(parents=True, exist_ok=True)
+scratch = root / ('tmp/reviewed-tutorials-en' if english else 'tmp/reviewed-tutorials')
+output = root / ('release/video-review-en' if english else 'release/video-review')
 output.mkdir(parents=True, exist_ok=True)
-catalog = json.loads((assets / 'catalog.json').read_text(encoding='utf-8'))
+catalog = json.loads(((root / 'tmp/locales/en/source/_static/web-tutorials/catalog.json') if english else (assets / 'catalog.json')).read_text(encoding='utf-8'))
 lessons = {lesson['id']: lesson for group in catalog for lesson in group['lessons']}
 published = [(group, lessons[identity]) for group in catalog if group['id'] not in ['navigation', 'first-run', 'examples'] for identity in group['publishedLessons']]
 ffmpeg = os.environ.get('FFMPEG_PATH', str(root / 'tmp/web-tutorials/browsers/ffmpeg-1011/ffmpeg-win64.exe'))
@@ -39,9 +41,10 @@ def fitted(region):
 
 def text_lines(text, draw, font, limit):
     lines = ['']
-    for character in text:
+    for character in (text.split(' ') if english else text):
+        character = ((' ' if lines[-1] else '') + character) if english else character
         if draw.textlength(lines[-1] + character, font=font) > limit:
-            lines.append(character)
+            lines.append(character.lstrip())
         else:
             lines[-1] += character
     return lines
@@ -84,11 +87,14 @@ def render(item):
             if not capture['passed'] or len(capture['frames']) != 72 or capture['scale'] != 2:
                 raise RuntimeError('Incomplete high-resolution capture: ' + source_id)
             captures.append({'id': source_id, 'captureSha256': hashlib.sha256(capture_path.read_bytes()).hexdigest()})
+            frame_data = {item['filename']: (scratch / source_id / item['filename']).read_bytes() for item in capture['frames']}
             previous_key = None
             current_camera = None
             previous_scene = None
             transition_scene = None
             transition_start = 0
+            loaded_source = None
+            loaded_name = None
             for frame in range(225):
                 time = frame / 25
                 input_frame = capture['frames'][min(71, int(time * 8))]
@@ -106,8 +112,12 @@ def render(item):
                 crossfade = input_frame['afterAction'] and input_frame.get('operation') != 'focus'
                 if crossfade and transition_scene is not None:
                     current_camera = target
-                with Image.open(scratch / source_id / input_frame['filename']) as source:
-                    scene, zoom = region_image(source, region, current_camera)
+                if loaded_name != input_frame['filename']:
+                    if loaded_source is not None: loaded_source.close()
+                    loaded_source = Image.open(io.BytesIO(frame_data[input_frame['filename']]))
+                    loaded_source.load()
+                    loaded_name = input_frame['filename']
+                scene, zoom = region_image(loaded_source, region, current_camera)
                 if crossfade and transition_scene is not None and progress < .45:
                     scene = Image.blend(transition_scene, scene, progress / .45)
                 previous_scene = scene.copy()
@@ -116,7 +126,7 @@ def render(item):
                 draw = ImageDraw.Draw(canvas)
                 title = group['title'].replace('页面', '')
                 draw.text((24, 13), title, font=heading, fill='#293039')
-                draw.text((976, 15), '演示数据 · 未连接设备', font=disclosure, fill='#66707a', anchor='ra')
+                draw.text((976, 15), 'Demo data · No device connected' if english else '演示数据 · 未连接设备', font=disclosure, fill='#66707a', anchor='ra')
                 label = lessons[source_id]['steps'][input_frame['stage']]['text']
                 lines = text_lines(label, draw, caption_font, 900)
                 if len(lines) > 2:
@@ -147,16 +157,24 @@ def render(item):
                 canvas.save(encoded, format='JPEG', quality=94)
                 encoder.stdin.write(encoded.getvalue())
                 encoded_frames += 1
+            if loaded_source is not None: loaded_source.close()
     finally:
         encoder.stdin.close()
     if encoder.wait() != 0:
         raise RuntimeError('Encoding failed: ' + identity)
     (directory / 'reviewed.webm').replace(assets / (identity + '.webm'))
+    if english:
+        def stamp(value): return '00:%02d:%06.3f' % (int(value) // 60, value % 60)
+        captions = ['WEBVTT', '']
+        for index, step in enumerate(lesson['steps']):
+            end = lesson['steps'][index + 1]['time'] if index + 1 < len(lesson['steps']) else lesson['duration']
+            captions.extend([stamp(step['time']) + ' --> ' + stamp(end), step['text'], ''])
+        (assets / (identity + '.vtt')).write_text(chr(10).join(captions), encoding='utf8')
     columns = 3
     rows = math.ceil(len(story) / columns)
     sheet = Image.new('RGB', (1200, rows * 330 + 50), 'white')
     sheet_draw = ImageDraw.Draw(sheet)
-    sheet_draw.text((16, 12), lesson['title'] + ' · 操作前 / 操作后', font=heading, fill='#293039')
+    sheet_draw.text((16, 12), lesson['title'] + (' · Before / After' if english else ' · 操作前 / 操作后'), font=heading, fill='#293039')
     for index, shot in enumerate(story):
         with Image.open(shot['filename']) as picture:
             sheet.paste(picture.resize((400, 300), Image.Resampling.LANCZOS), ((index % 3) * 400, 50 + (index // 3) * 330))
@@ -169,7 +187,7 @@ def render(item):
 if __name__ == '__main__':
     wanted = os.environ.get('TUTORIAL_ONLY')
     selected = [item for item in published if not wanted or item[1]['id'] in wanted.split(',')]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=int(os.environ.get('TUTORIAL_WORKERS', '1'))) as workers:
         results = list(workers.map(render, selected))
     report_path = output / 'render-report.json'
     previous = json.loads(report_path.read_text(encoding='utf-8'))['videos'] if report_path.is_file() else []

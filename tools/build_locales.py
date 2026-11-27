@@ -36,6 +36,8 @@ def prepare_english():
             for old,new in mapping.items():text=text.replace(old,new)
             text=translate(text,catalogue,filename=str(relative))
             text=text.replace('zh-CN','en').replace('zh_CN','en')
+            if source.name == 'web_tutorials.py':
+                text=text.replace('label="Simplified Chinese"', 'label="English"')
             if source.suffix=='.rst':
                 lines=text.splitlines()
                 for i,line in enumerate(lines):
@@ -45,6 +47,12 @@ def prepare_english():
     # These assets are photographed in English, not translated overlays on Chinese media.
     media=ROOT/'locales/en-media'
     if media.exists():shutil.copytree(media,WORK,dirs_exist_ok=True)
+    script = WORK/'site/lessons.js'
+    text = script.read_text(encoding='utf8')
+    for name in ('mount-workflow.webm', 'mount-workflow-poster.png'):
+        digest = hashlib.sha256((WORK/'site'/name).read_bytes()).hexdigest()[:12]
+        text = re.sub(re.escape(name)+r'(?:[?]v=[a-f0-9]+)?', name+'?v='+digest, text)
+    script.write_text(text, encoding='utf8')
     for path in (WORK/'site').glob('*.html'):
         text=path.read_text()
         def version(match):

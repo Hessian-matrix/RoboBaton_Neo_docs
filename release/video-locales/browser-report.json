@@ -1,0 +1,438 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/vio-control.webm?v=056bb5cddc50",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/trajectory-views.webm?v=025f99737c99",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/pose-readout.webm?v=8e0b680720df",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/preview-toggle.webm?v=5ff50f649516",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/monitor-panel.webm?v=054425ae15fd",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/depth-control.webm?v=4fa2f316236a",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/mount-setup.webm?v=4433af7f1119",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/mount-adjust.webm?v=918157848617",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/mount-confirm.webm?v=969b6be077f8",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/flight-connect.webm?v=e3df4513aca8",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/flight-configure.webm?v=6243f6a700eb",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/flight-check.webm?v=10061b299faa",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/record-prepare.webm?v=eb61d59ea3b3",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/record-capture.webm?v=b56a11cb0164",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/record-files.webm?v=1842d703b313",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/calibration-prepare.webm?v=389c54b65d0d",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/calibration-capture.webm?v=7bb5ff05ef03",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/calibration-review.webm?v=4fce07cfa0ca",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/settings-network.webm?v=da3c492e29c8",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/settings-button.webm?v=129fdd89915b",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/settings-boot.webm?v=a1b28bb407b0",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/maintenance-version.webm?v=e7942dcb11da",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/maintenance-install.webm?v=1654db5f5960",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/docs/_static/web-tutorials/maintenance-restart.webm?v=23adcc1c373a",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "en"
+    },
+    {
+      "locale": "zh/",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/vio-control.webm?v=df978290419f",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/trajectory-views.webm?v=9d762e3c764e",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "positioning",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/pose-readout.webm?v=d5356a6400c0",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/preview-toggle.webm?v=fe82abd6bbf9",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/monitor-panel.webm?v=0e000d00f433",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "imaging",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/depth-control.webm?v=9c061082cdc4",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/mount-setup.webm?v=0639175862d4",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/mount-adjust.webm?v=11d226b71f99",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "mount-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/mount-confirm.webm?v=343d1131f32c",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/flight-connect.webm?v=b1cb8a9a88d7",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/flight-configure.webm?v=2c4082428619",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "flight-page",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/flight-check.webm?v=dd5d92969861",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/record-prepare.webm?v=ebb8f83b0fb3",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/record-capture.webm?v=d056f45ca96b",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "recording",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/record-files.webm?v=711d7c9b750d",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/calibration-prepare.webm?v=4383f703acf3",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/calibration-capture.webm?v=9831608ce493",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "calibration",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/calibration-review.webm?v=09caf51024b7",
+      "duration": 27,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/settings-network.webm?v=1a8f4e485f9e",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/settings-button.webm?v=c1809e349ee0",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "device-settings",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/settings-boot.webm?v=2630158806d5",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/maintenance-version.webm?v=b4cfa063df1c",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/maintenance-install.webm?v=5f32e1786487",
+      "duration": 18,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    },
+    {
+      "locale": "zh/",
+      "page": "maintenance",
+      "src": "http://127.0.0.1:8874/zh/docs/_static/web-tutorials/maintenance-restart.webm?v=e49eecf7d67c",
+      "duration": 9,
+      "width": 1000,
+      "height": 750,
+      "track": "zh-CN"
+    }
+  ],
+  "errors": []
+}

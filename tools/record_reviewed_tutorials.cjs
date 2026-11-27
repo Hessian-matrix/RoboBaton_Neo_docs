@@ -5,8 +5,9 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright-core');
 const {server, mock, act, prepare} = require('./record_web_tutorials.cjs');
 const scenarios = require('./web_tutorial_scenarios.cjs');
 const root = path.resolve(__dirname, '..');
-const scratch = path.join(root, 'tmp/reviewed-tutorials');
-const catalog = JSON.parse(fs.readFileSync(path.join(root, 'source/_static/web-tutorials/catalog.json'), 'utf8'));
+const english = process.env.TUTORIAL_LANGUAGE === 'en';
+const scratch = path.join(root, english ? 'tmp/reviewed-tutorials-en' : 'tmp/reviewed-tutorials');
+const catalog = JSON.parse(fs.readFileSync(path.join(root, english ? 'tmp/locales/en/source/_static/web-tutorials/catalog.json' : 'source/_static/web-tutorials/catalog.json'), 'utf8'));
 const all = new Map(catalog.flatMap(group => group.lessons).map(lesson => [lesson.id, lesson]));
 const published = catalog.filter(group => !['navigation', 'first-run', 'examples'].includes(group.id)).flatMap(group => group.publishedLessons);
 const sources = [...new Set(published.flatMap(identity => all.get(identity).sourceLessons || [identity]))];
@@ -101,7 +102,9 @@ async function region(page, preferred, fallback) {
                 bottom = Math.min(bottom, rect.bottom);
             }
         }
-        return {selector, x: left, y: top, width: Math.max(80, right - left), height: Math.max(60, bottom - top),
+        if (right - left < 80) left = Math.max(0, right - 80);
+        if (bottom - top < 60) top = Math.max(0, bottom - 60);
+        return {selector, x: left, y: top, width: right - left, height: bottom - top,
             target: {x: Math.max(0, target.x), y: Math.max(0, target.y), width: Math.min(target.width, innerWidth), height: Math.min(target.height, innerHeight)},
             label: (node.innerText || node.getAttribute('aria-label') || '').trim().slice(0, 80)};
     }, selector);
@@ -127,7 +130,7 @@ async function region(page, preferred, fallback) {
             page.on('pageerror', error => errors.push(error.message));
             try {
                 const fixture = await mock(page, base);
-                await page.goto(base);
+                await page.goto(base + (english ? '?lang=en' : ''));
                 await page.addStyleTag({content: '#tutorial-disclosure,#tutorial-caption,#tutorial-pointer{display:none!important}*{scroll-behavior:auto!important}'});
                 await prepare(page, scenarios[identity], fixture);
                 if (identity === 'monitor-panel') await page.waitForTimeout(1400);
@@ -195,8 +198,8 @@ async function region(page, preferred, fallback) {
         }
     }
     try {
-        await Promise.all(Array.from({length: 3}, worker));
-        const output = path.join(root, 'release/video-review');
+        await Promise.all(Array.from({length: Number(process.env.TUTORIAL_WORKERS || 1)}, worker));
+        const output = path.join(root, english ? 'release/video-review-en' : 'release/video-review');
         fs.mkdirSync(output, {recursive: true});
         const reportPath = path.join(output, 'capture-report.json');
         const previous = fs.existsSync(reportPath) ? JSON.parse(fs.readFileSync(reportPath, 'utf8')).sources : [];

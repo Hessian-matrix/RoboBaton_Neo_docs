@@ -38,7 +38,7 @@ module.exports = {
     'mount-simulation': lesson(mount, [step(click('#mountOffsetDemo')), step(select('#mountMotion', 'tilt')), step(click('#mountPlay'))]),
     'mount-matrix': lesson(mount, [step(click('#mountMatrixShow')), step(focus('#mountMatrixRows')), step(click('#mountMatrixDialog [data-mount-close]'), click('#mountExport'))]),
     'mount-save': lesson(mount, [step(fill('#mountNumber3', '0.12')), step(click('#mountSave')), step(click('#mountRead'))]),
-    'flight-scan': lesson(flight, [step(focus('#fgSteps')), step(click(summary('连接详情'))), step(click('#fgAutoScan'))]),
+    'flight-scan': lesson(flight, [step(focus('#fgSteps')), step(click('#fgStatusDetails summary')), step(click('#fgAutoScan'))]),
     'flight-manual': lesson(flight, [step(focus('#fgManualPanel')), step(click('[data-action="choose-ardupilot"]')), step(fill('#fgTryRate', '921600'), focus('#fgManualConnect'))], 'flight-manual'),
     'flight-parameters': lesson(flight, [step(click(fgStep(1))), step(click('#fgRead')), step(click('[data-action="recommend"]'))]),
     'flight-apply': lesson(flight, [step(focus('.fg-source-tabs')), step(click('#fgReferenceConfirm')), step(click('#fgReviewOpen'))], [click(fgStep(1)), click('#fgRead'), ['wait', 'wait', 400], click('[data-action="recommend"]')]),

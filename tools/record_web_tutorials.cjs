@@ -46,7 +46,7 @@ async function mock(page, base) {
         '/api/mavlink/status': {connected: true, flight_controller: 'ardupilot', system_id: 1, flight_controller_component_id: 1, neo_component_id: 197, firmware_version: '4.5.0', flight_mode: 'STABILIZE', armed: false, active_operation_id: null},
         '/api/mavlink/serial': {baud: 921600, system_id: 1, component_id: 197},
         '/api/serial/status': {mode: 'mavlink', baudrate: 921600, system_id: 1, component_id: 197},
-        '/api/update': {available: true, running: {version: '演示版本'}, installed: {metadata: {version: '演示版本'}}, limits: {free_bytes: '200000000', max_package_bytes: '100000000'}, package: null, operation: null},
+        '/api/update': {available: true, running: {version: 'Demo'}, installed: {metadata: {version: 'Demo'}}, limits: {free_bytes: '200000000', max_package_bytes: '100000000'}, package: null, operation: null},
         '/api/system/status': {available: true, reboot: null},
         '/api/calibration/status': {connected: true, state: 'IDLE', recording: false, preview: {connected: true, frame_count: 100, last_frame_time: Date.now() / 1000, rate_hz: 15}, workflow: {runtime: {state: 'STARTED'}, jobs: {}}, quality: {}, imu_rate_hz: 200},
     };
@@ -76,7 +76,7 @@ async function mock(page, base) {
             return json({accepted: true}, 202);
         }
         if (endpoint === '/api/update/package') {
-            stored['/api/update'].package = {package_id: 'tutorial', metadata: {version: '演示候选', trust: 'test', notes: '仅演示界面，不可安装到设备。'}};
+            stored['/api/update'].package = {package_id: 'tutorial', metadata: {version: 'Demo', trust: 'test', notes: process.env.TUTORIAL_LANGUAGE === 'en' ? 'UI demonstration only. Not a device update.' : '仅演示界面，不可安装到设备。'}};
             return json({package: stored['/api/update'].package});
         }
         if (endpoint.startsWith('/api/mavlink/') && req.method() === 'POST') return json({operation_id: 'tutorial-scan', state: 'succeeded', kind: 'scan', result: {}}, 202);
@@ -141,7 +141,7 @@ async function prepare(page, scenario, fixture) {
         await page.locator('#fgManualPanel').waitFor({state: 'visible', timeout: 8000}); return;
     }
     if (scenario.pre.startsWith('update-')) {
-        fixture.stored['/api/update'].package = {package_id: 'tutorial', metadata: {version: '演示候选', trust: 'test', notes: '仅演示界面，不可用于设备。'}};
+        fixture.stored['/api/update'].package = {package_id: 'tutorial', metadata: {version: 'Demo', trust: 'test', notes: process.env.TUTORIAL_LANGUAGE === 'en' ? 'UI demonstration only. Not a device update.' : '仅演示界面，不可用于设备。'}};
         if (scenario.pre === 'update-reboot') fixture.stored['/api/update'].operation = {state: 'reboot_required', operation_id: 'tutorial', package_id: 'tutorial'};
         await page.locator('#updateRefresh').click(); return;
     }

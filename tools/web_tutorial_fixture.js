@@ -3,8 +3,9 @@
     const browser = globalThis.RoboBatonNeoBrowser;
     const listeners = new Set();
     const query = new URLSearchParams(location.search);
+    const english = query.get('lang') === 'en';
     const calibration = {
-        connected: true, state: 'IDLE', recording: false, endpoint: '本机演示 · 未连接设备',
+        connected: true, state: 'IDLE', recording: false, endpoint: english ? 'Local demo · No device connected' : '本机演示 · 未连接设备',
         record_duration_s: 0, record_images: 0, record_imu: 0, imu_rate_hz: 200,
         preview: {connected: true, frame_count: 100, last_frame_time: Date.now() / 1000, rate_hz: 15},
         workflow: {runtime: {state: 'STARTED'}, jobs: {}, node_solver_ready: true},
@@ -34,7 +35,7 @@
             context.fillRect(62 + column * 70, 65 + row * 70, 70, 70);
         }
         context.fillStyle = '#244d40'; context.font = '24px sans-serif';
-        context.fillText('↑ UP · 演示图像', 125, 610);
+        context.fillText(english ? '↑ UP · Demo image' : '↑ UP · 演示图像', 125, 610);
         if (orient && canvas.parentElement) globalThis.RoboBatonNeoPreviewOrientation?.apply(canvas.parentElement, 544, 640);
     }
     browser.setPreview = value => { previewEnabled = value; };

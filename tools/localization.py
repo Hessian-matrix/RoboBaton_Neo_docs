@@ -14,6 +14,9 @@ def phrases(text):
 def translate(text, catalogue, *, filename=''):
     for original, english in json.loads((ROOT/'locales/en-firmware.json').read_text(encoding='utf8')).items():
         text = text.replace(original, english)
+    if filename.endswith('catalog.json'):
+        for original, english in json.loads((ROOT/'locales/en-video.json').read_text(encoding='utf8')).items():
+            text = text.replace(json.dumps(original, ensure_ascii=False), json.dumps(english))
     def replace(match):
         original = match.group(); key = original.strip()
         if key not in catalogue:
