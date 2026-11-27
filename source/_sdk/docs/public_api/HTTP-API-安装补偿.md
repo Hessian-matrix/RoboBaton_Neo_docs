@@ -145,56 +145,16 @@ Content-Length: <实际 UTF-8 正文字节数>
 | 404 | NOT_FOUND | 路径、方法、查询参数不受支持；包括旧版带版本号路径。不返回405 |
 | 408 | REQUEST_TIMEOUT | 未在3秒内完整接收POST正文；业务写入尚未开始 |
 | 409 | UPDATE_BUSY | 应用更新占用设备写操作；结束更新后再保存 |
-| 500 | CONFIG_SAVE_FAILED | 创建文件、写入、fsync、rename或保存后回读失败；结果可能不确定，先GET核对 |
+| 500 | CONFIG_SAVE_FAILED | 创建文件、写入、持久保存确认、替换配置或保存后回读失败；结果可能不确定，先GET核对 |
 | 500 | CONFIG_LOAD_FAILED | 配置损坏、无法读取或结果不可序列化；不默认清除用户文件 |
 | 500 | CALIBRATION_LOAD_FAILED | 换算相机—IMU安装关系时标定文件损坏或不可读；文件不存在时使用统一默认外参 |
 | 503 | DEVICE_UNAVAILABLE | 网关无法连接设备服务；稍后读取确认状态 |
 | 503 | DEVICE_REQUEST_UNCONFIRMED | 网关与设备服务之间的回复未确认；可能已经写入，先GET核对 |
 | 503 | DEVICE_PROTOCOL_MISMATCH | 网关与设备服务的协议不匹配或回复不合法；核对配套版本 |
 
-错误列表针对当前代码；不要把HTTP 500、503或网络断开直接解释为“文件一定没改”。例如rename完成后目录fsync失败，会返回保存失败，但新文件已经可见。
+错误列表针对当前代码；不要把HTTP 500、503或网络断开直接解释为“文件一定没改”。例如替换配置完成后目录持久保存确认失败，会返回保存失败，但新文件已经可见。
 
 客户端建议：POST后检查HTTP状态和回读值；响应丢失时GET比较位置、坐标约定、机器人类型和等价旋转，再决定是否重试。浮点允许合理误差，四元数接受q/−q等价。配置没有多客户端冲突检测，后完成的保存会覆盖前一个；GET也可能读到其他客户端刚保存的值。
-
-## 6. 板端文件与 VIO 加载
-
-当前默认路径如下，来源为 platform/paths.json 及生成的 drivers/include/robobaton_paths.h。路径可在构建时重定位；接口调用方无需知道文件路径。
-
-| 文件/资源 | 用途 |
-| --- | --- |
-| /home/VIO/parameters/mount.json | 当前安装补偿配置；文件名不绑定 HTTP 接口版本 |
-| /home/VIO/parameters/robot-frame.json | 只在主配置不存在时兼容读取的旧安装文件 |
-| /home/VIO/parameters/mono.conf | 唯一有效相机—IMU标定；用于旧IMU配置换算和启动时补偿计算 |
-| /run/robobaton-neo-vio-mount.lock | 保留历史路径名；运行器与相机/IMU标定保存共用的生命周期保护锁，安装保存不再申请它 |
-
-保存顺序为：同目录临时文件 → 完整写入 → 文件fsync → close → rename原子替换主文件 → 目录fsync → 回读 → HTTP 200。现有保存路径已经使用这种方式，不需要新增一套待生效文件。
-
-读取优先级：
-
-1. 主配置存在：读取主配置；损坏则报错，不回退。
-2. 主配置不存在、旧文件存在：读取旧文件；旧IMU参考配置通过真实mono.conf外参换算成接口的光心配置。
-3. 两者都不存在：返回默认值、configured=false；GET不创建文件。
-
-在 VIO 启动时，mono_runner.c 读取标定和安装配置。robot_frame_load() 读完即 fclose；运行器将安装关系转换成内存里的 imu_robot_frame，循环中用这个副本计算串口输出。**运行期间没有每帧重读、文件监视或热加载。** GET接口读文件则独立于VIO启动，可随时查询。
-
-板内文件不是HTTP响应的原样拷贝。例如上述FLU配置的内部保存格式：
-
-~~~json
-{
-  "schema_version": 2,
-  "robot_type": "car",
-  "reference_frame": "camera",
-  "convention": "FLU",
-  "quaternion_robot_from_camera_wxyz": [0.7071067811865476, 0, 0.7071067811865476, 0],
-  "position_robot_from_camera_m": [0.12, 0, 0]
-}
-~~~
-
-内部数组为wxyz；HTTP对象为具名xyzw。FLU光心文件schema_version=2，FRD光心文件=3，历史IMU文件=1。configured由读取结果确定，不写在该文件中。文件schema_version不是HTTP路径版本。
-
-程序加载完成后修改磁盘文件，不会改变已有内存副本。需要避免的是在VIO恰好启动读取时原地截断重写文件，导致半份JSON或配置损坏；原子替换可保证读者取得完整旧文件或完整新文件。推荐通过API保存，保留字段校验、序列化和同步保障。
-
-设备服务由 nd_dispatch 持有 pr_actions，将各次配置写入和本次回读串行化，并保留更新维护互斥。安装保存不再检查 vio_busy、不获取 vio_lock 或生命周期 flock；算法启动与 GET 可读到完整旧文件或完整新文件。原子替换只改变路径指向，已读入的内存副本不变。相机/IMU标定仍由运行状态检查及生命周期共享/独占 flock 保护。
 
 ## 7. 调用示例
 
@@ -241,18 +201,3 @@ assert abs(confirmed["camera_in_robot"]["position"]["x"] - 0.12) < 1e-9
 
 本机验证使用真实设备服务与HTTP网关、实际安装配置读取函数和生命周期锁，验证保存/回读、旧快照、新启动读取、并发、写入失败和标定保护。网页验证覆盖中英文、明暗模式及320/390/1440px。测试不执行真实相机或VIO估计，不代表实机运动、串口输出或长期稳定性验收。
 
-## 9. 实现位置和验证范围
-
-| 责任 | 源码 |
-| --- | --- |
-| 路由、HTTP头和正文约束 | calibration/board/public_device_http.h |
-| 设备服务写操作串行化、更新保护 | device-service/src/ipc/dispatch.c |
-| 字段校验、持久化、回读、当前VIO互斥 | device-service/src/config/mount.c |
-| 文件格式、旧格式加载、坐标换算 | VIO-Neo/src/io/robot_frame.c |
-| 启动读取、内存补偿、串口输出 | VIO-Neo/src/app/mono_runner.c |
-| 网页请求和保存提示 | visualization/public/public-mount.js、robot-frame.js |
-| Python客户端 | tools/http-api/client.py |
-
-源码和公开网页的本机验证见[运行中保存回归](../安装补偿运行中保存验证-2026-11-06.md)。合并版本026d6ea已部署：VIO运行时POST原配置返回200，文件inode改变、配置回读一致、VIO进程未重启；实际网页保存和下一次启动生效提示、中英文窄屏均检查通过。使用原参数避免改变设备安装关系，未实测改变安装值后的串口输出；旧实例快照/新启动加载由本机回归覆盖。具体证据与限制见[合并及实机记录](../飞控功能合并验证-2026-11-06.md)。历史实测见[2026-11-04验证](../HTTP-API-安装补偿验证-2026-11-04.md)，其旧路径和409运行保护结论属于当时版本，不能代表本次行为。
-
-系统重启并发约束（2026-11-09）：本模块的业务变更/配置写入在系统重启已受理或重启状态存储异常时返回409 REBOOT_BUSY；先查询[系统状态](HTTP-API-系统.md)，不自动重复变更。普通状态查询保持可用。

@@ -1,5 +1,10 @@
 # 错误码
 
+MAVLink VIO配置沿用小写 invalid_request、invalid_query、operation_busy、idempotency_key_conflict、history_capacity、config_load_failed、config_save_failed、service_unavailable；HTTP状态及串口COMMAND_ACK的数字reason见[控制VIO](HTTP-API-MAVLink-VIO控制.md)。HTTP错误与串口ACK不混用；共享设备维护保护仍返回UPDATE_BUSY/REBOOT_BUSY。
+
+409 IMAGE_CONFLICT：图像通道已占用或当前共载组合不兼容；409 CONFIG_CONFLICT：改档与当前业务冲突。请求被拒时保留原业务。高于 5 fps 的全彩成功出帧后会结束独立预览；待全彩释放后可再订阅预览。详见[原灰档位与图像互斥规则](HTTP-API-灰度.md)。
+
+
 2026-11-05 起，失败响应为 {"error":{"code":"COMMAND_BUSY"}}，不再包含 message。HTTP 状态码仍有意义；先检查 HTTP 状态，再读 code。客户端对未知码保留原码，不假定只有本文所列错误。
 
 2026-11-06安装补偿核对：GET/POST /api/mount/config的逐状态错误和重试规则见[接口说明](HTTP-API-安装补偿.md)。POST允许VIO运行及启停期间保存，不再因VIO状态或生命周期锁返回VIO_BUSY；应用更新期间仍返回409 UPDATE_BUSY。GET携带禁止的传输头返回INVALID_REQUEST，POST配置请求非法返回INVALID_CONFIG。CONFIG_SAVE_FAILED或DEVICE_REQUEST_UNCONFIRMED不能证明文件未写入，应先GET确认。
@@ -68,10 +73,15 @@
 | STORAGE_FULL | TF 卡空间不足 |
 | STORAGE_NOT_READY | TF 卡尚未就绪 |
 | STORAGE_READ_ONLY | TF 卡为只读 |
+| TF_COMMAND_UNCONFIRMED | 未能确认卡操作结果，请刷新状态。 |
+| TF_MEDIA_CHANGED | 检测到换卡，请刷新卡状态。 |
+| TF_MOUNT_CONFLICT | 挂载位置被占用，请先结束占用任务。 |
+| TF_CONTROL_FAILED | 卡操作失败，请检查卡状态。 |
+| TF_RELEASE_FAILED | 未能安全释放 TF 卡，已取消重启。 |
 | STORAGE_UNAVAILABLE | TF 卡不可用，请检查卡状态 |
 | STREAM_LIMIT | 数据流连接已达上限，请关闭不需要的连接 |
 | STREAM_RANDOM_ACCESS_TIMEOUT | 等待视频参数或关键帧超时，请重新连接 |
-| UPDATE_UNAVAILABLE | 系统 A/B 标识或更新器缺失；更新返回503，不使用旧目录安装方式 |
+| UPDATE_UNAVAILABLE | 更新功能不可用，返回 503，请核对配套固件 |
 | UPDATE_BOOT_FAILED | 新系统试启动未通过，已回到原版本；检查包和设备后再发起更新 |
 | VIO_BUSY | 旧安装保存保护码；当前安装接口已不返回此码，旧板端出现时需核对配套版本 |
 | VIO_COMMAND_FAILED | VIO 命令执行失败，请检查设备后重试 |

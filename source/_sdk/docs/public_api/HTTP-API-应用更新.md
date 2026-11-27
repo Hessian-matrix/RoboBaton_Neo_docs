@@ -1,6 +1,6 @@
 # 应用更新
 
-使用适用于当前设备的 .viofw 更新包，依次完成上传、校验、安装和重启。只使用产品提供的更新包，不自行编辑或重新打包。当前没有自动下载或自动安装。
+使用适用于当前设备的 .viofw 更新包，依次完成上传、校验、安装和重启。只使用产品提供的更新包，不自行编辑或重新打包。网页通过固定 firmware/latest.json 检查新版本，经用户确认后下载并上传更新包。安装和重启需用户操作。
 
 ## 更新前
 
@@ -13,7 +13,6 @@
 | 字段 | 含义 |
 | --- | --- |
 | running、gateway_running | 当前设备服务、网页服务的 version 和 build_id；未知为 null |
-| installed | 最近安装信息，包含 package_id 和 metadata；未知为 null |
 | package | 校验通过的候选更新包；没有时为 null |
 | operation | 最近操作的 operation_id、state、package_id 和 error；没有时为 null |
 | maintenance | 是否处于维护状态 |
@@ -68,3 +67,5 @@ available=false 时上传和安装返回503 UPDATE_UNAVAILABLE。维护期间不
 上传前释放不需要的采集和下载连接。安装过程可继续查询状态，但不要断电、重复提交安装或强行解除维护。安装后不会自动重启。
 
 重启后重新连接设备并检查运行版本和 operation.state。succeeded 表示新版本启动确认完成；failed 或 recovery_required 时按错误码和发布说明处理。不要仅以网页重新连接或上传完成判断升级成功。版本更新不等于定位精度、外设和长期运行性能已完成验收。
+
+V2.0.0：GET /api/update 不再返回 installed。running 与 gateway_running 来自实际运行程序；安装但未重启仍显示旧版。package 是候选包，不代表运行版本。

@@ -2,7 +2,7 @@
 
 预检复用正式 TF 录制接收、JPEG Q90 编码源、RBR1 文件、8 MiB 队列、顺序写入与同步策略，不使用随机数据跑卡速榜单。
 
-2026-11-10：同步请求改为约1秒或新增完整写入达到1MiB触发，仍只有一个fsync在途；预算压力下等待足够的已同步前缀。exFAT明确不支持KEEP_SIZE时采用普通顺序增长，不掩盖空间或I/O错误。预检与正式录制共用该实现，原状态、指标、风险阈值不变；即使连续录制完整，单次同步≥500ms仍报告risk，不能把risk改写成passed。
+预检与正式录制互斥。即使录制完整，同步耗时达到风险阈值仍报告 risk。
 
 ## 使用与生命周期
 
@@ -48,7 +48,7 @@ GET /api/recording/check?channels=gray,imu：
 
 灰度/IMU/彩图源时间跨度内的输出速率需至少达到配置期望的90%。灰度无VIO按60fps，有VIO读取驱动配置capture_fps；IMU200Hz；彩图取实际配置fps。里程计受算法情况影响，不承诺固定30Hz，只验证源连续、有样本并报告实际到达速率。速率不足不能判为卡性能差，也不能以较低实际输入量判为通过。
 
-metrics：queue_peak_bytes、queue_end_bytes、queue_capacity_bytes、write_max_ms（单条RBR1序列化/写入墙钟耗时）、flush_max_ms（fflush）、sync_max_ms（fsync）、drain_ms。每段分别计时，仍会包含调度等待，不等于闪存本体耗时。当前预检不单独测JPEG编码耗时，无法仅凭本结果完全定位存储硬件/驱动/CPU根因。
+metrics：queue_peak_bytes、queue_end_bytes、queue_capacity_bytes、write_max_ms（单条RBR1序列化/写入墙钟耗时）、flush_max_ms（写入确认）、sync_max_ms（持久保存确认）、drain_ms。每段分别计时，仍会包含调度等待，不等于闪存本体耗时。当前预检不单独测JPEG编码耗时，无法仅凭本结果完全定位存储硬件/驱动/CPU根因。
 
 ## 内存缓存与卡身份
 
@@ -56,16 +56,16 @@ metrics：queue_peak_bytes、queue_end_bytes、queue_capacity_bytes、write_max_
 
 每个卡连接代次最多保存128组结果（约百KB量级）；不偷偷淘汰已测结果，达到上限只拒绝新配置，已测配置可查询与重测。没有结果文件、localStorage或配置持久化。服务进程/系统重启自然清空。
 
-读取真实SD CID、块设备身份及挂载ID；监听内核MMC块设备add/remove/change事件，并约每秒轮询身份变化。拔插同一卡、换卡、掉线/重新挂载均使所有旧结果失效；事件队列溢出也保守失效。卡身份未就绪或监测过期不复用旧结论。没有可靠CID时依靠本次挂载/设备代次，不用容量猜测同一张卡。
+卡拔插、换卡、掉线或重新挂载均使旧预检结果失效；身份未确认时不复用结果。
 
 ## 实时读写速率
 
-GET /api/monitor 的 tf_card 新增 read_bytes_per_sec、write_bytes_per_sec，JSON number或null。读取整卡 /sys/block/mmcblk*/stat 已完成扇区计数，固定512字节/扇区，差值除实际时间间隔；约每秒采样，HTTP读取缓存。包括录制、下载及同卡其他进程I/O，不叠加分区计数。
+GET /api/monitor 的 tf_card 提供 read_bytes_per_sec、write_bytes_per_sec，类型为 number 或 null，表示整卡读写字节速率，包括录制、下载等活动，约每秒更新。
 
 空闲为0，首次采样、计数倒退、不支持、卡不可用或样本超过3秒为null。显示当前吞吐，不代表持续峰值、最低保证或掉电持久性。所有预检结论仅适用于被测负载的短时结果；正式录制仍实时检查卡与空间。
 
 实测证据及未验证范围另记验证报告，不把编译通过当作全部验收通过。
 
-2026-11-05：公开设备服务的预检同步采用分段预分配与独立 fsync 线程；参数、缓存生命周期及原风险阈值不变。sync_max_ms 仍表示 fsync 调用耗时，并非写线程被阻塞的时长。预分配要求和正式验证见[接入记录](../TF独立同步线程正式接入-2026-11-05.md)。
+
 
 系统重启并发约束（2026-11-09）：本模块的业务变更/配置写入在系统重启已受理或重启状态存储异常时返回409 REBOOT_BUSY；先查询[系统状态](HTTP-API-系统.md)，不自动重复变更。普通状态查询保持可用。

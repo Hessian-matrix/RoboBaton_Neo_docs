@@ -1,5 +1,7 @@
 # RoboBaton Neo HTTP API
 
+全分辨率彩色 HTTP 推流：全分辨率彩色在 VIO 关闭时最高 60 fps，开启时最高 30 fps。VIO 开启并叠加深度、原灰、JPEG 灰度或含图像的 TF 录制时，全彩最高 5 fps；原灰 30 与全彩始终互斥。独立预览不限制可选档位。全彩不超过 5 fps 时可与预览并行；超过 5 fps 时，首张完整全彩帧发出后结束已有独立预览连接，全彩占用期间新预览返回 409 IMAGE_CONFLICT。仅查询、改档或开流失败不会切断已有预览。MJPEG 质量在两种工况下均为 1～90，默认 80。实际准入以设备返回的 available_fps 为准。
+
 网页与接口共用 HTTP/1.1 的 80 端口，默认设备地址 http://192.168.11.1/。所有接口使用 /api 前缀；不提供带版本号地址的别名或重定向。网关、设备服务、网页与客户端应成套更新。
 
 接口字段以 [OpenAPI](http-api.openapi.json) 为准；错误仅返回 error.code，含义见 [错误码](HTTP-API-错误码.md)。进程状态查询与实时订阅独立，命令返回 202 只表示受理。
@@ -18,9 +20,9 @@
 | --- | --- |
 | 安装补偿 GET/POST /api/mount/config | [逐字段、请求/响应、错误、配置文件与生效时机](HTTP-API-安装补偿.md)，2026-11-06按当前源码重新核对 |
 | VIO 启停与状态 | [控制及真实状态](HTTP-API-VIO状态与设备切换.md)，里程计和IMU结构见本文对应章节 |
-| 视频预览 | 见本文“预览与断线处理”“传输封装”章节；[旧版预览实测](../公开版预览接口-2026-11-03.md)仅作历史证据 |
+| 视频预览 | 见本文“预览与断线处理”“传输封装”章节；旧版预览实测（详见产品说明）仅作历史证据 |
 | 全分辨率彩色 | [编码配置与彩色流](HTTP-API-彩色.md) |
-| 灰度及浏览器录制 | [灰度](HTTP-API-灰度.md)、[JPEG灰度与浏览器录制](HTTP-API-浏览器录制.md) |
+| 灰度及浏览器录制 | [灰度](HTTP-API-灰度.md)、[JPEG灰度与浏览器尽力录制、自动分卷](HTTP-API-浏览器录制.md) |
 | 相对深度 | [固定384配置、帧封装与生命周期](HTTP-API-深度.md) |
 | TF录制、数据管理、卡状态 | [录制、列表、详情、下载与删除](HTTP-API-TF录制.md)、[TF预检](HTTP-API-TF预检.md) |
 | 相机/IMU标定参数 | [参数读取与保存](HTTP-API-标定参数.md) |
@@ -28,7 +30,7 @@
 | 开机策略 | [下次开机自动启动配置](HTTP-API-开机策略.md) |
 | 串口与飞控 | [MAVLink状态、管理和参数](HTTP-API-MAVLink.md) |
 | 系统状态与重启 | [统一系统重启、业务准入与持久去重](HTTP-API-系统.md) |
-| 应用与系统更新 | [应用包更新](HTTP-API-应用更新.md)、[系统A/B接入边界](../A-B系统更新接入.md) |
+| 应用与系统更新 | [应用包更新](HTTP-API-应用更新.md) |
 
 完整字段类型、枚举及各响应schema集中在[OpenAPI](http-api.openapi.json)。某模块的计划或未验证能力不能仅因出现在文档中就视为可用。
 
@@ -39,11 +41,14 @@
 | POST /api/vio | acceptVioCommand |
 | GET /api/vio | 查询 VIO 实际状态 |
 | GET /api/stream | observeStream |
+| GET /api/gray/config | getGrayConfig |
+| POST /api/gray/config | setGrayConfig |
 | GET /api/color/config | getColorConfig |
 | POST /api/color/config | setColorConfig |
 | GET /api/recording | getRecording |
 | POST /api/recording | acceptRecording |
 | GET /api/monitor | getMonitor |
+| POST /api/monitor/tf-card | controlTfCard（安全弹出/重新检查） |
 | GET /api/datasets | listDatasets |
 | GET /api/datasets/{id} | getDataset |
 | DELETE /api/datasets/{id} | deleteDataset |
@@ -61,6 +66,8 @@
 | GET /api/mavlink/parameters | getMavlinkParameters |
 | POST /api/mavlink/parameters | setMavlinkParameters |
 | POST /api/mavlink | manageMavlink |
+| GET /api/mavlink/vio/config | getMavlinkVioConfig |
+| POST /api/mavlink/vio/config | setMavlinkVioConfig |
 | GET /api/system/status | getSystemStatus |
 | POST /api/system/reboot | acceptSystemReboot |
 | GET /api/update | getUpdate |
@@ -70,7 +77,9 @@
 | POST /api/boot/config | 保存下次开机的 VIO 自动启动策略 |
 | GET /api/depth/config | getDepthConfig |
 
-共 35 个方法/路径操作。stream 每条连接只选择 preview、odometry、imu、color、gray、gray_jpeg、depth 中一个通道。
+共 40 个方法/路径操作。stream 每条连接只选择 preview、odometry、imu、color、gray、gray_jpeg、depth 中一个通道。
+
+实时图像为尽力输出，不保证连续无损；源变化或连接结束后重新订阅。
 
 系统重启受理期间，业务命令及配置写入返回409 REBOOT_BUSY；普通查询保持可用。安装接口仅接受 install，更新后的重启使用 POST /api/system/reboot {}。两类请求分别持久去重；系统重启完成不等于更新成功。详见[系统接口](HTTP-API-系统.md)。
 
@@ -82,7 +91,7 @@ GET /api/vio 查询 stopped、starting、running、stopping、restarting，以�
 
 ## 1.1 IMU 通道（2026-11-03）
 
-GET /api/stream?channels=imu；不需要另一个启动命令。连接持有自身 IMU 引用，断开只释放自己；不启动或停止 VIO，不启动相机。每连接仅一个通道，最多 4 个 IMU 连接，整个 Web 服务最多 16 个连接。无空位返回 429 STREAM_LIMIT；源或低优先级发送线程不可用返回 503 IMU_UNAVAILABLE。
+GET /api/stream?channels=imu；不需要另一个启动命令。连接持有自身 IMU 引用，断开只释放自己；不启动或停止 VIO，不启动相机。每连接仅一个通道，最多 4 个 IMU 连接，整个 Web 服务最多 16 个连接。无空位返回 429 STREAM_LIMIT；源或数据源不可用返回 503 IMU_UNAVAILABLE。
 
 先发送 channel 0/format 1 的 metadata，再发送 **channel 3/format 1 的单样本 JSON**，RBH1 40 字节头保持不变。一个样本一个 RBH1 消息，不等待凑批；HTTP/TCP 可以合并或拆分字节，因此不能把一次 read 当作一个样本。RBH1 sequence 从 1 开始，是本连接的消息序号，与下面真实采样 seq 不同。
 
@@ -99,15 +108,17 @@ GET /api/stream?channels=imu；不需要另一个启动命令。连接持有自�
 
 固定原点与坐标轴是 IMU 传感器自身，与公开里程计 child 相同；不随安装/串口配置改变。沿用驱动 1600 Hz / 8 样本平均约 200 Hz（ICM42688 则为 2000 / 10），不修改硬件采样或平均算法。没有 samples 批量数组、姿态、协方差、confidence 或温度。网页在适配层转换成单元素数组供既有曲线使用，这不是线上批量格式。
 
-**资源顺序为 VIO ＞ TF 录制 ＞ 对外传输。** 采集先写 VIO 环形缓冲及录制观察历史，随后 trylock 写外部独立 32 样本有界副本并非阻塞唤醒。网络线程从该副本读取，在锁外编码/发送；它不消费 VIO 队列，也不持有录制历史锁。外发锁忙时只放弃外发副本。默认采集/VIO nice 0（VIO 既有 RT 配置照常），录制 nice 5，外部驱动线程和 HTTP IMU 线程 nice 10。此机制减少竞争，不能保证任意满载情况下零开销或绝不丢样。
+对外 IMU 订阅可能出现序号缺口，不保证任意负载下无丢样。
 
-TF 写盘不在采集线程或 VIO 锁内；保留原 46006 板内录制链路及归档格式。慢存储导致历史/网络队列耗尽、序号缺口、断线或写入错误时，录制标记失败/不完整；不会悄悄存成完整数据集。不保证卡硬件永久卡死时写调用能被限时取消。TF 录制接口见专项说明。
+慢存储、序号缺口、断线或写入错误会使录制失败或不完整，不会作为完整数据集返回。
 
-板内录制专用 socket 在 connect 前设置有界接收缓冲：每路图像请求 2 MiB，IMU/遥测各 256 KiB；Linux 返回的记账上限分别为 4 MiB/512 KiB，含内核开销，不等于可缓存同等大小的净图像。检查实际生效值，系统限制较小时由 root 服务对该 socket 使用 SO_RCVBUFFORCE；无权限/不足则明确启动失败，不修改全局 sysctl。只用于容纳短时消费停顿，持续阻塞仍会断开并报错；公开 IMU 网络流不增大缓冲、不积攒历史。
+持续阻塞会断开连接并报告错误。
 
-发送路径不主动等批。由于硬件 FIFO、水位、中断和 Linux 调度，一次唤醒仍可能得到多个已产生样本，它们分别封装发送，不能把平均 5 ms 周期等同于端到端延时。内部/外部 socket 设置 TCP_NODELAY；内核 socket 缓冲及应用队列均有界。外发观察副本/bridge 不补发超过 100 ms 的历史样本；已进入 TCP 的字节无法撤回。板内消费者尚有未发完的前一条样本时关闭该慢连接，HTTP 发送超过 1 秒或 TCP 持续不可达时结束连接；健康客户端独立继续。
+IMU 平均周期不代表端到端延迟。过载、慢连接或超时可能结束订阅；不补发历史数据，正常客户端独立运行。
 
 IMU 源停止、源 epoch 改变、序号倒退/重复、无新鲜样本 3 秒或非法数据时结束旧 HTTP 响应。客户端重新 GET 获取新数据；源未重启时序号继续，网络重连不会重启算法。没有跨连接重放/补传，也不伪造新轨迹。IMU 持续数据本身维持客户端活性，没有无数据时无限等待的心跳；与里程计可空闲等待算法的行为不同。
+
+2026-11-17源码修复：驱动对每个出队样本重新读取当前时间，避免读取批次期间新到样本被旧批次时钟误判为未来。样本时间、100ms保护、API字段及布局不变。隔离短测和已知限制见IMU外发修复记录（详见产品说明）；HTTP超龄丢弃另因仍待定位，本修复尚未正式部署。
 
 网页仅在实时页运行监测面板可见时共享一条 IMU 订阅；隐藏侧栏、切页、关闭页后释放。断线清空旧曲线并约 1 秒后重连，不能用旧值伪装实时数据。Python 示例：python tools/http-api/client.py http://192.168.11.1 --channel imu --messages 10。
 
@@ -115,7 +126,7 @@ IMU 源停止、源 epoch 改变、序号倒退/重复、无新鲜样本 3 秒�
 
 ## 3. 里程计业务数据
 
-GET /api/stream?channels=odometry。**订阅不启动算法，断开不停止算法**。无算法进程时仍维持 HTTP，每 2 秒发送传输心跳；心跳不表示算法活跃。板内源退出时清除未完整的一行，重连板内源，不交付跨源拼接数据。
+GET /api/stream?channels=odometry。**订阅不启动算法，断开不停止算法**。无算法进程时仍维持 HTTP，每 2 秒发送传输心跳；心跳不表示算法活跃。源变化时不交付跨源拼接的数据。
 
 ~~~json
 {
@@ -160,7 +171,9 @@ GET /api/stream?channels=odometry。**订阅不启动算法，断开不停止算
 
 GET /api/stream?channels=preview。保留上轮编码与恢复：544×640、H.264 Annex B、15 fps、1500 kbit/s。每个 GET 取得自己的消费引用；退出只释放自己；最后一个使用者退出后驱动等待 3 秒再停预览编码。VIO 启停不调用关闭预览的逻辑。
 
-每类最多 4 个流连接，HTTP 服务总共最多 16 个活动请求。分类上限返回 429 STREAM_LIMIT；相机源未就绪返回 503 PREVIEW_UNAVAILABLE。非阻塞发送，单次发送最长 1 秒；持续不读会断开自身连接，不无限排队、不拖住算法。不会丢半个 H.264 包后直接继续播放。原始相机帧上限 2 MiB，RBH 分片 64 KiB；源消息读取超时 8 秒，首次参数集/IDR 等待最多约 10 秒。流中错误可能直接结束 HTTP，接收端丢弃不完整消息。
+彩色预览可与 VIO、原始灰度 30 fps 同开；深度不能加入这一组合。灰度和彩色配置的 `available_fps` 只列出此刻可新订阅的档位；TF 彩色录制时，彩色通道空闲则只列录制档位，已占用则为空。详见[彩色配置](HTTP-API-彩色.md)。
+
+图像每通道最多一个客户端，冲突返回409 IMAGE_CONFLICT；IMU和里程计各最多4个连接，HTTP 服务总共最多 16 个活动请求。分类上限返回 429 STREAM_LIMIT；相机源未就绪返回 503 PREVIEW_UNAVAILABLE。非阻塞发送，单次发送最长 1 秒；持续不读会断开自身连接，不无限排队、不拖住算法。不会丢半个 H.264 包后直接继续播放。原始相机帧上限 2 MiB，RBH 分片 64 KiB；源消息读取超时 8 秒，首次参数集/IDR 等待最多约 10 秒。流中错误可能直接结束 HTTP，接收端丢弃不完整消息。
 
 网页预览/里程计独立重连；预览重新获取描述及参数集并从实际 IDR 开始。HTTP 心跳中断 10 秒会重连；视频无新帧 8 秒触发播放器重连。里程计无需关键帧，消费新样本即可。保留编码器正常 P 配置，不把源码配置写成“实机已经证明无重排序”。历史预览实测不代替本次  的实机复核。
 
@@ -192,12 +205,12 @@ Content-Type 为 application/vnd.robobaton.stream，Transfer-Encoding 为 chunke
 
 connection_id 不是轨迹标识、算法实例或可靠设备身份；odometry/imu 固定为同名字符串，preview 沿用随机连接 ID。里程计交付元数据、心跳、通道2业务 JSON；IMU交付元数据与通道3单样本 JSON，没有 RBF2 包裹或描述依赖。
 
-预览仍为 format=6，使用 **RBF2/schema 2 image**：16 字节 RBF2 头＋JSON 元数据＋H.264 AU；device_context、descriptor 先于引用它们的帧。payload 单位/坐标/编码语义未改，保持 decoder config、真实 IDR 判定和有界描述依赖。旧v2数据模型文档已随分支清理移除；当前逐字段校验见[配套图像解析器](../../tools/http-api/camera_model.py)，不能据旧文档推断存在v2描述查询接口。未知描述不猜最新配置，geometry=null 不表示可进行几何投影。
+预览仍为 format=6，使用 **RBF2/schema 2 image**：16 字节 RBF2 头＋JSON 元数据＋H.264 AU；device_context、descriptor 先于引用它们的帧。payload 单位/坐标/编码语义未改，保持 decoder config、真实 IDR 判定和有界描述依赖。旧v2数据模型文档已随分支清理移除；当前逐字段校验见配套图像解析器（详见产品说明），不能据旧文档推断存在v2描述查询接口。未知描述不猜最新配置，geometry=null 不表示可进行几何投影。
 
 ## 模块说明与客户端
 
 - [彩色输出](HTTP-API-彩色.md)、[灰度采集](HTTP-API-灰度.md)、[384 相对深度](HTTP-API-深度.md)。
-- [TF 录制](HTTP-API-TF录制.md)、[录制预检](HTTP-API-TF预检.md)、[浏览器录制](HTTP-API-浏览器录制.md)。
+- [TF 录制](HTTP-API-TF录制.md)和[浏览器录制](HTTP-API-浏览器录制.md)均按单卷约 256 MiB 或 10 分钟分卷（先到者触发）；另见[录制预检](HTTP-API-TF预检.md)。
 - [标定参数](HTTP-API-标定参数.md)、[安装补偿](HTTP-API-安装补偿.md)、[按键](HTTP-API-按键.md)。
 - [飞控接入](HTTP-API-MAVLink.md)、[开机设置](HTTP-API-开机策略.md)、[应用更新](HTTP-API-应用更新.md)。
 
@@ -211,10 +224,16 @@ python tools/http-api/client.py http://192.168.11.1 --depth-config
 
 Content-Type 为 application/vnd.robobaton.stream。metadata 和录制清单不带 api_version；RBH1、RBF2、RBR1 自身的格式版本仍用于解析与校验。格式版本不等于 HTTP 路径版本。
 
-历史实测报告记录各自日期的软件，不能作为本次接口地址调整的板卡验收。本次检查范围见 [源码与接口复核](../源码与接口复核-2026-11-06.md)。
+历史实测报告记录各自日期的软件，不能作为本次接口地址调整的板卡验收。本次检查范围见 源码与接口复核（详见产品说明）。
 
 ## 有效标定参数与启动警告
 
 GET /api/calibration/parameters 返回有效参数及 source=default|saved；仅 mono.conf 不存在时返回代码默认参数，损坏文件返回500。POST 不接受只读source字段。缺少文件可启动VIO，GET /api/vio 新增独立 warning 字段；默认参数运行时为 {"code":"CALIBRATION_REQUIRED"}，详细时序见[VIO状态](HTTP-API-VIO状态与设备切换.md)。默认参数不证明精度达标，不自动落盘；参数定义见[标定参数](HTTP-API-标定参数.md)。
 
 USB 网络 GET/POST /api/network/config：见[网络配置](HTTP-API-网络配置.md)。
+
+固件更新使用已有 version、notes 和 build_id 字段；当前运行与待安装包分开展示，版本详情从 build_id 解析，详见 [应用更新](HTTP-API-应用更新.md)。
+
+更新状态不再返回 installed；以 running 和 gateway_running 确认运行版本，以 operation 确认更新结果。
+
+

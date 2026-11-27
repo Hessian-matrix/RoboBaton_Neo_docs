@@ -11,9 +11,9 @@
 下载后可在支持 OpenAPI 3.1 的编辑器中查看并生成客户端。生成器通常只能处理普通 HTTP 结构，
 二进制 RBH1/RBF2 流仍须实现相应解析器；不能把订阅响应作为单个 JSON。
 
-应用来源提交：``c2fad336b539f01994c9bf0f8076a0d2a84bf20e``。
+应用来源提交：``79881b5992f8378ea3eb9d5e9578dc8baf733e6f``。
 
-SHA-256：``5046a3b0b5bc97b201ea2122c21ba1904b723da8ee7725f07b2055d04fe9de92``。
+SHA-256：``cd9113307a0d296d69a208b766e9010126856a9c659c5bb498cbd645fc2e6403``。
 
 当前操作清单
 ------------
@@ -49,6 +49,9 @@ SHA-256：``5046a3b0b5bc97b201ea2122c21ba1904b723da8ee7725f07b2055d04fe9de92``�
    * - GET
      - ``/api/monitor``
      - ``getMonitor``
+   * - POST
+     - ``/api/monitor/tf-card``
+     - ``controlTfCard``
    * - GET
      - ``/api/datasets``
      - ``listDatasets``
@@ -130,8 +133,20 @@ SHA-256：``5046a3b0b5bc97b201ea2122c21ba1904b723da8ee7725f07b2055d04fe9de92``�
    * - POST
      - ``/api/network/config``
      - ``changeNetworkConfig``
+   * - GET
+     - ``/api/gray/config``
+     - ``getGrayConfig``
+   * - POST
+     - ``/api/gray/config``
+     - ``setGrayConfig``
+   * - GET
+     - ``/api/mavlink/vio/config``
+     - ``getMavlinkVioConfig``
+   * - POST
+     - ``/api/mavlink/vio/config``
+     - ``setMavlinkVioConfig``
 
-共 35 个方法/路径操作，统计直接来自本页契约，不沿用历史报告中的数量。
+共 40 个方法/路径操作，统计直接来自本页契约，不沿用历史报告中的数量。
 
 使用契约前
 ----------

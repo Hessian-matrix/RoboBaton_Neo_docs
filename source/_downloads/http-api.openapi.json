@@ -14,7 +14,7 @@
     "/vio": {
       "post": {
         "operationId": "acceptVioCommand",
-        "description": "异步受理；同key/action设备服务进程内10分钟去重，最多32项；并行新命令409。通过GET /vio查询，不以202推断运行成功。正文1~128字节，唯一Content-Length，不支持chunked。 预检期间或停止/重启会中断当前里程计录制时拒绝409；网页与物理按键共用此规则。",
+        "description": "异步受理；同key/action设备服务进程内10分钟去重，最多32项；并行新命令409。通过GET /vio查询，不以202推断运行成功。正文1~128字节，唯一Content-Length，不支持chunked。 预检期间或停止/重启会中断当前里程计录制时拒绝409；网页与物理按键共用此规则。已有 preview 与 30 fps gray 时允许启动 VIO；已有 depth 与 30 fps gray 时拒绝。 全分辨率彩色在 VIO 关闭时最高 60 fps，开启时最高 30 fps。VIO 开启并叠加深度、原灰、JPEG 灰度或含图像的 TF 录制时，全彩最高 5 fps；原灰 30 与全彩始终互斥。独立预览不限制可选档位。全彩不超过 5 fps 时可与预览并行；超过 5 fps 时，首张完整全彩帧发出后结束已有独立预览连接，全彩占用期间新预览返回 409 IMAGE_CONFLICT。仅查询、改档或开流失败不会切断已有预览。",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -87,7 +87,7 @@
             }
           },
           "409": {
-            "description": "执行中或key冲突；系统重启执行中或持久状态异常：REBOOT_BUSY",
+            "description": "执行中或key冲突；系统重启执行中或持久状态异常：REBOOT_BUSY；图像与当前运行组合冲突 IMAGE_CONFLICT，保留先发起者。",
             "content": {
               "application/json": {
                 "schema": {
@@ -139,7 +139,7 @@
     "/stream": {
       "get": {
         "operationId": "observeStream",
-        "description": "每连接单选preview/odometry/imu/color/gray/gray_jpeg/depth；gray_jpeg最多3连接，其余最多4连接。chunked解码后按RBH1重组。color首条ColorMetadata，随后format7完整JPEG/AnnexB访问单元；配置或源变化断开重连。订阅不会启动VIO。 gray为未压缩mono8，固定544×640、stride544、5fps；首次订阅启动共享采集，不启动VIO，VIO停止不结束gray。 gray_jpeg为544×640 JPEG Q90，跟随源帧率，最多3个外部连接；独立有界队列优先服务TF。 depth: 固定384x384 float32相对深度，最多4订阅共享推理，最后退出3秒宽限。",
+        "description": "每连接选择一个通道。图像通道最多一个外部订阅，IMU 与里程计各最多四个。按 RBH1 解析，同连接 metadata 为准；源或配置变化后重新订阅。订阅不启动 VIO。传输为尽力输出，可能跳号或断线，不保证无损。灰度支持 5/30 fps；彩色可用帧率以 available_fps 为准。高于 5 fps 的彩色实际出帧后关闭独立预览，新预览返回 409 IMAGE_CONFLICT。",
         "parameters": [
           {
             "name": "channels",
@@ -295,7 +295,7 @@
                 "max_message_bytes": 348416,
                 "timestamp": "CLOCK_MONOTONIC_RAW exposure midpoint; null if not associated; do not add calibration time offset",
                 "sequence": "source capture sequence as decimal uint64 string, not 5Hz output counter; intentional sampling gaps; scoped to connection",
-                "lifecycle": "source epoch/session change closes stream; new GET starts with metadata. At most 4 viewers; latest-only mailbox, 1s whole-frame send deadline, source wait 8s initially/3s after delivery; no catch-up."
+                "lifecycle": "source epoch/session change closes stream; new GET starts with metadata. At most 4 viewers; latest-only capture mailbox, per-client two-frame send queue (partial head plus latest unsent waiting frame), replace only wholly unsent frames without extending original 2s blocked-send deadline; shared pool up to9 slots allocated on demand. Independent HTTP copy, 1s whole-frame send deadline, source wait 8s initially/3s after delivery; no catch-up or lossless guarantee."
               },
               "gray_jpeg": {
                 "channel": 6,
@@ -358,7 +358,7 @@
             }
           },
           "409": {
-            "description": "深度订阅与录制预检或应用更新互斥：CHECK_ACTIVE / UPDATE_BUSY",
+            "description": "深度订阅与录制预检或应用更新互斥：CHECK_ACTIVE / UPDATE_BUSY；图像与当前运行组合冲突 IMAGE_CONFLICT，保留先发起者。",
             "content": {
               "application/json": {
                 "schema": {
@@ -373,7 +373,7 @@
     "/color/config": {
       "get": {
         "operationId": "getColorConfig",
-        "description": "获取全局输出配置，仅一次JSON响应，不订阅图像。",
+        "description": "获取全局输出配置，仅一次JSON响应，不订阅图像。 全分辨率 MJPEG、H.264、H.265 在 VIO 运行时允许已有档位至 30 fps；彩色 MJPEG 质量无论 VIO 开关均为 1～90。 全分辨率彩色在 VIO 关闭时最高 60 fps，开启时最高 30 fps。VIO 开启并叠加深度、原灰、JPEG 灰度或含图像的 TF 录制时，全彩最高 5 fps；原灰 30 与全彩始终互斥。独立预览不限制可选档位。全彩不超过 5 fps 时可与预览并行；超过 5 fps 时，首张完整全彩帧发出后结束已有独立预览连接，全彩占用期间新预览返回 409 IMAGE_CONFLICT。仅查询、改档或开流失败不会切断已有预览。",
         "responses": {
           "200": {
             "description": "返回实际配置。GET不订阅、不启动彩色编码；POST相同配置不断流。",
@@ -419,7 +419,7 @@
       },
       "post": {
         "operationId": "setColorConfig",
-        "description": "完整替换配置（非PATCH）；必须codec/fps及质量或码率。正文1~256字节，application/json，唯一Content-Length，不接受chunked、未知/重复字段。允许运行时修改；改变结束所有旧color连接，新连接先配置再IDR/JPEG。不重启VIO/预览/IMU。不持久化到重启后。",
+        "description": "完整替换配置，codec/fps及对应质量或码率必填。相同设置幂等；使用中的彩图或TF彩图不允许改参，返回409，不终止已有流。仅在当前驱动运行期间有效。 全分辨率彩色在 VIO 关闭时最高 60 fps，开启时最高 30 fps。VIO 开启并叠加深度、原灰、JPEG 灰度或含图像的 TF 录制时，全彩最高 5 fps；原灰 30 与全彩始终互斥。独立预览不限制可选档位。全彩不超过 5 fps 时可与预览并行；超过 5 fps 时，首张完整全彩帧发出后结束已有独立预览连接，全彩占用期间新预览返回 409 IMAGE_CONFLICT。仅查询、改档或开流失败不会切断已有预览。 若新档与当前组合冲突，返回 409 CONFIG_CONFLICT，已有配置保持。",
         "requestBody": {
           "required": true,
           "content": {
@@ -497,7 +497,7 @@
     "/recording": {
       "get": {
         "operationId": "getRecording",
-        "description": "只查询当前任务；无当前任务时严格返回 {state:idle}。saving 时 duration_s 固定，计数可增长。此接口不返回最近一次结果。 counts/bytes_written在fflush成功后更新，不等于已落盘；约100ms刷新，约1秒或新增完整写入达到1MiB时请求合并的后台fsync，实际同步耗时取决于存储。",
+        "description": "只查询当前任务；无当前任务时严格返回 {state:idle}。saving 时 duration_s 固定，计数可增长。此接口不返回最近一次结果。TF 录制每段约 256 MiB 或 10 分钟，先到者触发切段。 counts/bytes_written在fflush成功后更新，不等于已落盘；约100ms刷新，约1秒或新增完整写入达到1MiB时请求合并的后台fsync，实际同步耗时取决于存储。",
         "parameters": [],
         "responses": {
           "200": {
@@ -690,7 +690,7 @@
             }
           },
           "409": {
-            "description": "请求无效、资源冲突或存储/数据不可用。error.code 为稳定错误码；说明见错误码文档，不返回 message。；系统重启执行中或持久状态异常：REBOOT_BUSY",
+            "description": "请求无效、资源冲突或存储/数据不可用。error.code 为稳定错误码；说明见错误码文档，不返回 message。；系统重启执行中或持久状态异常：REBOOT_BUSY；图像与当前运行组合冲突 IMAGE_CONFLICT，保留先发起者。",
             "content": {
               "application/json": {
                 "schema": {
@@ -850,6 +850,144 @@
           },
           "503": {
             "description": "请求无效、资源冲突或存储/数据不可用。error.code 为稳定错误码；说明见错误码文档，不返回 message。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitor/tf-card": {
+      "post": {
+        "operationId": "controlTfCard",
+        "description": "只影响当前插卡。每次成功更新令牌。检查不写入修复；已安全弹出须重插。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "eject",
+                      "recheck"
+                    ]
+                  },
+                  "media_token": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "action",
+                  "media_token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "eject 已完成，或 recheck 已受理；刷新 monitor 查看检查结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "accepted": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "accepted"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效、资源冲突或存储/数据不可用。error.code 为稳定错误码；说明见错误码文档，不返回 message。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "录制、恢复、下载占用，重启或更新中，或令牌/挂载已变化。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务不可用或未确认操作；先查询 monitor。",
             "content": {
               "application/json": {
                 "schema": {
@@ -1685,7 +1823,7 @@
       },
       "post": {
         "operationId": "saveMountConfig",
-        "description": "完整替换；拒绝缺少、未知、重复字段及configured。精确Content-Type application/json、唯一Content-Length、正文1~1023字节；无Transfer-Encoding/Upgrade/Expect。临时文件写入、文件fsync、原子rename、目录fsync及回读完成后200；下次VIO启动加载。允许VIO运行和启停期间保存；当前实例保持启动快照，下次启动或重启加载。并发启动按实际读取与原子替换先后确定。写入及回读由设备服务串行处理，更新期间仍409 UPDATE_BUSY；相机/IMU标定运行保护不变。无需Idempotency-Key，无CAS、多客户端按保存先后覆盖；结果不确定先GET。默认持久化路径/home/VIO/parameters/mount.json。",
+        "description": "完整替换；拒绝缺少、未知、重复字段及configured。精确Content-Type application/json、唯一Content-Length、正文1~1023字节；无Transfer-Encoding/Upgrade/Expect。保存并回读确认后返回200；下次VIO启动加载。允许VIO运行和启停期间保存；当前实例保持启动快照，下次启动或重启加载。并发启动按实际读取与原子替换先后确定。写入及回读由设备服务串行处理，更新期间仍409 UPDATE_BUSY；相机/IMU标定运行保护不变。无需Idempotency-Key，无CAS、多客户端按保存先后覆盖；结果不确定先GET。",
         "requestBody": {
           "required": true,
           "content": {
@@ -2779,7 +2917,7 @@
     "/update": {
       "get": {
         "operationId": "getUpdate",
-        "description": "查询独立设备服务管理的更新状态。running 是当前设备服务，gateway_running 是当前网关的编译身份；未知为 null。installed 是磁盘安装回执，不代表当前所有组件已生效。operation 为最近一项持久操作。",
+        "description": "查询固件更新状态。running 与 gateway_running 为实际运行版本，未知为 null；package 是候选包，operation 是最近更新操作。不返回 installed。",
         "responses": {
           "200": {
             "description": "当前状态",
@@ -3272,7 +3410,7 @@
     "/system/reboot": {
       "post": {
         "operationId": "acceptSystemReboot",
-        "description": "空正文对象 {}，无 force。空闲或 OTA reboot_required 时受理，业务/采集/下载/上传/安装/待核查阻止重启；不强停。持久保存至 /home/.robobaton-update/reboot，相同 key 跨 boot 返回原回执不重复执行；最多128个 key，无自动淘汰。结果不确定先 GET，再用原 key 找回回执；明确失败后才用新 key。OTA 与重启结果分别查询。详见 HTTP-API-系统.md。",
+        "description": "空正文对象 {}，无 force。空闲或 OTA reboot_required 时受理，业务/采集/下载/上传/安装/待核查阻止重启；不强停。请求持久保存；相同 key 跨 boot 返回原回执不重复执行；最多128个 key，无自动淘汰。结果不确定先 GET，再用原 key 找回回执；明确失败后才用新 key。OTA 与重启结果分别查询。详见 HTTP-API-系统.md。 执行前先释放 TF，不能确认时通过 reboot.error 返回 TF_RELEASE_FAILED。",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -3372,7 +3510,7 @@
         "summary": "读取当前生效的 USB 网络配置",
         "responses": {
           "200": {
-            "description": "当前内核 usb0 地址；不是保存草稿",
+            "description": "当前 USB 网络地址；不是保存草稿",
             "content": {
               "application/json": {
                 "schema": {
@@ -3562,6 +3700,314 @@
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gray/config": {
+      "get": {
+        "operationId": "getGrayConfig",
+        "description": "仅查询，不占用图像通道。仅 VIO 与彩色预览在用时 available_fps 为 [5,30]；VIO 与 depth 在用时为 [5]。",
+        "responses": {
+          "200": {
+            "description": "返回配置、全部档位及当前新订阅可用档位；可用档位是快照，不是预约。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GrayConfig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "非法JSON、字段、类型或范围",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "配置应用或状态编码失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "配置服务不可用或回复不完整，重新查询确认",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "setGrayConfig",
+        "description": "完整替换未压缩灰度帧率；仅接收 {\"fps\":5} 或 {\"fps\":30}，默认5，驱动重启复原；当前有原灰订阅时改变档位返回409。 若新档与当前组合冲突，返回 409 CONFIG_CONFLICT，已有配置保持。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GrayConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "返回配置、全部档位及当前新订阅可用档位；可用档位是快照，不是预约。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GrayConfig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "非法JSON、字段、类型或范围",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "请求体接收超时",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "VIO帧率限制、录制锁或并发配置冲突；系统重启执行中或持久状态异常：REBOOT_BUSY",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "配置应用或状态编码失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "配置服务不可用或回复不完整，重新查询确认",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mavlink/vio/config": {
+      "get": {
+        "operationId": "getMavlinkVioConfig",
+        "description": "Neo RC channel, null=disabled or integer 1..18. Persistent atomic save; changed channel resets the switch baseline without controlling VIO. COMMAND_LONG stays enabled. See HTTP-API-MAVLink-VIO控制.md. No query parameters.",
+        "responses": {
+          "200": {
+            "description": "Saved configuration; repeated UUID returns original response. GET verifies the current value.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkVioConfig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "setMavlinkVioConfig",
+        "description": "Neo RC channel, null=disabled or integer 1..18. Persistent atomic save; changed channel resets the switch baseline without controlling VIO. COMMAND_LONG stays enabled. See HTTP-API-MAVLink-VIO控制.md. No query parameters.",
+        "responses": {
+          "200": {
+            "description": "Saved configuration; repeated UUID returns original response. GET verifies the current value.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkVioConfig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Explicit request/configuration/maintenance error; no message field.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MavlinkError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 64 bytes. 32 UUID receipts retained for 10 minutes. No automatic mutation retry.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MavlinkVioConfig"
+              },
+              "examples": {
+                "disabled": {
+                  "value": {
+                    "rc_channel": null
+                  }
+                },
+                "channel7": {
+                  "value": {
+                    "rc_channel": 7
                   }
                 }
               }
@@ -3986,13 +4432,25 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "quality": {
                 "type": "integer",
                 "minimum": 1,
-                "maximum": 99
+                "maximum": 90
               }
             }
           },
@@ -4010,8 +4468,20 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "bitrate_kbps": {
                 "type": "integer",
@@ -4034,8 +4504,20 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "bitrate_kbps": {
                 "type": "integer",
@@ -4056,7 +4538,9 @@
               "quality",
               "width",
               "height",
-              "fps_max"
+              "fps_max",
+              "supported_fps",
+              "available_fps"
             ],
             "additionalProperties": false,
             "properties": {
@@ -4065,13 +4549,25 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "quality": {
                 "type": "integer",
                 "minimum": 1,
-                "maximum": 99
+                "maximum": 90
               },
               "width": {
                 "const": 1080
@@ -4083,6 +4579,51 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 60
+              },
+              "supported_fps": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
+              },
+              "available_fps": {
+                "description": "此刻可新订阅的档位。TF 彩色录制时仅可沿用录制档位；HTTP 彩色已占用或与原灰 30 冲突时为空。查询不预留通道。",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
               }
             }
           },
@@ -4094,7 +4635,9 @@
               "bitrate_kbps",
               "width",
               "height",
-              "fps_max"
+              "fps_max",
+              "supported_fps",
+              "available_fps"
             ],
             "additionalProperties": false,
             "properties": {
@@ -4103,8 +4646,20 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "bitrate_kbps": {
                 "type": "integer",
@@ -4121,6 +4676,51 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 60
+              },
+              "supported_fps": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
+              },
+              "available_fps": {
+                "description": "此刻可新订阅的档位。TF 彩色录制时仅可沿用录制档位；HTTP 彩色已占用或与原灰 30 冲突时为空。查询不预留通道。",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
               }
             }
           },
@@ -4132,7 +4732,9 @@
               "bitrate_kbps",
               "width",
               "height",
-              "fps_max"
+              "fps_max",
+              "supported_fps",
+              "available_fps"
             ],
             "additionalProperties": false,
             "properties": {
@@ -4141,8 +4743,20 @@
               },
               "fps": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 60
+                "enum": [
+                  60,
+                  30,
+                  20,
+                  15,
+                  12,
+                  10,
+                  6,
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
               },
               "bitrate_kbps": {
                 "type": "integer",
@@ -4159,6 +4773,51 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 60
+              },
+              "supported_fps": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
+              },
+              "available_fps": {
+                "description": "此刻可新订阅的档位。TF 彩色录制时仅可沿用录制档位；HTTP 彩色已占用或与原灰 30 冲突时为空。查询不预留通道。",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "enum": [
+                    60,
+                    30,
+                    20,
+                    15,
+                    12,
+                    10,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ]
+                },
+                "uniqueItems": true,
+                "readOnly": true
               }
             }
           }
@@ -4188,7 +4847,7 @@
               "quality": {
                 "type": "integer",
                 "minimum": 1,
-                "maximum": 99
+                "maximum": 90
               },
               "width": {
                 "const": 1080
@@ -4594,7 +5253,7 @@
       },
       "TfCard": {
         "type": "object",
-        "description": "匹配系统镜像支持 FAT32/exFAT 自动检查与挂载；检查中或异常拒绝挂载时为 unmounted，容量为 null。不自动修复、格式化或恢复录制；没有安全弹出 HTTP 操作。",
+        "description": "真实挂载状态；reason 是卡管理器当前原因，两者采样可能有先后。media_token 绑定本次插卡及操作；旧系统无令牌。",
         "additionalProperties": false,
         "properties": {
           "state": {
@@ -4645,6 +5304,37 @@
             ],
             "minimum": 0,
             "description": "整张 TF 卡块设备完成的 I/O 字节增量 / 实际采样时间；512-byte sectors；约1秒平均。首采样、计数回退、不支持或失效时 null，不表示峰值带宽或掉电持久性。"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "waiting",
+              "missing",
+              "ready",
+              "read_only",
+              "checking",
+              "check_failed",
+              "check_timeout",
+              "media_failure",
+              "mount_failed",
+              "mount_conflict",
+              "unsupported_format",
+              "unsupported_layout",
+              "ejected",
+              "checker_unavailable",
+              "media_changed",
+              "detach_failed",
+              "stopped",
+              "busy",
+              "unknown"
+            ]
+          },
+          "media_token": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
           }
         },
         "required": [
@@ -4652,7 +5342,9 @@
           "total_bytes",
           "available_bytes",
           "read_bytes_per_sec",
-          "write_bytes_per_sec"
+          "write_bytes_per_sec",
+          "reason",
+          "media_token"
         ]
       },
       "Monitor": {
@@ -5903,7 +6595,11 @@
             "const": 544
           },
           "fps": {
-            "const": 5
+            "type": "integer",
+            "enum": [
+              5,
+              30
+            ]
           }
         }
       },
@@ -6578,6 +7274,9 @@
           },
           "operation": {
             "$ref": "#/components/schemas/MavlinkOperation"
+          },
+          "vio_control": {
+            "$ref": "#/components/schemas/MavlinkVioControl"
           }
         },
         "required": [
@@ -6589,7 +7288,8 @@
           "firmware_version",
           "flight_mode",
           "armed",
-          "active_operation_id"
+          "active_operation_id",
+          "vio_control"
         ]
       },
       "MavlinkAction": {
@@ -6832,10 +7532,12 @@
         ],
         "properties": {
           "version": {
-            "type": "string"
+            "type": "string",
+            "description": "Firmware release label; new releases use major.minor.patch without V. Historical app-SHA labels remain accepted by the verifier."
           },
           "build_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Exact source/build identity, independent of the release label. Recognised app.Sdk[-snapshot] values are split for display only; unknown identities remain unchanged."
           }
         }
       },
@@ -6858,15 +7560,18 @@
           },
           "version": {
             "type": "string",
-            "maxLength": 80
+            "maxLength": 80,
+            "description": "Firmware release label; new releases use major.minor.patch without V. Historical app-SHA labels remain accepted by the verifier."
           },
           "build_id": {
             "type": "string",
-            "maxLength": 96
+            "maxLength": 96,
+            "description": "Exact source/build identity, independent of the release label. Recognised app.Sdk[-snapshot] values are split for display only; unknown identities remain unchanged."
           },
           "notes": {
             "type": "string",
-            "maxLength": 2000
+            "maxLength": 2000,
+            "description": "Signed plain-text release notes. The release packager requires nonblank text up to 2000 UTF-8 bytes. No automatic SDK message."
           }
         },
         "description": "只读更新包信息。本公开说明仅列出客户端展示字段；设备可能返回额外内部字段，客户端应忽略，不用于构造更新包。"
@@ -6945,7 +7650,6 @@
         "required": [
           "running",
           "gateway_running",
-          "installed",
           "package",
           "operation",
           "maintenance",
@@ -6968,16 +7672,6 @@
             "anyOf": [
               {
                 "$ref": "#/components/schemas/UpdateBuild"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "installed": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/UpdatePackage"
               },
               {
                 "type": "null"
@@ -7582,6 +8276,7 @@
                     "enum": [
                       "REBOOT_FAILED",
                       "REBOOT_INTERRUPTED",
+                      "TF_RELEASE_FAILED",
                       "REBOOT_STORAGE_FAILED"
                     ]
                   }
@@ -7642,6 +8337,207 @@
             "minimum": 11,
             "maximum": 255,
             "description": "192.168.subnet.1/24; default 11"
+          }
+        }
+      },
+      "GrayConfigRequest": {
+        "type": "object",
+        "properties": {
+          "fps": {
+            "type": "integer",
+            "enum": [
+              5,
+              30
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "fps"
+        ]
+      },
+      "GrayConfig": {
+        "type": "object",
+        "properties": {
+          "fps": {
+            "type": "integer",
+            "enum": [
+              5,
+              30
+            ]
+          },
+          "supported_fps": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                5,
+                30
+              ]
+            },
+            "uniqueItems": true,
+            "readOnly": true
+          },
+          "available_fps": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                5,
+                30
+              ]
+            },
+            "uniqueItems": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "fps",
+          "supported_fps",
+          "available_fps"
+        ]
+      },
+      "MavlinkVioConfig": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rc_channel"
+        ],
+        "properties": {
+          "rc_channel": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 18,
+            "default": null
+          }
+        },
+        "examples": [
+          {
+            "rc_channel": null
+          },
+          {
+            "rc_channel": 7
+          }
+        ]
+      },
+      "MavlinkVioControl": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "custom_mode",
+          "rc_channel",
+          "rc_available",
+          "rc_ready",
+          "pulse_us",
+          "position",
+          "last_action"
+        ],
+        "properties": {
+          "custom_mode": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8
+          },
+          "rc_channel": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 18,
+            "default": null
+          },
+          "rc_available": {
+            "type": "boolean"
+          },
+          "rc_ready": {
+            "type": "boolean"
+          },
+          "pulse_us": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 800,
+            "maximum": 2200
+          },
+          "position": {
+            "enum": [
+              null,
+              "low",
+              "middle",
+              "high"
+            ]
+          },
+          "last_action": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source",
+                  "action",
+                  "result",
+                  "reason",
+                  "request_id"
+                ],
+                "properties": {
+                  "source": {
+                    "enum": [
+                      "command_long",
+                      "rc_channels"
+                    ]
+                  },
+                  "action": {
+                    "enum": [
+                      "start",
+                      "stop",
+                      "restart"
+                    ]
+                  },
+                  "result": {
+                    "enum": [
+                      "in_progress",
+                      "succeeded",
+                      "rejected",
+                      "failed"
+                    ]
+                  },
+                  "reason": {
+                    "enum": [
+                      null,
+                      "invalid_request",
+                      "command_busy",
+                      "update_busy",
+                      "reboot_busy",
+                      "check_active",
+                      "recording_requires_vio",
+                      "image_conflict",
+                      "command_unavailable",
+                      "command_failed",
+                      "request_id_conflict",
+                      "history_capacity",
+                      "link_unavailable"
+                    ]
+                  },
+                  "request_id": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1,
+                    "maximum": 65535
+                  }
+                }
+              }
+            ]
           }
         }
       }

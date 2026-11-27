@@ -29,6 +29,12 @@ def prepare_english():
             relative = source.relative_to(ROOT)
             target = WORK.joinpath(*(mapping.get(part,part) for part in relative.parts))
             target.parent.mkdir(parents=True,exist_ok=True)
+            authored = ROOT/'locales/en-pages'/relative
+            if authored.is_file():
+                shutil.copyfile(authored,target);continue
+            # Downloads are authoritative byte-for-byte artifacts, not translated UI.
+            if '_downloads' in relative.parts or ('_sdk' in relative.parts and source.suffix in ('.md','.json')):
+                shutil.copyfile(source,target);continue
             if source.suffix not in TEXT_SUFFIXES:
                 shutil.copyfile(source,target);continue
             try:text=source.read_text(encoding='utf-8-sig')

@@ -28,6 +28,10 @@ SDK_FILES = (
     'stm32/examples/neo_uart.c', 'stm32/examples/neo_uart.h',
     'tests/hal_stub/main.h', 'tests/test_rbh1.cpp', 'tests/test_sdk.py',
     'tests/test_serial.c', 'tests/test_uart.c',
+    'recording/README.md', 'recording/neo_recording/__init__.py',
+    'recording/neo_recording/__main__.py', 'recording/neo_recording/reader.py',
+    'recording/neo_recording/rbr.py', 'recording/examples/read_recording.py',
+    'recording/tests/test_recording.py',
 )
 
 
@@ -38,24 +42,35 @@ def digest(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('application', type=Path)
+    parser.add_argument('--sdk-source', type=Path, help='Reviewed host SDK and compatibility tools; API always comes from application')
     args = parser.parse_args()
     application = args.application.resolve()
-    selected = {'SDK/' + name: (application / 'SDK' / name).read_bytes() for name in SDK_FILES}
+    sdk_source = (args.sdk_source or application).resolve()
+    selected = {'SDK/' + name: (sdk_source / 'SDK' / name).read_bytes() for name in SDK_FILES}
     api_names = ['README.md', 'HTTP-API.md', 'http-api.openapi.json',
-                 'HTTP-API-MAVLink.md', 'HTTP-API-灰度.md', 'HTTP-API-错误码.md',
+                 'HTTP-API-MAVLink.md', 'HTTP-API-MAVLink-VIO控制.md', 'HTTP-API-灰度.md', 'HTTP-API-错误码.md',
                  'HTTP-API-深度.md', 'HTTP-API-彩色.md', 'HTTP-API-标定参数.md',
                  'HTTP-API-安装补偿.md', 'HTTP-API-VIO状态与设备切换.md',
                  'HTTP-API-TF录制.md', 'HTTP-API-TF预检.md', 'HTTP-API-系统.md',
                  'HTTP-API-应用更新.md', 'HTTP-API-开机策略.md', 'HTTP-API-按键.md',
                  'HTTP-API-网络配置.md', 'HTTP-API-浏览器录制.md']
     for name in api_names:
-        if name == 'HTTP-API-应用更新.md':
-            data = (ROOT / 'source/_sdk/docs/public_api' / name).read_bytes()
+        if name.endswith('.md'):
+            data = (ROOT / 'public-api' / name).read_bytes()
         elif name == 'http-api.openapi.json':
             contract = json.loads((application / 'docs/public_api' / name).read_bytes())
             data = (json.dumps(public_update_contract(contract), ensure_ascii=False, indent=2) + '\n').encode('utf-8')
         else:
             data = (application / 'docs/public_api' / name).read_bytes()
+            if name == 'README.md':
+                data = data.decode('utf8').replace('更新接口发布信息、签名及兼容边界','更新接口发布信息及兼容边界').encode('utf8')
+            if name in ('HTTP-API-TF录制.md','HTTP-API-浏览器录制.md'):
+                text = data.decode('utf8')
+                lines = text.splitlines()
+                lines = [line for line in lines if not line.startswith('离线读取：python tools/http-api/recording_rbr.py')]
+                text = chr(10).join(lines).replace('可用 python tools/http-api/recording_rbr.py 检查解包后的录制 ID 目录。','配套 SDK/recording 可直接读取归档或解包目录。')
+                text += chr(10)*2 + '配套解析工具见 [SDK/recording](../../SDK/recording/README.md)：支持 TAR/ZIP、分卷检查及原始数据导出；只在电脑运行。' + chr(10)
+                data = text.encode('utf8')
         selected['docs/public_api/' + name] = data
     snapshot = ROOT / 'source/_sdk'
     if snapshot.exists():
@@ -70,7 +85,7 @@ def main():
     archive = downloads / 'robobaton-neo-sdk.zip'
     with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as output:
         for name, data in sorted(selected.items()):
-            info = zipfile.ZipInfo(name, date_time=(2026, 11, 13, 0, 0, 0))
+            info = zipfile.ZipInfo(name, date_time=(2026, 11, 27, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             mode = 0o755 if name.endswith('/scripts/neo_odometry.py') else 0o644
             info.external_attr = (0o100000 | mode) << 16
@@ -78,16 +93,17 @@ def main():
     checksum = digest(archive.read_bytes())
     (downloads / 'robobaton-neo-sdk.sha256').write_text(checksum + '  ' + archive.name + '\n', encoding='utf-8')
     head = subprocess.check_output(['git', '-C', str(application), 'rev-parse', 'HEAD'], text=True).strip()
-    status = subprocess.check_output(['git', '-C', str(application), 'status', '--porcelain', '--',
+    status = subprocess.check_output(['git', '-C', str(sdk_source), 'status', '--porcelain', '--',
                                       'SDK', 'docs/public_api', 'tools/http-api'], text=True)
-    provenance = {'source': 'cv-610-pub/SDK', 'snapshot_date': '2026-11-13',
+    provenance = {'source': 'cv-610-pub/SDK', 'snapshot_date': '2026-11-27',
+                  'api_tag': 'v2.0.0', 'sdk_source_kind': 'reviewed host working-tree snapshot; not part of firmware tag',
                   'documentation_scope': 'public-client',
                   'application_head': head, 'working_tree_modified': bool(status.strip()),
                   'archive': archive.name, 'sha256': checksum,
                   'files': {name: digest(data) for name, data in sorted(selected.items())},
                   'validation': 'Host tests only; ROS runtime and STM32 hardware not validated'}
     (downloads / 'sdk-provenance.json').write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-    spec = importlib.util.spec_from_file_location('sdk_quick_test_build', application / 'tools/http-api/build_quick_test.py')
+    spec = importlib.util.spec_from_file_location('sdk_quick_test_build', sdk_source / 'tools/http-api/build_quick_test.py')
     builder = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(builder)
     code = builder.build()
@@ -104,7 +120,7 @@ def main():
             output.writestr(name, selected['SDK/python/robobaton_sdk/' + name])
         for target, source in (('quick_test.py', 'quick_test.py'), ('README.md', 'QUICK-TEST-README.md'),
                                ('AI-PROMPT.md', 'AI-PROMPT.md')):
-            output.writestr(target, (application / 'tools/http-api' / source).read_bytes())
+            output.writestr(target, (sdk_source / 'tools/http-api' / source).read_bytes())
     (ROOT / 'site/neo-http-python.sha256').write_text(digest(package.read_bytes()) + '  ' + package.name + '\n', encoding='utf-8')
     print('Synchronized %d SDK/API files; SHA256 %s; working_tree_modified=%s' %
           (len(selected), checksum, provenance['working_tree_modified']))

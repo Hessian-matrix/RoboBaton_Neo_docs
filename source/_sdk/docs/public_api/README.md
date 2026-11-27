@@ -1,16 +1,20 @@
 # 公开版 API 文档
 
-本目录只收录当前公开版 HTTP API 的接口规范、字段说明、错误码与 OpenAPI 契约。历史验证报告、板内 IPC/驱动协议和其他模块文档保留在原目录；它们不是当前对外接口清单。
+全分辨率彩色 HTTP 推流：全分辨率彩色在 VIO 关闭时最高 60 fps，开启时最高 30 fps。VIO 开启并叠加深度、原灰、JPEG 灰度或含图像的 TF 录制时，全彩最高 5 fps；原灰 30 与全彩始终互斥。独立预览不限制可选档位。全彩不超过 5 fps 时可与预览并行；超过 5 fps 时，首张完整全彩帧发出后结束已有独立预览连接，全彩占用期间新预览返回 409 IMAGE_CONFLICT。仅查询、改档或开流失败不会切断已有预览。MJPEG 质量在两种工况下均为 1～90，默认 80。实际准入以设备返回的 available_fps 为准。
+
+灰度和彩色配置均返回 supported_fps 和 available_fps。TF 彩色录制会锁定彩色档位，见[彩色配置](HTTP-API-彩色.md)；VIO＋彩色预览下可选原灰 5/30 档，详尽共载规则详见[原灰档位与图像互斥规则](HTTP-API-灰度.md)。
+
+
+本目录只收录当前公开版 HTTP API 的接口规范、字段说明、错误码与 OpenAPI 契约。以设备实际版本及返回状态为准。
 
 当前接口统一使用 /api 前缀，网页与接口共用 HTTP/1.1 的 80 端口。带版本号的旧地址不提供兼容别名。
 
 ## 入口
 
-- [统一外部接入 SDK](../../SDK/README.md)：C++、Python、ROS / ROS 2、STM32 串口示例；不新增设备接口。
 - [HTTP API 总览](HTTP-API.md)：全部方法与路径、预览、IMU、里程计及 RBH1 封装。
 - [OpenAPI 3.1](http-api.openapi.json)：请求、响应、字段类型、枚举及错误响应。
 - [错误码](HTTP-API-错误码.md)：错误含义和处理方式。
-- [Python 主控示例](../../tools/http-api/README.md)：配置、命令、实时流和录制读取。
+- Python 主控示例（详见产品说明）：配置、命令、实时流和录制读取。
 
 ## 按功能查阅
 
@@ -18,12 +22,13 @@
 | --- | --- |
 | VIO | [启停、状态与设备切换](HTTP-API-VIO状态与设备切换.md)；里程计见总览 |
 | 图像 | [彩色配置及编码流](HTTP-API-彩色.md)、[原始灰度与 JPEG Q90](HTTP-API-灰度.md)、[相对深度](HTTP-API-深度.md) |
-| TF 录制与数据管理 | [录制、列表、详情、下载、删除及卡状态](HTTP-API-TF录制.md)、[录制预检](HTTP-API-TF预检.md) |
-| 浏览器录制 | [灰度流、标定快照与归档](HTTP-API-浏览器录制.md) |
+| TF 录制与数据管理 | [录制、列表、详情、下载、删除、卡状态与安全弹出/重新检查](HTTP-API-TF录制.md)、[录制预检](HTTP-API-TF预检.md) |
+| 浏览器录制 | [灰度流、尽力接收和自动分卷归档](HTTP-API-浏览器录制.md) |
 | 参数与安装 | [相机/IMU 标定参数](HTTP-API-标定参数.md)、[安装补偿](HTTP-API-安装补偿.md) |
 | 系统 | [启动标识、重启与持久幂等](HTTP-API-系统.md) |
 | 设备控制 | [按键设置](HTTP-API-按键.md)、[开机策略](HTTP-API-开机策略.md) |
 | 飞控 | [MAVLink 状态、配置与操作](HTTP-API-MAVLink.md) |
+| VIO 串口控制 | [任务命令、遥控通道与状态](HTTP-API-MAVLink-VIO控制.md) |
 | 更新 | [应用包上传、安装与状态](HTTP-API-应用更新.md) |
 
 ## 文档说明与实际返回字段
@@ -34,11 +39,3 @@ OpenAPI 中的 description 是给读者及文档工具看的说明，不属于�
 
 预览流里的 descriptor 与 description 不同：descriptor 携带实际编码、尺寸、解码参数及帧依赖关系，是解析数据所需的机器可读内容，应按协议保留。
 
-## 维护要求
-
-每次接口变化须在同一变更中更新总览、OpenAPI 和受影响模块文档，必要时同步错误码、[功能与版本对照](../功能与版本对照.md)、模块 README 与客户端示例。详细规则见根目录 [AGENTS.md](../../AGENTS.md)。当前实现、待实现计划和历史实测分别说明；文档整理不代表重新完成板卡验收。
-
-USB 网络 GET/POST /api/network/config：见[网络配置](HTTP-API-网络配置.md)。
-# 浏览器三语言读取示例
-
-候选设备网页入口为 /examples.html；实现与限制见 [浏览器示例](../../visualization/examples/README.md)。Python、C++、Rust 共用现有只读 GET /api/vio 与 GET /api/stream?channels=odometry，没有新增 API 字段或控制能力。设备同源页面读取 HTTP，不依赖产品站跨域或电脑连接工具。当前已用 192.168.11.1 正式版真实接口测试候选页面，尚未安装到该设备。

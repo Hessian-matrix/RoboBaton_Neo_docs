@@ -1,6 +1,9 @@
-# ：TF 录制、数据管理与卡监控
+# TF 录制、数据管理与卡监控
 
-本次仅。本次不开放灰度网络流、相机标定快照 API、性能录制或回放。TF录制/管理7项，预检另增2项，合计13个方法/路径操作。
+VIO 与高于 5 fps 的全彩推流同时运行时不能开始含图像录制；反向申请也拒绝后来者。与未压缩原灰30并行时，仅允许不含图像的 TF 录制（IMU、位姿）；TF 不录制未压缩原灰。TF 录制彩色时会锁住完整的彩色配置；此时 HTTP 彩色未占用时仅可按录制档位订阅，已占用时不再接受新的彩色订阅。参见[彩色配置](HTTP-API-彩色.md)。含图像的 TF 与原灰30谁后申请谁收到 409 IMAGE_CONFLICT。详见[原灰档位与图像互斥规则](HTTP-API-灰度.md)。
+
+
+本模块提供 TF 录制、录制预检、卡状态监控，以及历史数据集的查询、下载与删除；不提供历史数据回放。灰度网络流见[灰度接口](HTTP-API-灰度.md)，标定参数读取与保存见[标定参数接口](HTTP-API-标定参数.md)。
 
 ## 操作与状态
 
@@ -8,6 +11,7 @@
 |---|---|---|
 | POST /api/recording | start / stop | 202：action、accepted=true、recording_id |
 | GET /api/recording | 当前任务 | starting / recording / saving；没有任务时仅 state=idle |
+| POST /api/monitor/tf-card | 安全弹出或重新检查本次插卡 | accepted |
 | GET /api/monitor | TF 卡状态及容量 | tf_card |
 | GET /api/datasets?limit=20&offset=0 | 历史目录 | datasets、next_offset |
 | GET /api/datasets/{id} | 某次录制详情 | id、channels、config、current、result |
@@ -26,7 +30,7 @@ channels 缺省为 gray+imu；至少一路，不允许重复或未知名称。gr
 
     {"action":"start","accepted":true,"recording_id":"cc8380b1aadfb3d455e79f42b9c872ca"}
 
-202不等于源已连接或写卡成功。服务冻结mono.conf后建立任务，再异步连接各路板内源。停止必须提交该ID：
+202 仅表示请求受理，不表示采集或写卡成功。请查询任务状态；停止时必须提交任务 ID：
 
     {"action":"stop","recording_id":"cc8380b1aadfb3d455e79f42b9c872ca"}
 
@@ -36,13 +40,15 @@ channels 缺省为 gray+imu；至少一路，不允许重复或未知名称。gr
      "channels":["imu"],"duration_s":4.690,"bytes_written":"243174",
      "counts":{"gray":"0","imu":"907","color":"0","odometry":"0"}}
 
-counts 是成功 fflush 后确认的完整记录数；bytes_written 是RBR段文件字节（含文件头、配置、记录头、结束记录），不包含mono.conf/manifest/result。计数不是接收数或排队数，也不是断电后可保证持久的数量。约100ms刷新；每约1秒或新增完整写入达到1MiB时请求后台fsync，同一时刻仅一个fsync在途，后续请求合并；实际完成延时由文件系统决定。saving时接收已停止、duration_s固定，写卡线程继续排空队列，因此计数可继续增长。
+counts 为已确认写入的完整记录数，不是接收或排队数，也不是断电后保证持久的数量。bytes_written 为 RBR 段字节数，不含配置和结果文件。saving 时采集已停止、duration_s 固定，计数仍可增加。
 
 idle只表示当前没有任务，严格不携带旧录制结果。网页记住受理ID，结束后查询对应datasets详情；网络重连后也可从列表查询。浏览器断线不停止录制；只有明确stop、源异常、空间不足、队列溢出或服务退出等才收尾。
 
+录制与网络订阅独立。源丢帧、断线、写卡或同步失败会报告不完整。正常停止后等待已接收数据写入完成；不保证慢卡不会溢出。
+
 ## 卡监控
 
-    {"tf_card":{"state":"ready","total_bytes":"7930380288","available_bytes":"6455463936"}}
+    {"tf_card":{"state":"ready","reason":"ready","media_token":"f2f9e258-3e2d-47c2-8936-30136a81c331","total_bytes":"7930380288","available_bytes":"6455463936","read_bytes_per_sec":null,"write_bytes_per_sec":null}}
 
 | state | 含义 |
 |---|---|
@@ -52,21 +58,27 @@ idle只表示当前没有任务，严格不携带旧录制结果。网页记住�
 | read_only | TF文件系统已挂载为只读 |
 | unavailable | 初始化失败、状态不可确定，或容量读取失败 |
 
-不可把“没有块设备”当成“未插卡”，例如pluged_init_failed为unavailable。容量只读取实际/dev/mmcblk*挂载到/mnt/tfcard的文件系统；不以根分区容量代替。无法确认时两项为null。available_bytes是操作系统可用字节，不扣512MiB预留；空间不足是录制拒绝或结束原因，不增加卡状态枚举。网页在运行监测展示容量。
+卡状态以接口返回值为准，无法确认容量时返回 null。available_bytes 表示实际可用空间；空间不足会拒绝或结束录制。
 
 ## 文件系统与挂载条件
 
-匹配的系统镜像支持 FAT32 和 exFAT，系统服务在开机或检测到插卡后只读检查，再挂载到 /mnt/tfcard。应用本身不加载文件系统驱动。支持唯一 SD 卡的单一 p1 分区或无分区表的文件系统；多分区、未知格式、检查失败、未正常卸载标志或挂载冲突不自动写入，也不自动修复或格式化。
+匹配系统支持 FAT32/exFAT 的单个 p1 分区或整卡文件系统。开机/插入后先用只读检查器验证。单纯上次未正常卸载、检查未发现其他问题时可以重新挂载；介质故障、检查失败或挂载冲突不允许写入。不自动修复、格式化、删除旧录制或续录。停止并保存后仍可录制新数据；需要拔卡时另行弹出。
 
-检查期间及拒绝挂载时，已有块设备返回 unmounted，容量为 null；本次不新增细分原因字段。录制启动返回 409 / STORAGE_NOT_READY。只在挂载完成且可写时返回 ready。检查有 120 秒上限，失败不会在同次插卡期间无限重复，重新插卡或重启后重新检查。
+GET 的 tf_card.state 以真实挂载为准；只有 ready 能新建录制。reason 来自管理器的独立快照：waiting/checking 正在识别/检查；ready/read_only/missing/ejected 分别表示就绪、只读、未插卡、已安全释放；unsupported_layout/unsupported_format 不支持布局/格式；media_failure 为介质故障标志；check_failed/check_timeout/checker_unavailable 为检查未通过/超过120秒/检查器不可用；mount_conflict/mount_failed 为挂载冲突/失败；media_changed/detach_failed 为换卡/旧挂载释放失败；busy/stopped/unknown 为占用/已停/无可靠原因。没有容量时字节数为 null。旧管理器可提供部分原因但 media_token 为 null。
 
-插拔不自动继续上一次录制。拔卡导致旧挂载失效，现有录制可能不完整；新卡检查通过后需要重新发起录制。停止录制不等于文件系统已经安全卸载，请正常关闭设备后拔卡；当前没有开放安全弹出 HTTP 操作。FAT32 单文件上限为 4GiB−1 字节，录制沿用约 256MiB/60秒分段。容量上限及具体卡型需实卡验收，不能从 exFAT 支持推导。
+POST /api/monitor/tf-card，Content-Type: application/json。请求示例：
 
-2026-11-10 验证边界：8GB FAT32 实卡录制、安全卸载后的真实拔插、两次最终系统 OTA 重启后挂载，以及板端 exFAT 临时 loop 卷读写。后续当前8GB exFAT实卡完成灰度60fps+IMU200Hz三轮3/10/3分钟连录、归档完整性校验、只读fsck及两次正常固件OTA后自动挂载，详见[实测报告](../TF写入积压与exFAT实测-2026-11-10.md)。当前写入修复尚未换回FAT32卡复测，录制中强行拔卡及大容量卡仍未验收。拔卡后若供应商控制器状态仍滞留 plugged，现有接口保守返回 unavailable；不会误报可写，插回并完成检查后恢复 ready。历史旧镜像不具有此次新增支持。
+    {"action":"eject","media_token":"f2f9e258-3e2d-47c2-8936-30136a81c331"}
+
+将 action 换成 recheck 可让已拒绝挂载的卡重新检查。media_token 是 GET 返回的本次卡操作令牌（UUID 或 null），不要自行生成。两种操作成功均为 200 {"accepted":true}：弹出已完成，重新检查的最终结果再查 monitor。弹出后保持未挂载，必须重插。状态和令牌不跨服务重启持久化；换卡或成功操作后旧令牌失效。无 Idempotency-Key，响应丢失先查状态，不把旧操作套用到新卡。
+
+录制/保存/预检、目录恢复、下载/删除占用或更新/重启时拒绝冲突操作；普通卸载不强制断开读者。示例：409 {"error":{"code":"TF_MEDIA_CHANGED"}}。其他常见错误：400 INVALID_REQUEST、409 RECORDING_ACTIVE/DATASET_BUSY/TF_MOUNT_CONFLICT/UPDATE_BUSY/REBOOT_BUSY、503 STORAGE_UNAVAILABLE/TF_CONTROL_FAILED/TF_COMMAND_UNCONFIRMED。只读检查通过不保证断电前最后一条录制完整，请另查录制结果。FAT32 单文件上限 4GiB−1 字节，录制保持分段。
+
+2026-11-10 验证边界：8GB FAT32 实卡录制、安全卸载后的真实拔插、两次最终系统 OTA 重启后挂载，以及板端 exFAT 临时 loop 卷读写。后续当前8GB exFAT实卡完成灰度60fps+IMU200Hz三轮3/10/3分钟连录、归档完整性校验、只读fsck及两次正常固件OTA后自动挂载，详见实测报告（详见产品说明）。当前写入修复尚未换回FAT32卡复测，录制中强行拔卡及大容量卡仍未验收。拔卡后若供应商控制器状态仍滞留 plugged，现有接口保守返回 unavailable；不会误报可写，插回并完成检查后恢复 ready。历史旧镜像不具有此次新增支持。
 
 ## 数据管理
 
-仅列举/mnt/tfcard/recordings中的32位小写十六进制随机ID。旧/mnt/tfcard/euroc不迁移、不伪装为RBR1。ID按字典序分页，不代表创建时间；并发增加/删除时offset可能变化，需重新刷新。单页1..100项，目录上限10000条。当前列表是小规模TF目录的实现，不是无限容量索引。
+仅列举当前格式的录制目录。旧格式不转换或冒充 RBR1。ID按字典序分页，不代表创建时间；并发增加/删除时offset可能变化，需重新刷新。单页1..100项，目录上限10000条。当前列表是小规模TF目录的实现，不是无限容量索引。
 
 每个列表项含id、channels、result、current。录制中result=null，current是当前状态；结束后current=null，result携带completed/incomplete、complete、end_reason、duration_s、bytes_written和counts。详情另含config。启动未完成配置冻结时color可为null，不能猜用当前设备配置。
 
@@ -80,7 +92,7 @@ DELETE只接受一个确切ID，拒绝路径穿越、符号链接、目录中的
 
 ## 写入与恢复
 
-2026-11-10：支持 KEEP_SIZE 的文件系统仍为每段预分配256MiB。Linux 5.10 exFAT没有该能力，只有明确识别为exFAT且返回EOPNOTSUPP时允许空文件顺序增长，不写零、不用稀疏长度伪装已分配空间；ENOSPC/EIO及其他文件系统错误继续拒绝。保留启动空间检查和运行中剩余空间保护，但exFAT不承诺启动时已占有整段空间。8MiB未确认写入预算与8MiB应用队列不变：预算满时等待足够的已同步前缀，不再强制等待同步线程完全空闲；切段/停止仍等待最终完整同步。写线程显式分配256KiB stdio存储并跨段复用，修正musl下NULL缓冲参数没有扩大默认缓冲的问题。跨次重启的恢复和不完整标记语义不变。
+
 
 正式目录结构：
 
@@ -90,17 +102,17 @@ DELETE只接受一个确切ID，拒绝路径穿越、符号链接、目录中的
     recordings/<id>/segments/000002.rbr.part
     recordings/<id>/result.json
 
-录制接收与写卡分离。板内源依次使用gray46008、IMU46006、color46009、odometry46012；不使用低优先级的公开IMU46013。沿用驱动VIO优先的数据分发顺序，TF写线程nice=5，网络外发nice=10。不是硬实时调度保证；VIO仍会受共享CPU/DDR/存储影响，应以并发实测判断。
+
 
 队列上限8MiB且不超过4096条，启动要求至少20MiB MemAvailable。不会无限缓存，也不以丢帧方式伪装完整录制；队列溢出停止接收、保留前缀并报告incomplete。图像和IMU序号必须连续，epoch变化终止该任务。各通道按接收顺序写入，不承诺全局时间排序。单条视频限制约2MiB，异常长度不分配无限内存。
 
-约256MiB或60秒触发切段；完整记录不跨段。H26x等到参数集齐全的IDR并在新段写入其前置参数集，主动请求IDR，等待最多10秒。实际段长度可略大于阈值。每段均重复冻结的配置JSON，mono.conf位于同一归档；不能脱离mono.conf将单段视为完整标定数据集。彩色录制订阅46009持有编码配置锁；录制期间修改冲突由原彩色控制接口409拒绝。
+单段达到约 256 MiB 或录满 10 分钟，先到者触发切段；完整记录不跨段。H26x等到参数集齐全的IDR并在新段写入其前置参数集，主动请求IDR，等待最多10秒。实际段长度可略大于阈值。每段均重复冻结的配置JSON，mono.conf位于同一归档；不能脱离mono.conf将单段视为完整标定数据集。彩色录制订阅 tf.color持有编码配置锁；录制期间修改冲突由原彩色控制接口409拒绝。
 
-每段先以.part写入，结束记录、flush/fsync成功后改名.rbr并同步目录。result.json使用临时文件+rename。服务重启或重新挂卡后，缺result的目录逐段扫描CRC，只信任编号连续的完整记录前缀；永远标interrupted/incomplete，不因结束标记齐全推断正常完成。恢复不修改part原文，未知的断电时长为null。若某段损坏，忽略之后各段；下载仍保留原文件供诊断。存储损坏导致manifest无法识别的目录不会冒充可用数据，需线下处理。
+每段先以.part写入，结束记录、flush/持久保存确认成功后改名.rbr并同步目录。result.json使用临时文件+替换配置。服务重启或重新挂卡后，缺result的目录逐段扫描CRC，只信任编号连续的完整记录前缀；永远标interrupted/incomplete，不因结束标记齐全推断正常完成。恢复不修改part原文，未知的断电时长为null。若某段损坏，忽略之后各段；下载仍保留原文件供诊断。存储损坏导致manifest无法识别的目录不会冒充可用数据，需线下处理。
 
 ## RBR1 字节定义
 
-所有整数小端，绝不直接序列化C结构体。CRC32为IEEE多项式0xEDB88320，与zlib.crc32一致；它用于检错，不是签名。
+所有整数小端，绝不直接序列化C结构体。CRC32为IEEE多项式0xEDB88320，与zlib.crc32一致；它用于记录检错。
 
 | 文件头偏移 | 字节 | 含义 |
 |---|---:|---|
@@ -125,9 +137,8 @@ DELETE只接受一个确切ID，拒绝路径穿越、符号链接、目录中的
 | 12 | 4 | CRC，覆盖头前12字节+metadata+payload |
 | 16 | 可变 | UTF-8 metadata对象，然后binary payload |
 
-metadata对IMU、里程计为source_epoch十进制字符串和data（现有v3单样本/里程计结构）；IMU保留真实逐样本seq、sec/nanosec及m/s²/rad/s，不为缺失温度虚构值。图像另有stream_epoch、source_id_legacy，data是现有彩色v3 header/pts_us/random_access；source_id_legacy只是旧驱动提供的值，不能当sensor ID。灰度JPEG的pts_us=null。H26x二进制为Annex B的一AU，随机访问由NAL检查，不凭普通I帧标志判断；无B帧性质仍以既有编码约束及实测边界为准。
+metadata对IMU、里程计为source_epoch十进制字符串和data（当前 IMU 单样本/里程计结构）；IMU保留真实逐样本seq、sec/nanosec及m/s²/rad/s，不为缺失温度虚构值。图像另有stream_epoch、source_id_legacy，data是当前彩色协议 header/pts_us/random_access；source_id_legacy只是旧驱动提供的值，不能当sensor ID。灰度JPEG的pts_us=null。H26x二进制为Annex B的一AU，随机访问由NAL检查，不凭普通I帧标志判断；无B帧性质仍以既有编码约束及实测边界为准。
 
-离线读取：python tools/http-api/recording_rbr.py <解包后的id目录>。该工具只读，报告完整前缀、计数、错误段和最终完整性；不把.tar直接作为RBR文件读取。格式测试及实机范围见同目录TF验证报告。
 
 
 ## 录制预检与实时卡速率（2026-11-03）
@@ -140,3 +151,5 @@ GET /api/recording/check?channels=gray,imu 查询当前配置的内存结果；P
 录制开始使用统一有效标定参数快照：合法 mono.conf 优先，仅文件不存在时使用完整默认值。归档 mono.conf 保存本次快照，manifest.json 的 calibration_source 为 default 或 saved；default 不表示设备已标定，不回写设备参数目录。文件损坏仍导致快照失败。
 
 系统重启并发约束（2026-11-09）：本模块的业务变更/配置写入在系统重启已受理或重启状态存储异常时返回409 REBOOT_BUSY；先查询[系统状态](HTTP-API-系统.md)，不自动重复变更。普通状态查询保持可用。
+
+配套解析工具见 [SDK/recording](../../SDK/recording/README.md)：支持 TAR/ZIP、分卷检查及原始数据导出；只在电脑运行。

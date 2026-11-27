@@ -13,7 +13,7 @@ GET /api/buttons/config 不带请求体或 query，返回 HTTP 200：
       "recording_channels": ["gray", "imu"]
     }
 
-POST /api/buttons/config 完整提交同一结构。Content-Type 必须为 application/json，有唯一 Content-Length，正文 1～511 字节。不接受 chunked、Upgrade、Expect、未知/重复/缺失字段。保存至 /home/VIO/parameters/buttons.json，原子替换并同步文件和目录；回读后返回 200 和生效配置。200 表示配置保存，不触发 VIO 或录制。无需幂等键，相同完整配置可重试；多个页面按保存先后覆盖，不提供 CAS。
+POST /api/buttons/config 完整提交同一结构。Content-Type 必须为 application/json，有唯一 Content-Length，正文 1～511 字节。不接受 chunked、Upgrade、Expect、未知/重复/缺失字段。保存至 设备配置，原子替换并同步文件和目录；回读后返回 200 和生效配置。200 表示配置保存，不触发 VIO 或录制。无需幂等键，相同完整配置可重试；多个页面按保存先后覆盖，不提供 CAS。
 
 | 字段 | 类型及范围 | 含义 |
 |---|---|---|
@@ -36,8 +36,8 @@ POST /api/buttons/config 完整提交同一结构。Content-Type 必须为 appli
 | 400 INVALID_CONFIG | 非法字段/内容/请求头 |
 | 408 REQUEST_TIMEOUT | 正文接收未完成 |
 | 503 CONFIG_LOAD_FAILED | 配置损坏或不可读取；动作已禁用，可通过重新保存修复 |
-| 503 CONFIG_SAVE_FAILED | 保存结果未确认；尤其 rename 后 fsync 失败不可宣称回滚，重新 GET 确认 |
-| 503 BUTTON_UNAVAILABLE | 按键线程未启动，拒绝声称配置生效 |
+| 503 CONFIG_SAVE_FAILED | 保存结果未确认；尤其 替换配置 后 持久保存确认 失败不可宣称回滚，重新 GET 确认 |
+| 503 BUTTON_UNAVAILABLE | 按键功能不可用，拒绝声称配置生效 |
 
 首次无公开配置时，只读兼容旧 button-settings.json：原文件版本 1/2/3 沿用已有迁移规则，录制选择固定 gray+imu；两份均无时使用上例默认值。旧文件不改写。已有文件损坏时禁用，不静默套默认功能。配置保存在设备系统存储，不保存在 TF 卡；程序重启后重载，整机掉电重启实测另计。
 
@@ -54,10 +54,3 @@ POST /api/buttons/config 完整提交同一结构。Content-Type 必须为 appli
 
 网页不增加按键事件流、模拟按键或新的任务状态接口。VIO 仍返回202受理，录制仍由 recording/datasets 查询。LED 更新和按键采样独立于可能阻塞的录制目录创建/同步，避免写卡停顿把长按误判为短按。
 
-## 验证方法
-
-本机：bash tmp/test-public-buttons.sh 使用实际HTTP、GPIO IPC客户端和手势状态机，提供合成GPIO与VIO进程；ASan/UBSan覆盖持久化重载、严格字段、兼容读取、损坏修复、短按/长按单次触发、驱动CRC/断线重连、配置变更清除准备、网页并发及TF任务依赖。不会触碰真实GPIO或卡内容。
-
-实机：先保存配置并重新读取、重启桥接验证持久化；再验证网页VIO/录制及共享冲突规则、预览连续性。实体手势与肉眼灯效需要用户操作，不能将合成GPIO测试写成实体按键验收。当前部署及验证结果另见当日验证报告。
-
-系统重启并发约束（2026-11-09）：本模块的业务变更/配置写入在系统重启已受理或重启状态存储异常时返回409 REBOOT_BUSY；先查询[系统状态](HTTP-API-系统.md)，不自动重复变更。普通状态查询保持可用。

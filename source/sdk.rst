@@ -84,3 +84,8 @@ SDK 不进入设备网页包，不增加设备接口或内部功能。
 .. container:: doc-next
 
    按语言继续 :doc:`sdk-python` 或 :doc:`sdk-cpp`；嵌入式接入见 :doc:`sdk-stm32`。
+
+
+
+
+:doc:`recording-tools`

@@ -1,6 +1,6 @@
 # 系统状态与重启
 
-本接口重启 RoboBaton Neo 板卡，不重启外接飞控。2026-11-09已完成ARM构建与板卡OTA验收。普通重启、占用拒绝、跨boot去重及新接口OTA激活通过，范围见[验证记录](../系统重启接口验证-2026-11-09.md)。
+本接口重启 RoboBaton Neo 板卡，不重启外接飞控。2026-11-09已完成ARM构建与板卡OTA验收。普通重启、占用拒绝、跨boot去重及新接口OTA激活通过，范围见验证记录（详见产品说明）。
 
 ## GET /api/system/status
 
@@ -18,7 +18,7 @@
 
 | 字段 | 含义 |
 | --- | --- |
-| boot_id | 当前 Linux 启动 UUID，来自 /proc/sys/kernel/random/boot_id；初始化或状态恢复失败时为 null |
+| boot_id | 本次设备启动 UUID；初始化或状态恢复失败时为 null |
 | available | 重启管理及持久存储已初始化；不是“此刻业务空闲”的承诺，准入以 POST 为准 |
 | reboot | 最近一次重启请求，无请求或无法可靠恢复记录时为 null |
 | reboot.request_id | 32 位小写十六进制请求标识 |
@@ -27,9 +27,9 @@
 | reboot.update_operation_id | 重启所关联的 OTA 安装操作 ID；普通重启为 null |
 | reboot.error | null 或仅含 code 的对象 |
 
-accepted 表示已持久受理；约 1.5 秒后进入 rebooting 并尝试同步文件系统、执行固定 /sbin/reboot。命令执行最长等待 5 秒；退出成功但再过 10 秒本进程仍运行，则记 REBOOT_FAILED。这些期限不包括系统存储同步的阻塞时间。HTTP 响应丢失不会取消已受理请求。
+accepted 表示已持久受理；约 1.5 秒后进入 rebooting。先请卡管理器暂停自动挂载并普通卸载 TF；无法确认释放则记 TF_RELEASE_FAILED，取消本次重启。没有卡可正常继续。随后同步文件系统、执行固定 /sbin/reboot。命令执行最长等待 5 秒；退出成功但再过 10 秒本进程仍运行，则记 REBOOT_FAILED。这些期限不包括系统存储同步的阻塞时间。HTTP 响应丢失不会取消已受理请求。
 
-正常关机过程中会先停止设备服务。收到服务退出信号后，重启线程保留 accepted/rebooting，不执行超时失败判定，也不在退出时补执行重启命令；由下次服务启动核对 boot_id。同 boot 重启服务记 REBOOT_INTERRUPTED，真正跨 boot 才记 succeeded。
+重启结果由后续启动状态确认。同一次设备启动内服务中断可能报告 REBOOT_INTERRUPTED；设备真正重启后才报告 succeeded。
 
 仅在下次设备服务启动时观察到 boot_id 改变，才把尚未结束的请求记为 succeeded。这证明期间发生过系统重启，不能区分接口重启和人工断电，也不代表 OTA 已成功或算法正常。重启前已明确失败的记录不会因之后无关重启变成成功。
 
@@ -64,7 +64,7 @@ Content-Length: 2
 - VIO 运行/控制、TF 录制/收尾/预检、按键动作、MAVLink 管理操作、深度占用及灰度/IMU/彩图/深度采集和下载租约会阻止重启，不自动停止业务。普通预览、空闲里程计订阅可以存在，受理后关闭连接，重启后由客户端重新订阅。
 - 与配置变更、实体按键和更新准入共用锁；已受理重启时不能再开始业务或保存配置。查询接口仍可使用。
 - 网关沿用已有维护准入：重启受理后新开数据流/下载返回409 UPDATE_BUSY；业务配置写入返回409 REBOOT_BUSY。已有普通预览和空闲里程计连接由维护观察器关闭。
-- 最近请求和幂等回执存于持久 user 分区的 /home/.robobaton-update/reboot，目录 0700，文件 0600；这是业务状态，不是运行日志。临时维护标记是 /run/robobaton-neo-firmware.pending.reboot，与 OTA 标记独立。
+- 重启请求及幂等回执持久保存，同一请求跨设备重启仍返回原回执，不重复执行。
 - 相同 key 永远返回原始 202 回执，**即使原请求已失败或已经跨 boot，也不再次执行**。与安装 key 使用独立命名空间。最多保留 128 个持久 key，满后拒绝新的请求，不自动淘汰；接口只提供最近请求查询，不提供历史清除入口。
 - 超时/断连后先 GET 核对；需要找回原回执时用原 key 再次 POST，不换 key 盲重试。若最近记录已被其他客户端的新请求覆盖，不能拿它判断旧请求结果。确定失败且用户仍希望重启，才创建新 key。
 - 设备服务在同一 boot 内重启时，将未完成请求标为 failed / REBOOT_INTERRUPTED，绝不自动重新执行；跨 boot 则核对结果。最近请求记录恢复或新请求持久化失败时保守拒绝新请求，available=false，修复存储后再处理；单个旧 key 回执损坏时，该 key 返回503，不执行重启。
@@ -75,7 +75,7 @@ Content-Length: 2
 
 系统重启模块在准入锁内关联当时的安装操作，并将更新状态改为 rebooting。执行失败则更新回到 reboot_required，保留 UPDATE_REBOOT_FAILED 和维护状态；不会重复写备用槽。更新状态查询不会把仍在执行的重启改回等待状态。
 
-板卡重启成功但新槽回退时，系统请求可以是 succeeded，更新操作仍是 failed / UPDATE_BOOT_FAILED。**OTA 成功必须以 GET /api/update 的 succeeded 及 A/B 健康确认结果为准。**
+板卡重启成功但新版本未能正常启动时，系统请求可以是 succeeded，更新操作仍是 failed / UPDATE_BOOT_FAILED。**OTA 成功必须以 GET /api/update 的 succeeded 状态为准。**
 
 POST /api/update 只保留 install；旧 reboot 动作及其 operation_id 字段已删除，不提供兼容别名。网页“重启并生效”改用系统接口，仍在更新页显示安装结果；本轮没有新增通用重启按钮。
 
@@ -94,7 +94,7 @@ POST /api/update 只保留 install；旧 reboot 动作及其 operation_id 字段
 | 409 REBOOT_BUSY | 重启正在执行；配置写入也会返回此码 |
 | 503 REBOOT_STORAGE_FAILED | 状态或回执读取/写入不可靠，不可认定请求未受理 |
 | 503 REBOOT_HISTORY_FULL | 128 个请求回执已满，需要维护 |
-| 503 REBOOT_FAILED | 创建执行线程失败；执行阶段失败也可通过 GET 的 reboot.error 返回 |
+| 503 REBOOT_FAILED | 重启请求执行失败；执行阶段失败也可通过 GET 的 reboot.error 返回 |
 | 503 UPDATE_STORAGE_FAILED | 关联更新状态保存失败，先查两项状态，不盲重试 |
 | 503 DEVICE_UNAVAILABLE / DEVICE_REQUEST_UNCONFIRMED / DEVICE_PROTOCOL_MISMATCH | 设备服务不可用、IPC 响应未确认或协议不匹配，先查询 |
 

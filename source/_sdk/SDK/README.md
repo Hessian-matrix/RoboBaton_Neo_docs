@@ -8,6 +8,7 @@
 | C++17 | [cpp](cpp/README.md) | 公开 HTTP / RBH1 |
 | ROS 1 / ROS 2 | [ros](ros/README.md) | 共用 Python SDK → nav_msgs/Odometry + sensor_msgs/CompressedImage |
 | STM32 / C99 | [stm32](stm32/README.md) | UART / MAVLink 2 ODOMETRY |
+| Recording / Python 3.8+ | [recording](recording/README.md) | RBR1 TF TAR / browser ZIP offline parser |
 
 ## 统一约定
 
