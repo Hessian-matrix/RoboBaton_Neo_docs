@@ -1,0 +1,6 @@
+# Download snapshots must retain exactly the bytes covered by their checksums.
+source/_sdk/** -text
+source/_downloads/** -text
+site/neo_quick_test.py -text
+source/_static/neo_quick_test.py -text
+site/integration-examples.json -text
