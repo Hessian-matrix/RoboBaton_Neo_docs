@@ -25,7 +25,7 @@
 
 [下载最新固件](https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest/RoboBaton-Neo.viofw) · [SHA256 校验文件](https://hessian-matrix.github.io/RoboBaton_Neo_docs/firmware/latest/RoboBaton-Neo.viofw.sha256) · [历史版本](https://github.com/Hessian-matrix/RoboBaton_Neo_docs/releases) · [更新操作说明](https://hessian-matrix.github.io/RoboBaton_Neo_docs/docs/maintenance.html)
 
-下载网址固定，始终指向最新正式版本。V1.0.1：修复串口无法使用的问题，优化 TF 录制时的资源占用。
+下载网址固定，始终指向最新正式版本。V2.0.0（2026-11-26）：新增 MAVLink/遥控拨杆控制 VIO、最高 30 fps 图像输出和官方固件更新提醒；修复 TF 卡重新挂载、网页录制提前结束及实体按键录制问题。彩色 30 fps 仅适用于单独输出，完整说明见更新操作文档。
 
 ## 从连接到结果
 

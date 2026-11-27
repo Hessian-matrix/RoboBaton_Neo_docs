@@ -12,6 +12,8 @@ def phrases(text):
     return {m.group().strip() for m in PHRASE.finditer(text)}
 
 def translate(text, catalogue, *, filename=''):
+    for original, english in json.loads((ROOT/'locales/en-firmware.json').read_text(encoding='utf8')).items():
+        text = text.replace(original, english)
     def replace(match):
         original = match.group(); key = original.strip()
         if key not in catalogue:
